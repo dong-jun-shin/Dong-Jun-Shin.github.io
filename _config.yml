@@ -5,19 +5,18 @@ url: "https://dong-jun-shin.github.io" # the base hostname & protocol for your s
 
 # Author
 author-name:    Dong-Jun Shin
-author-image:   1.jpg
+author-image:   profile.png
 author-job:     Web Developer
 author-email:   tlsehdwns239@gmail.com # Add your email for contant form.
-author-twitter: empty # Add your twitter account
-about-author:   개발자로 성장하며 배운 것을 정리하는 블로그
+author-github:  Dong-Jun-Shin # Add your twitter account
+about-author:   개발자로 성장하며 배운 것을 정리하는 블로그<br/>[Dev 지식, 프로젝트, 후기, 일상]
 
 # Social settings
 social-twitter:   
 social-facebook:
-social-github:    https://github.com/Dong-Jun-Shin
 social-pinterest: 
 social-instagram: 
-social-youtube:
+social-youtube: channel/UCIHM7drY2vvvFhrhXtpbbzw
 social-vk:   
 social-linkedin:
 
@@ -25,10 +24,10 @@ social-linkedin:
 mailchimp: # Add your MailChimp form identifier. For example - blogenjoyfreedom.us16.list-manage.com/subscribe/post?u=cd56155d76ddeeb4c0bc4d080&amp;id=7a526cd13e
 
 # Google Analytics
-google-analytics: # Add your identifier. For example UA-99631805-1
+google-analytics: G-VNMTFT1R2R # Add your identifier. For example UA-99631805-1
 
 # Comment Section (Disqus)
-disqus-identifier: Jun # Add your shortname for Disqus Comment. For example mr-brown
+disqus-identifier: dong-jun-shin-github-io # Add your shortname for Disqus Comment. For example mr-brown
 
 # Build settings
 markdown: kramdown
