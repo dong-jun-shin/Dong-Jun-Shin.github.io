@@ -60,7 +60,10 @@
     margin: 5px 0 0;
   }
   .c-contact-menu {
-    margin: 30px 0;
+    margin-top: 30px;
+    margin-left: 0px;
+    margin-bottom: 10px;
+    margin-right: 0px;
     .c-btn--secondary {
       margin-right: 10px;
     }
@@ -167,12 +170,28 @@
       }
     }
     .c-contact-menu {
-      margin: 15px 0;
+      margin: 15px 0px 10px 0px;
       .c-btn {
         min-width: 80px;
         font-size: 10px;
         padding: 4px 15px;
         margin-right: 5px;
+        .icon {
+          width: 16px;
+          height: 16px;
+        }
+      }
+    }
+    .c-contact-menu-bar {
+      margin: 0px;
+      .c-btn {
+        min-width: 80px;
+        font-size: 12px;
+        padding: 4px 15px;
+        width: 63%;
+        height: 37px;
+        margin-left: 28px;
+        margin-right: 32px;
         .icon {
           width: 16px;
           height: 16px;

@@ -13,11 +13,14 @@ layout: default
       <span class="c-author__job">{{site.author-job}}</span>
     </div>
     <div class="c-contact-menu">
-      <a href="/about/profile" class="c-contact-btn c-btn c-btn--secondary c-btn--round c-btn--shadow"><span data-icon='ei-tag' data-size='m'></span> About me</a>
+      <a href="/about/profile" class="c-contact-btn c-btn c-btn--secondary c-btn--round c-btn--shadow"><span data-icon='ei-tag' data-size='s'></span> About me</a>
       {% if site.author-github %}
-      <a target="_blank" href="https://github.com/{{site.author-github}}" class="c-btn c-btn--primary c-btn--round c-btn--shadow"><span data-icon='ei-sc-github' data-size='m'></span> Visit Github</a>
+      <a target="_blank" href="https://github.com/{{site.author-github}}" class="c-btn c-btn--primary c-btn--round c-btn--shadow"><span data-icon='ei-sc-github' data-size='s'></span> Visit Github</a>
       {% else %}
       {% endif %}
+    </div>
+    <div class="c-contact-menu-bar" style="margin-top: 0px; margin-bottom: 25px;">
+      <a href="{{site.baseurl}}/" class="c-contact-btn c-btn c-btn--bar c-btn--round c-btn--shadow">All Posts</a>
     </div>
     <p class="c-author__about">{{site.about-author | truncatewords: 50}}</p>
   </div>

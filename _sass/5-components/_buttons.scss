@@ -9,7 +9,7 @@
   font-family: 'Volkhov', 'Noto Sans KR', serif;
   font-size: 12px;
   text-align: center;
-  padding: 8px 15px;
+  padding: 5px 15px;
   cursor: pointer;
   transition: $global-transition;
 
@@ -23,6 +23,15 @@
     color: $white-color;
     background-color: $secondary-color;
     background: linear-gradient(135deg, #a2a2bd 0%,#cfcfdd 100%);
+  }
+
+  &--bar {
+    color: $white-color;
+    background-color: $bar-color;
+    background: #525252;
+    font-size: 14px;
+    width: 76%;
+    height: 40px;
   }
 
   &--round {
