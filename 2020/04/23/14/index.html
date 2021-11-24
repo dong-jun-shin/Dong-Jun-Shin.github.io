@@ -5,9 +5,9 @@
   <meta http-equiv='X-UA-Compatible' content='IE=edge'>
   <meta name='viewport' content='width=device-width, initial-scale=1'>
 
-  <title>Page not found</title>
-  <meta name='description' content="This blog has applied Flexton.">
-  <link rel='canonical' href="http://localhost:4000/404.html">
+  <title>가상머신을 이용한 설치 후, 인터넷이 연결 안되는 경우</title>
+  <meta name='description' content="- 20/04/28 블로그 이전으로 인한 이전 자료 재업로드입니다. -">
+  <link rel='canonical' href="http://localhost:4000/2020/04/23/14/">
   <link rel='alternate' type='application/rss+xml' title='Jun's Dev_Blog' href="http://localhost:4000/feed.xml">
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Volkhov:400,700" rel="stylesheet">
@@ -89,38 +89,148 @@
 </aside> <!-- /.c-sidebar -->
 
 <main class="c-content">
-  <style media="screen">
-  .container {
-    margin: 10px auto;
-    max-width: 600px;
-    text-align: center;
-  }
-  h1 {
-    margin: 30px 0;
-    font-size: 60px;
-    line-height: 1;
-    letter-spacing: -1px;
-  }
-</style>
-
-<div class="container">
-  <header class="c-header u-hide u-no-margin-bottom">
-    <div class="c-header__box">
-      <div class="c-search u-full-width">
-        <div class="c-search__box">
-          <label for="js-search-input" class="u-screen-reader-text">Search for Blog</label>
-          <input type="text" id="js-search-input" class="c-search__text" autocomplete="off" placeholder="Type to search...">
-          <div data-icon='ei-search' data-size='s'></div>
+  <article class="c-article">
+  <div class="c-article__content">
+    <header class="c-header u-hide u-no-margin-top">
+      <div class="c-header__box">
+        <div class="c-search u-full-width">
+          <div class="c-search__box">
+            <label for="js-search-input" class="u-screen-reader-text">Search for Blog</label>
+            <input type="text" id="js-search-input" class="c-search__text" autocomplete="off" placeholder="Type to search...">
+            <div data-icon='ei-search' data-size='s'></div>
+          </div>
+          <ul id="js-results-container" class="c-search-results-list"></ul>
         </div>
-        <ul id="js-results-container" class="c-search-results-list"></ul>
       </div>
+    </header>
+    
+    <div class="c-article__image o-opacity" style="background-image: url( /images//DevLang_Linux+Fedora19+/2020/04/14/0.jpg )"></div>
+    
+    <div class="c-wrap-content">
+      <header class="c-article__header">
+        <h1 class="c-article__title">가상머신을 이용한 설치 후, 인터넷이 연결 안되는 경우</h1>
+        <div class="c-article__date">
+          <span>2020, Apr 23</span>
+        </div>
+      </header>
+      <p>- 20/04/28 블로그 이전으로 인한 이전 자료 재업로드입니다. -</p>
+
+<p>-사용 환경</p>
+
+<p>VMwqre Player 6</p>
+
+<p>VMwqre Workstation 10</p>
+
+<p>Fedora19</p>
+
+<hr />
+
+<p>VMware를 사용해서 Linux를 사용할 때, 인터넷이 안되는 경우가 있었다.</p>
+
+<p>이 때, 가상머신을 종료한 채로 VMware의 Network 설정에서 MAC주소를 변경하고 다시 부팅하니 인터넷이 됐다.</p>
+
+<p>이후에도 같은 경우가 생기는 것으로 보아, 근본적인 해결책은 아닌 듯 한데, 임시방편으로 사용해볼 방법으로 적절하다고 생각한다.</p>
+
+<p><img src="/images/DevLang_Linux+Fedora19+/2020/04/14/0.jpg" alt="" /></p>
+
+
+      <div class="c-article__footer u-clearfix">
+        <div class="c-article__tag">
+          
+        </div>
+        <div class="c-article__share">
+          <a href="https://twitter.com/intent/tweet?text=%EA%B0%80%EC%83%81%EB%A8%B8%EC%8B%A0%EC%9D%84%20%EC%9D%B4%EC%9A%A9%ED%95%9C%20%EC%84%A4%EC%B9%98%20%ED%9B%84,%20%EC%9D%B8%ED%84%B0%EB%84%B7%EC%9D%B4%20%EC%97%B0%EA%B2%B0%20%EC%95%88%EB%90%98%EB%8A%94%20%EA%B2%BD%EC%9A%B0&url=http://localhost:4000/2020/04/23/14/" title="Share
+          on Twitter" rel="nofollow" target="_blank"><div data-icon='ei-sc-twitter' data-size='s'></div></a>
+          <a href="https://facebook.com/sharer.php?u=http://localhost:4000/2020/04/23/14/" title="Share on Facebook" rel="nofollow" target="_blank"><div data-icon='ei-sc-facebook' data-size='s'></div></a>
+          <a href="https://plus.google.com/share?url=http://localhost:4000/2020/04/23/14/" title="Share on Google+" rel="nofollow" target="_blank"><div data-icon='ei-sc-google-plus' data-size='s'></div></a>
+        </div>
+      </div>
+      <div class="c-newsletter">
+  <div class="c-newsletter__header">
+    <h4 class="c-newsletter__title">Newsletter</h4>
+    <div class="c-newsletter__subtitle">Subscribe to this blog and receive notifications of new posts by email.</div>
+  </div>
+  <form class="c-newsletter-form validate" action="#" method="POST" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" target="_blank" novalidate>
+    <div class="c-newsletter-form__group">
+      <label class="u-screen-reader-text" for="mce-EMAIL">Email address</label>
+      <input class="c-newsletter__email required email" id="mce-EMAIL" type="email" name="EMAIL" placeholder="Your email address" autocomplete="on">
+      <input class="c-newsletter__button" id="mc-embedded-subscribe" type="submit" name="subscribe" value="Subscribe">
     </div>
-  </header>
-  <h1>404</h1>
-  <p><strong>Page not found :(</strong></p>
-  <p>The requested page could not be found.</p>
-  <p><a href="/">Back to the bLog</a></p>
-</div>
+  </form>
+</div> <!-- /.c-newsletter -->
+      <div class="c-recent-post">
+        <h4 class="c-recent__title">You might also enjoy</h4>
+        <div class="c-recent__box">
+        
+        
+          <div class="c-recent__item">
+            <a class="c-recent__image" href="/2020/04/24/51/" style="background-image: url( /images//DevLang_Git/logo.png)"></a>
+            <div class="c-recent__footer">
+              <h4><a href="/2020/04/24/51/">ignore 파일 작성시, 참고</a></h4>
+              <div class="c-recent__date">
+                <time datetime="2020-04-24T02:38:04+09:00">April 24, 2020</time>
+              </div>
+            </div>
+          </div>
+        
+        
+        
+          <div class="c-recent__item">
+            <a class="c-recent__image" href="/2020/04/24/48/" style="background-image: url( /images//DIY_Making/2020/04/48/0.jpg)"></a>
+            <div class="c-recent__footer">
+              <h4><a href="/2020/04/24/48/">포터블 모니터 2세대</a></h4>
+              <div class="c-recent__date">
+                <time datetime="2020-04-24T00:46:08+09:00">April 24, 2020</time>
+              </div>
+            </div>
+          </div>
+        
+        
+        
+          <div class="c-recent__item">
+            <a class="c-recent__image" href="/2020/04/24/47/" style="background-image: url( /images//DIY_Making/2020/04/47/0.jpg)"></a>
+            <div class="c-recent__footer">
+              <h4><a href="/2020/04/24/47/">외장하드 쿨링 받침</a></h4>
+              <div class="c-recent__date">
+                <time datetime="2020-04-24T00:18:51+09:00">April 24, 2020</time>
+              </div>
+            </div>
+          </div>
+        
+        
+        
+          <div class="c-recent__item">
+            <a class="c-recent__image" href="/2020/04/24/46/" style="background-image: url( /images//DIY_Making/2020/04/46/0.jpg)"></a>
+            <div class="c-recent__footer">
+              <h4><a href="/2020/04/24/46/">블루투스 스피커</a></h4>
+              <div class="c-recent__date">
+                <time datetime="2020-04-24T00:04:58+09:00">April 24, 2020</time>
+              </div>
+            </div>
+          </div>
+        
+        
+        </div>
+      </div> <!-- /.c-recent-post -->
+      
+        <div class="c-comments">
+  <div id="disqus_thread" class="article-comments"></div>
+  <script>
+    (function () {
+      var d = document, s = d.createElement('script');
+      s.src = '//dong-jun-shin-github-io.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the
+    <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+  </noscript>
+</div> <!-- /.c-comments -->
+      
+    </div> <!-- /.c-wrap-content -->
+  </div> <!-- /.c-article__content -->
+</article> <!-- /.c-article-page -->
 
 </main> <!-- /.c-content -->
   </div> <!-- /.o-wrapper -->

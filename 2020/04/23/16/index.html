@@ -5,9 +5,9 @@
   <meta http-equiv='X-UA-Compatible' content='IE=edge'>
   <meta name='viewport' content='width=device-width, initial-scale=1'>
 
-  <title>Page not found</title>
-  <meta name='description' content="This blog has applied Flexton.">
-  <link rel='canonical' href="http://localhost:4000/404.html">
+  <title>리눅스 이론 정리 (4차시)</title>
+  <meta name='description' content="- 20/04/28 블로그 이전으로 인한 이전 자료 재업로드입니다. -">
+  <link rel='canonical' href="http://localhost:4000/2020/04/23/16/">
   <link rel='alternate' type='application/rss+xml' title='Jun's Dev_Blog' href="http://localhost:4000/feed.xml">
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Volkhov:400,700" rel="stylesheet">
@@ -89,38 +89,274 @@
 </aside> <!-- /.c-sidebar -->
 
 <main class="c-content">
-  <style media="screen">
-  .container {
-    margin: 10px auto;
-    max-width: 600px;
-    text-align: center;
-  }
-  h1 {
-    margin: 30px 0;
-    font-size: 60px;
-    line-height: 1;
-    letter-spacing: -1px;
-  }
-</style>
-
-<div class="container">
-  <header class="c-header u-hide u-no-margin-bottom">
-    <div class="c-header__box">
-      <div class="c-search u-full-width">
-        <div class="c-search__box">
-          <label for="js-search-input" class="u-screen-reader-text">Search for Blog</label>
-          <input type="text" id="js-search-input" class="c-search__text" autocomplete="off" placeholder="Type to search...">
-          <div data-icon='ei-search' data-size='s'></div>
+  <article class="c-article">
+  <div class="c-article__content">
+    <header class="c-header u-hide u-no-margin-top">
+      <div class="c-header__box">
+        <div class="c-search u-full-width">
+          <div class="c-search__box">
+            <label for="js-search-input" class="u-screen-reader-text">Search for Blog</label>
+            <input type="text" id="js-search-input" class="c-search__text" autocomplete="off" placeholder="Type to search...">
+            <div data-icon='ei-search' data-size='s'></div>
+          </div>
+          <ul id="js-results-container" class="c-search-results-list"></ul>
         </div>
-        <ul id="js-results-container" class="c-search-results-list"></ul>
       </div>
+    </header>
+    
+    <div class="c-article__image o-opacity" style="background-image: url( /images//DevLang_Linux+Fedora19+/logo.png )"></div>
+    
+    <div class="c-wrap-content">
+      <header class="c-article__header">
+        <h1 class="c-article__title">리눅스 이론 정리 (4차시)</h1>
+        <div class="c-article__date">
+          <span>2020, Apr 23</span>
+        </div>
+      </header>
+      <p>- 20/04/28 블로그 이전으로 인한 이전 자료 재업로드입니다. -</p>
+
+<h4><터미널></터미널></h4>
+
+<p>시스템 종료 : shutdown -P [시간] / halt -p / init 0<br />
+시스템 재부팅 : shutdown -r [시간] / reboot / init 6<br />
+그래픽 UI 부팅 : startx(새 GUI 부팅) / init 5(기존 GUI 부팅)</p>
+
+<p>리눅스에서 제일 앞 글자 “.”으로 시작이면 숨김 파일을 뜻한다.<br />
+cd의 경로에서 “.”은 현재 경로를 뜻하고, “..”은 상위 경로를 뜻한다. (상대경로)<br />
+cd의 경로에서 “/”의 시작은 절대경로를 뜻한다. (“/”는 Root(최상위 경로))</p>
+
+<p>touch [파일명] : 크기가 0인 새 파일을 생성(설정파일 작성 시 많이 사용),<br />
+                    이미 존재하는 경우 수정 시간을 변경</p>
+
+<p>cp [복사 대상] [복사 위치] : 파일 복사<br />
+mkdir [경로+폴더명] : 폴더 생성<br />
+mv [파일명] [이동의 경로나 변경 파일명] : 파일 이동[경로] 또는 파일명 변경[파일명]</p>
+
+<p>rm -f [파일] : 선택한 파일을 삭제한다.<br />
+rm -r [파일명, 경로명] : 안에 파일이나 경로가 존재해도 확인 후 삭제.<br />
+rm -fr [파일명, 경로명] : 확인없이 바로 삭제<br />
+rmdir [경로]: 디렉토리를 삭제 (비어있는 것만 가능)</p>
+
+<p>cat [파일명] : 텍스트 파일의 내용 출력<br />
+[head | tail] [파일명] : 텍스트로 작성된 파일의 [앞|뒤] 10행만 출력<br />
+more : 텍스트 파일을 페이지 단위로 출력 (스페이스로 이동)<br />
+less [파일명] : more에서 기능이 더 확장된 것 (화살표 이동 가능) (q로 종료)</p>
+
+<p>file [파일명] : 파일의 종류(확장자)를 표시</p>
+
+<p>ls -s [파일] : 파일의 링크를 확인<br />
+   -l : 리스트 정보를 자세히 확인  <br />
+       ( <br />
+        파란색은 디렉토리(d),  <br />
+        검은색은 파일(-),  <br />
+        연파랑은 링크파일(l)(=바로가기) <br />
+       ) <br />
+   -a : 숨김 파일까지 모두 표시 <br />
+   -il : inode 블록 표시</p>
+
+<p>ln -sf [파일1] [파일2] : 파일1의 링크를 파일2로 변경<br />
+history : 기존 입력했던 기록된 명령어를 표시<br />
+history -c : 기록된 명령어 초기화</p>
+
+<p>tap : 자동완성.<br />
+    &gt; 자동완성이 여러개인 경우, 목록을 보여준다. <br />
+    &gt; 자동완성이 없는 경우, 아무 반응 없다.</p>
+
+<p>pwd : 현재 디렉토리를 알려준다.</p>
+
+<p>man [명령어] : 명령어 설명서를 보여준다.</p>
+
+<p>mount : 현재 연결된 장치 확인</p>
+
+<p>genisoimage [속성] [생성 파일명] [내용물이 있는 경로] : 경로를 통째로 ISO 파일에 담아 제작<br />
+    -b : boot image <br />
+    -J : Joliet Directory Records. iso9660 file name <br />
+    -r : 퍼미션 자동 변경 <br />
+    -T : Translation Table 파일을 갱신(생성) <br />
+    -V [CD-Volume] : CD Volume 추가 <br />
+    -v : 작업 진행 상황 보이기 <br />
+    -o [File name] : 생성 결과 파일명 <br />
+    -R : Rock</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt; 명령어를 찾지 못한다면, 'yum install genisoimage'로 패키지 설치 후 진행 
+</code></pre></div></div>
+
+<hr />
+
+<h4 id="-1"><폴더 및="" 파일=""></폴더></h4>
+
+<p>파일 크기는 byte 단위이다. (4번째 자리 = kb, 7번째 자리 = mb)</p>
+
+<p>Common<br />
+    fedora : 사용자 기준, 사용자 폴더? <br />
+    / : root <br />
+    /root : root 안의 “root”라는 폴더 <br />
+    ~ : 관리자 기준, 사용자 폴더?</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/lib/systemd/system/runlevel?.target : 레벨 별로 설정되어 있는 init 관련 target 파일 확인   
+/etc/systemd/system/default.target : 기본 설정되어 있는 런 레벨   
+  
+/dev/sda2 on / type ...   
+    &gt; sda2 : 2개 파티션   
+    &gt; on / : /(root)로 경로가 잡혀있다.
+</code></pre></div></div>
+
+<hr />
+
+<h4 id="-2"><편집기></편집기></h4>
+
+<p>-gedit(GNOME Editor) 은 현재 리눅스 GUI환경에서 사용하는 텍스트 에디터(글들을 수정할 때 쓰는 프로그램) <br />
+    &gt; “윈도우의 메모장”과 유사 <br />
+    &gt; GNOME(GNU Network Object Model Environment) : 가장 유명한 리눅스 GUI환경의 인터페이스.</p>
+
+<p>-vi(visual editor)는 파일의 내용을 보여줌과 동시에 파일의 내용을 편집할 수 있게 해주는 프로그램(텍스트 에디터) <br />
+    &gt; vi라는 이름은 한 줄씩 편집하는 줄단위 편집기가 아니라 한 화면을 편집하는 비주얼 에디터(visual editor)라는 뜻에서 유래 <br />
+    &gt; .swap은 임시 저장 파일로, 중간에 갑자기 종료된 경우 변경 사항에 대한 정보를 가지고 있다.</p>
+
+<p>-vim(vi improved more)이란 vi의 업그레이드 버젼.  <br />
+    &gt; 특징은 기존에 vi는 글자가 모두 같은 색인 것에 비해, vim은 설정파일의 특정 위치에 있는 단어나, 특별한 단어를  <br />
+       다른 색으로 표현해줘서 가독성을 높임</p>
+
+<p>-gedit과 vi는 차이 : “vi,vim”은 TUI환경에서도 사용이 가능, “gedit”은 GUI환경에서만 사용이 가능</p>
+
+<p>명령모드<br />
+k, j : 상, 하<br />
+h, l : 좌, 우<br />
+x : 현재 글자 삭제<br />
+[숫자]dd : 숫자만큼 행 삭제 (기본은 1줄)<br />
+[숫자]yy : 숫자만큼 행 복사 (기본은 1줄)<br />
+p : 붙여넣기</p>
+
+<p>v : Visual (블록선택??)</p>
+<blockquote>
+  <p>y : 선택된 블록 복사<br />
+p : 붙여넣기</p>
+</blockquote>
+
+<p>입력모드<br />
+i : Insert (현재 위치에서 입력모드)<br />
+a : Insert (다음 글자에서 입력모드)</p>
+<blockquote>
+  <h1 id="-주석">: 주석</h1>
+</blockquote>
+
+<p>명령모드<br />
+:w : 저장<br />
+:q : 종료<br />
+:q! : 저장 안하고 종료<br />
+:wq : 저장 후 종료<br />
+:set nu : 행번호 표시</p>
+
+<hr />
+
+<h4 id="cddvd-마운트-시스템-내부-iso-마운트">&lt;CD/DVD 마운트, 시스템 내부 ISO 마운트&gt;</h4>
+
+<p>umount [장치 이름] : 자동으로 연결된 마운트를 해제 (현재 경로가 장치 내부면 X)<br />
+mount [장치 이름] [연결할 경로] : 연결한 경로로 장치를 연결한다.<br />
+    -o loop [iso 파일] [연결할 경로] : 시스템 내부의 ISO 파일을 연결</p>
+
+<p>장치 이름은 /dev/cdrom (CD나 DVD 연결하는 장치)이다.<br />
+    &gt; 여러 리눅스별로 각자의 장치 이름을 가지고 있다. (Fedora는 /dev/sr0) <br />
+       그래서 통일해서 허용하는 이름이 /dev/cdrom이다.</p>
+
+
+      <div class="c-article__footer u-clearfix">
+        <div class="c-article__tag">
+          
+        </div>
+        <div class="c-article__share">
+          <a href="https://twitter.com/intent/tweet?text=%EB%A6%AC%EB%88%85%EC%8A%A4%20%EC%9D%B4%EB%A1%A0%20%EC%A0%95%EB%A6%AC%20(4%EC%B0%A8%EC%8B%9C)&url=http://localhost:4000/2020/04/23/16/" title="Share
+          on Twitter" rel="nofollow" target="_blank"><div data-icon='ei-sc-twitter' data-size='s'></div></a>
+          <a href="https://facebook.com/sharer.php?u=http://localhost:4000/2020/04/23/16/" title="Share on Facebook" rel="nofollow" target="_blank"><div data-icon='ei-sc-facebook' data-size='s'></div></a>
+          <a href="https://plus.google.com/share?url=http://localhost:4000/2020/04/23/16/" title="Share on Google+" rel="nofollow" target="_blank"><div data-icon='ei-sc-google-plus' data-size='s'></div></a>
+        </div>
+      </div>
+      <div class="c-newsletter">
+  <div class="c-newsletter__header">
+    <h4 class="c-newsletter__title">Newsletter</h4>
+    <div class="c-newsletter__subtitle">Subscribe to this blog and receive notifications of new posts by email.</div>
+  </div>
+  <form class="c-newsletter-form validate" action="#" method="POST" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" target="_blank" novalidate>
+    <div class="c-newsletter-form__group">
+      <label class="u-screen-reader-text" for="mce-EMAIL">Email address</label>
+      <input class="c-newsletter__email required email" id="mce-EMAIL" type="email" name="EMAIL" placeholder="Your email address" autocomplete="on">
+      <input class="c-newsletter__button" id="mc-embedded-subscribe" type="submit" name="subscribe" value="Subscribe">
     </div>
-  </header>
-  <h1>404</h1>
-  <p><strong>Page not found :(</strong></p>
-  <p>The requested page could not be found.</p>
-  <p><a href="/">Back to the bLog</a></p>
-</div>
+  </form>
+</div> <!-- /.c-newsletter -->
+      <div class="c-recent-post">
+        <h4 class="c-recent__title">You might also enjoy</h4>
+        <div class="c-recent__box">
+        
+        
+          <div class="c-recent__item">
+            <a class="c-recent__image" href="/2020/04/24/51/" style="background-image: url( /images//DevLang_Git/logo.png)"></a>
+            <div class="c-recent__footer">
+              <h4><a href="/2020/04/24/51/">ignore 파일 작성시, 참고</a></h4>
+              <div class="c-recent__date">
+                <time datetime="2020-04-24T02:38:04+09:00">April 24, 2020</time>
+              </div>
+            </div>
+          </div>
+        
+        
+        
+          <div class="c-recent__item">
+            <a class="c-recent__image" href="/2020/04/24/48/" style="background-image: url( /images//DIY_Making/2020/04/48/0.jpg)"></a>
+            <div class="c-recent__footer">
+              <h4><a href="/2020/04/24/48/">포터블 모니터 2세대</a></h4>
+              <div class="c-recent__date">
+                <time datetime="2020-04-24T00:46:08+09:00">April 24, 2020</time>
+              </div>
+            </div>
+          </div>
+        
+        
+        
+          <div class="c-recent__item">
+            <a class="c-recent__image" href="/2020/04/24/47/" style="background-image: url( /images//DIY_Making/2020/04/47/0.jpg)"></a>
+            <div class="c-recent__footer">
+              <h4><a href="/2020/04/24/47/">외장하드 쿨링 받침</a></h4>
+              <div class="c-recent__date">
+                <time datetime="2020-04-24T00:18:51+09:00">April 24, 2020</time>
+              </div>
+            </div>
+          </div>
+        
+        
+        
+          <div class="c-recent__item">
+            <a class="c-recent__image" href="/2020/04/24/46/" style="background-image: url( /images//DIY_Making/2020/04/46/0.jpg)"></a>
+            <div class="c-recent__footer">
+              <h4><a href="/2020/04/24/46/">블루투스 스피커</a></h4>
+              <div class="c-recent__date">
+                <time datetime="2020-04-24T00:04:58+09:00">April 24, 2020</time>
+              </div>
+            </div>
+          </div>
+        
+        
+        </div>
+      </div> <!-- /.c-recent-post -->
+      
+        <div class="c-comments">
+  <div id="disqus_thread" class="article-comments"></div>
+  <script>
+    (function () {
+      var d = document, s = d.createElement('script');
+      s.src = '//dong-jun-shin-github-io.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the
+    <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+  </noscript>
+</div> <!-- /.c-comments -->
+      
+    </div> <!-- /.c-wrap-content -->
+  </div> <!-- /.c-article__content -->
+</article> <!-- /.c-article-page -->
 
 </main> <!-- /.c-content -->
   </div> <!-- /.o-wrapper -->

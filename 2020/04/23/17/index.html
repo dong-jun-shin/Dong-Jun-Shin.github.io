@@ -5,9 +5,9 @@
   <meta http-equiv='X-UA-Compatible' content='IE=edge'>
   <meta name='viewport' content='width=device-width, initial-scale=1'>
 
-  <title>Page not found</title>
-  <meta name='description' content="This blog has applied Flexton.">
-  <link rel='canonical' href="http://localhost:4000/404.html">
+  <title>리눅스 이론 정리 (5차시)</title>
+  <meta name='description' content="- 20/04/28 블로그 이전으로 인한 이전 자료 재업로드입니다. -">
+  <link rel='canonical' href="http://localhost:4000/2020/04/23/17/">
   <link rel='alternate' type='application/rss+xml' title='Jun's Dev_Blog' href="http://localhost:4000/feed.xml">
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Volkhov:400,700" rel="stylesheet">
@@ -89,38 +89,264 @@
 </aside> <!-- /.c-sidebar -->
 
 <main class="c-content">
-  <style media="screen">
-  .container {
-    margin: 10px auto;
-    max-width: 600px;
-    text-align: center;
-  }
-  h1 {
-    margin: 30px 0;
-    font-size: 60px;
-    line-height: 1;
-    letter-spacing: -1px;
-  }
-</style>
-
-<div class="container">
-  <header class="c-header u-hide u-no-margin-bottom">
-    <div class="c-header__box">
-      <div class="c-search u-full-width">
-        <div class="c-search__box">
-          <label for="js-search-input" class="u-screen-reader-text">Search for Blog</label>
-          <input type="text" id="js-search-input" class="c-search__text" autocomplete="off" placeholder="Type to search...">
-          <div data-icon='ei-search' data-size='s'></div>
+  <article class="c-article">
+  <div class="c-article__content">
+    <header class="c-header u-hide u-no-margin-top">
+      <div class="c-header__box">
+        <div class="c-search u-full-width">
+          <div class="c-search__box">
+            <label for="js-search-input" class="u-screen-reader-text">Search for Blog</label>
+            <input type="text" id="js-search-input" class="c-search__text" autocomplete="off" placeholder="Type to search...">
+            <div data-icon='ei-search' data-size='s'></div>
+          </div>
+          <ul id="js-results-container" class="c-search-results-list"></ul>
         </div>
-        <ul id="js-results-container" class="c-search-results-list"></ul>
       </div>
+    </header>
+    
+    <div class="c-article__image o-opacity" style="background-image: url( /images//DevLang_Linux+Fedora19+/logo.png )"></div>
+    
+    <div class="c-wrap-content">
+      <header class="c-article__header">
+        <h1 class="c-article__title">리눅스 이론 정리 (5차시)</h1>
+        <div class="c-article__date">
+          <span>2020, Apr 23</span>
+        </div>
+      </header>
+      <p>- 20/04/28 블로그 이전으로 인한 이전 자료 재업로드입니다. -</p>
+
+<h4><터미널></터미널></h4>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt; startx : X윈도 설치 후, 실행시켜준다.   
+&gt; 무언가를 실행 할 때, 파일 뒤에 '&amp;'를 붙이면 백그라운드(새 창)으로 실행   
+&gt; chvt [번호] : 번호에 해당하는 가상 모니터로 이동   
+</code></pre></div></div>
+
+<p>-사용자와 그룹 관련 명령어 <br />
+    &gt; useradd [사용자 이름] : 사용자 추가 <br />
+    &gt; passwd [사용자 이름] : 사용자 암호 지정 or 변경 <br />
+        (사용자는 유효성 검사 존재, 관리자는 무시 가능) <br />
+    &gt; usermod [속성] root [사용자 이름] : 사용자 속성을 변경 <br />
+        (속성 : -u(ID지정), -g <a href="그룹 지정">그룹이름</a>, -d(홈 디렉터리 지정), -s(셸 지정) <br />
+    &gt; userdel [속성] [사용자 이름] : 사용자 삭제 <br />
+        (속성 : -r(홈 디렉토리 포함 모두 삭제) <br />
+    &gt; chage [속성] [숫자] [사용자 이름] : 사용자의 암호를 주기적으로 변경하도록 설정 <br />
+        (속성 : -m(월 단위))</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt; groups : 현재 사용자가 속한 그룹 조회   
+&gt; groupadd [그룹 이름] : 새로운 그룹을 생성   
+&gt; groupmod [속성] [그룹 이름] : 그룹의 속성을 변경   
+&gt; groupdel [그룹 이름] : 그룹 삭제   
+&gt; gpasswd [그룹 이름] : 그룹 암호 설정 or 그룹 관리 수행   
+  
+&gt; chmod [권한] [파일 이름] : 파일 허가권 변경 명령어   
+    ( ex) chmod 777 test (7(421) - 소유자 / 7 - 그룹 / 7 - 그 외 모든 권한 부여)   
+          chmod u-r test (user read 빼기)   
+          chmod go-rwx test (group과 owner의 read write execute 제거   
+          chmod uo+r test (user와 other에게 read 추가)   
+&gt; ownership : 파일 소유한 사용자와 그룹을 의미   
+&gt; chown [사용자이름.그룹이름] [파일이름] : 파일을 소유한 사용자와 그룹을 바꾸는 명령어 (root만 권한이 있다.)   
+    chown [사용자이름] [파일이름] :  파일을 소유한 사용자를 바꾸는 명령어 (root만 권한이 있다.)   
+    chgrp [그룹이름] [파일이름] :  파일을 소유한 사용자를 바꾸는 명령어 (root만 권한이 있다.)   
+</code></pre></div></div>
+
+<p>-링크 <br />
+    &gt; ln [속성] [링크를 가진 파일 이름] [링크파일 이름] : 링크파일을 생성한다. <br />
+        ( -s : 소프트 링크 / 기본은 하드 링크 ) <br />
+        ( 소프트 링크 : 새로운 inode를 만들고 원본 파일 주소를 연결 -&gt; 원본 파일의 위치가 바뀌거나 없어지면 안됨) <br />
+        ( 하드 링크 : inode를 직접 가짐 ) <br />
+    &gt;</p>
+
+<p>-RPM (의존성을 해결한게 YUM) <br />
+    &gt; rpm -Uvh 패키지파일이름.rpm : 설치 <br />
+        ( U-패키지가 설치/업그레이드, v-설치과정의 확인, h-설치진행과정을 “#”마크로 화면에 출력) <br />
+    &gt; rpm -e [패키지이름]: 삭제 <br />
+    &gt; rpm -qa [패키지이름]: 패키지가 설치되었는지 확인 <br />
+    &gt; rpm -qf [파일의절대경로] : 파일이 어느 패키지에 포함된 것인지 확인 <br />
+    &gt; rpm -qlp [패키지이름]: 패키지 파일에 어떤 파일들이 포함되었는지 확인 <br />
+    &gt; rpm -qip [패키지이름].rpm : 패키지 파일의 상세정보</p>
+
+<p>-YUM (Yellowdog Updater Modified) <br />
+    &gt; yum [속성] install [패키지이름] <br />
+        (-y : 사용자의 확인을 모두 “yes”로 진행) <br />
+    &gt; yum localinstall rpm[파일이름].rpm : RPM 파일 설치 <br />
+    &gt; yum check-update : 업데이트 가능한 목록 보기 <br />
+    &gt; yum update [패키지 이름] : 업데이트 <br />
+    &gt; yum remove [패키지 이름] : 삭제 <br />
+    &gt; yum info [패키지 이름] : 정보 확인</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt; yum groupinstall "[패키지그룹이름]" : 패키지 그룹 설치   
+&gt; yum list [패키지이름] : 패키지 리스트 확인   
+&gt; yum grouplist hidden &gt; [파일이름].txt : 이름으로 파일을 생성하고, 결과 리스트를 담는다.   
+&gt; yum provides [파일이름]: 특정 파일이 속한 패키지 이름 확인   
+&gt; yum install \--nogpgcheck rpm[파일이름].rpm : GPG 키 생략 (검증되지 않은 패키지를 강제 설치할 때 필요)   
+&gt; yum clean all : 기존 저장소 목록 지우기
+</code></pre></div></div>
+
+<hr />
+
+<h4 id="-1"><폴더 및="" 파일=""></폴더></h4>
+
+<p>YUM<br />
+/etc/yum.conf : yum의 설정 파일<br />
+/etc/yum.repos.d/ : 검색하게 되는 네트워크의 주소를 가진 파일들이 있는 경로<br />
+/etc/yum.repos.d/ *.repo : 패키지 파일 (핵심은 name, baseurl, gpgcheck)<br />
+        ( metadata_expire=7d (7일동안 보관) ) <br />
+        ( enabled=0 (0=설치x, 1=설치) ) <br />
+        ( gpgcheck=0 (0=서명체크x, 1=서명체크) ) <br />
+    &gt; fedora.repo : 출시 시점의 원본 패키지 <br />
+    &gt; fedora-updates.repo : 출시 이후 개선된 패키지 <br />
+    &gt; fedora-updates-testing.repo : 미완성된 테스트용 패키지</p>
+
+<p>~[유저명] : 유저의 홈 디렉토리</p>
+
+<p>권한관리<br />
+/etc/passwd : 사용자의 정보를 보유<br />
+    (사용자 이름:암호:사용자 고유 ID:소속 그룹 고유 ID:전체 이름:홈 디렉터리:기본 셸) <br />
+/etc/shadow : 사용자의 비밀번호를 보유<br />
+    (!!은 비밀번호 미지정 상태)</p>
+
+<p>/etc/group : 그룹정보를 보유<br />
+    (그룹 이름:그룹 암호:그룹 고유 ID)</p>
+
+<ul>
+  <li>root(사용자) != root(그룹)</li>
+  <li>파일의 리스트와 파일 속성 ( <em>중요) <br />
+  (파일유형</em> | 파일 허가권* | 링크 수 | 파일 소유자 이름* | 파일 소유 그룹이름* | 파일 크기(byte) | 마지막 변경 날짜/시간 | 파일 이름)
+    <blockquote>
+      <p>파일 유형 : 디렉터리일 경우 ‘d’, 파일일 경우 ‘-‘ <br />
+파일 허가권 : 3개씩 끊어서 읽음 (‘r’은 read(4), ‘w’는 write(2), ‘x’는 execute(1)) <br />
+      ( 숫자(8진수)로 표시 가능 (2진수로 계산해서 표현 -&gt; 0 ~ 7 (8진수) ) <br />
+      ( ex) ‘rw- r– r–’ or ‘6(420) 4(400) 4(400) ‘ 소유자의 파일접근 권한 | 그룹의 파일접근 권한 | 그 외 사용자(Other)의 파일접근 권한 -&gt; 모두 읽기, 소유자만 쓰기)</p>
+    </blockquote>
+  </li>
+</ul>
+
+<hr />
+
+<h4 id="-2"><설치></설치></h4>
+
+<p>yum -y install system-config-users : 사용자 관리를 해주는 GUI 드라이버</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[error 14] 발생 시, 네트워크 문제일 수 있음 (Mac address 변경, 재부팅)   
+</code></pre></div></div>
+
+<p>-—————————————————————RPM와 YUM<br />
+RPM(Redhat Package Manager)<br />
+    - Windows의 ‘setup.exe’와 유사 <br />
+    - 확장명은 *.rpm이며, 이를 ‘패키지(Package)’라고 부름 <br />
+    - 패키지이름-버전-릴리즈번호.페도라버전.아키텍쳐.rpm <br />
+        ( ex) gedit-3.8.2-2.fc19.x86_64.rpm <br />
+            &gt; gedit : 패키지 이름 <br />
+            &gt; 3.8.2 : 버전. 대개 3자리수(주버전, 부버전, 패치버전) <br />
+            &gt; 2 : 문제점을 개선할 때마다 붙여지는 번호 <br />
+            &gt; fc19 : 페도라에서 배포할 경우 붙여짐 <br />
+            &gt; x86_64 : 64비트 CPU ( i386~686 : 32비트, src : 소스, noarch : 모든 CPU ) <br />
+        )</p>
+
+<p>YUM (Yellowdog Updater Modified)<br />
+    - 인터넷을 통해 필요한 파일을 저장소에서 자동으로 다운 및 설치 <br />
+    - 저장소의 URL은 “/etc/yum.repos.d/” <br />
+    - 개별 설정한 URL을 먼저 탐색한 후, 없으면 원격 저장소에서 탐색</p>
+
+
+      <div class="c-article__footer u-clearfix">
+        <div class="c-article__tag">
+          
+        </div>
+        <div class="c-article__share">
+          <a href="https://twitter.com/intent/tweet?text=%EB%A6%AC%EB%88%85%EC%8A%A4%20%EC%9D%B4%EB%A1%A0%20%EC%A0%95%EB%A6%AC%20(5%EC%B0%A8%EC%8B%9C)&url=http://localhost:4000/2020/04/23/17/" title="Share
+          on Twitter" rel="nofollow" target="_blank"><div data-icon='ei-sc-twitter' data-size='s'></div></a>
+          <a href="https://facebook.com/sharer.php?u=http://localhost:4000/2020/04/23/17/" title="Share on Facebook" rel="nofollow" target="_blank"><div data-icon='ei-sc-facebook' data-size='s'></div></a>
+          <a href="https://plus.google.com/share?url=http://localhost:4000/2020/04/23/17/" title="Share on Google+" rel="nofollow" target="_blank"><div data-icon='ei-sc-google-plus' data-size='s'></div></a>
+        </div>
+      </div>
+      <div class="c-newsletter">
+  <div class="c-newsletter__header">
+    <h4 class="c-newsletter__title">Newsletter</h4>
+    <div class="c-newsletter__subtitle">Subscribe to this blog and receive notifications of new posts by email.</div>
+  </div>
+  <form class="c-newsletter-form validate" action="#" method="POST" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" target="_blank" novalidate>
+    <div class="c-newsletter-form__group">
+      <label class="u-screen-reader-text" for="mce-EMAIL">Email address</label>
+      <input class="c-newsletter__email required email" id="mce-EMAIL" type="email" name="EMAIL" placeholder="Your email address" autocomplete="on">
+      <input class="c-newsletter__button" id="mc-embedded-subscribe" type="submit" name="subscribe" value="Subscribe">
     </div>
-  </header>
-  <h1>404</h1>
-  <p><strong>Page not found :(</strong></p>
-  <p>The requested page could not be found.</p>
-  <p><a href="/">Back to the bLog</a></p>
-</div>
+  </form>
+</div> <!-- /.c-newsletter -->
+      <div class="c-recent-post">
+        <h4 class="c-recent__title">You might also enjoy</h4>
+        <div class="c-recent__box">
+        
+        
+          <div class="c-recent__item">
+            <a class="c-recent__image" href="/2020/04/24/51/" style="background-image: url( /images//DevLang_Git/logo.png)"></a>
+            <div class="c-recent__footer">
+              <h4><a href="/2020/04/24/51/">ignore 파일 작성시, 참고</a></h4>
+              <div class="c-recent__date">
+                <time datetime="2020-04-24T02:38:04+09:00">April 24, 2020</time>
+              </div>
+            </div>
+          </div>
+        
+        
+        
+          <div class="c-recent__item">
+            <a class="c-recent__image" href="/2020/04/24/48/" style="background-image: url( /images//DIY_Making/2020/04/48/0.jpg)"></a>
+            <div class="c-recent__footer">
+              <h4><a href="/2020/04/24/48/">포터블 모니터 2세대</a></h4>
+              <div class="c-recent__date">
+                <time datetime="2020-04-24T00:46:08+09:00">April 24, 2020</time>
+              </div>
+            </div>
+          </div>
+        
+        
+        
+          <div class="c-recent__item">
+            <a class="c-recent__image" href="/2020/04/24/47/" style="background-image: url( /images//DIY_Making/2020/04/47/0.jpg)"></a>
+            <div class="c-recent__footer">
+              <h4><a href="/2020/04/24/47/">외장하드 쿨링 받침</a></h4>
+              <div class="c-recent__date">
+                <time datetime="2020-04-24T00:18:51+09:00">April 24, 2020</time>
+              </div>
+            </div>
+          </div>
+        
+        
+        
+          <div class="c-recent__item">
+            <a class="c-recent__image" href="/2020/04/24/46/" style="background-image: url( /images//DIY_Making/2020/04/46/0.jpg)"></a>
+            <div class="c-recent__footer">
+              <h4><a href="/2020/04/24/46/">블루투스 스피커</a></h4>
+              <div class="c-recent__date">
+                <time datetime="2020-04-24T00:04:58+09:00">April 24, 2020</time>
+              </div>
+            </div>
+          </div>
+        
+        
+        </div>
+      </div> <!-- /.c-recent-post -->
+      
+        <div class="c-comments">
+  <div id="disqus_thread" class="article-comments"></div>
+  <script>
+    (function () {
+      var d = document, s = d.createElement('script');
+      s.src = '//dong-jun-shin-github-io.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the
+    <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+  </noscript>
+</div> <!-- /.c-comments -->
+      
+    </div> <!-- /.c-wrap-content -->
+  </div> <!-- /.c-article__content -->
+</article> <!-- /.c-article-page -->
 
 </main> <!-- /.c-content -->
   </div> <!-- /.o-wrapper -->
