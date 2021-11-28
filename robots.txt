@@ -1,0 +1,9 @@
+User-agent: *
+Disallow: /
+
+User-agent: Yeti
+User-agent: Daumoa
+User-agent: Googlebot
+Allow: /
+
+Sitemap: https://dong-jun-shin.github.io/sitemap.xml
