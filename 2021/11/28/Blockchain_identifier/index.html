@@ -1,13 +1,13 @@
-<!DOCTYPE html>a
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset='utf-8'>
   <meta http-equiv='X-UA-Compatible' content='IE=edge'>
   <meta name='viewport' content='width=device-width, initial-scale=1'>
 
-  <title>Jun's Dev_Blog</title>
-  <meta name='description' content="This blog has applied Flexton.">
-  <link rel='canonical' href="https://dong-jun-shin.github.io/">
+  <title>블록체인을 이용한 식별과 DID 인증 방식</title>
+  <meta name='description' content="">
+  <link rel='canonical' href="https://dong-jun-shin.github.io/2021/11/28/Blockchain_identifier/">
   <link rel='alternate' type='application/rss+xml' title='Jun's Dev_Blog' href="https://dong-jun-shin.github.io/feed.xml">
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Volkhov:400,700" rel="stylesheet">
@@ -99,536 +99,285 @@
 </aside> <!-- /.c-sidebar -->
 
 <main class="c-content">
-  
-
-<header class="c-header">
-  <div class="c-header__box">
-    <div class="c-search">
-      <div class="c-search__box">
-        <label for="js-search-input" class="u-screen-reader-text">Search for Blog</label>
-        <input type="text" id="js-search-input" class="c-search__text" autocomplete="off" placeholder="Type to search...">
-        <div data-icon='ei-search' data-size='s'></div>
+  <article class="c-article">
+  <div class="c-article__content">
+    <header class="c-header u-hide u-no-margin-top">
+      <div class="c-header__box">
+        <div class="c-search u-full-width">
+          <div class="c-search__box">
+            <label for="js-search-input" class="u-screen-reader-text">Search for Blog</label>
+            <input type="text" id="js-search-input" class="c-search__text" autocomplete="off" placeholder="Type to search...">
+            <div data-icon='ei-search' data-size='s'></div>
+          </div>
+          <ul id="js-results-container" class="c-search-results-list"></ul>
+        </div>
       </div>
-      <ul id="js-results-container" class="c-search-results-list"></ul>
-    </div>
-    <div class="c-nav">
-      <ul class="c-nav__list u-lists-reset">
-        <li class="c-nav__item is-active">
-          <div data-icon='ei-pencil' data-size='s'></div> Posts</li>
-        <li class="c-nav__item">
-          <div data-icon='ei-star' data-size='s'></div> Categories</li>
-      </ul>
-    </div>
+    </header>
+    
+    <div class="c-article__image o-opacity" style="background-image: url( /images/IT_Tech/2021/11/Blockchain_identifier/0.png )"></div>
+    
+    <div class="c-wrap-content">
+      <header class="c-article__header">
+        <h1 class="c-article__title">블록체인을 이용한 식별과 DID 인증 방식</h1>
+        <div class="c-article__date">
+          <span>2021, Nov 28</span>
+        </div>
+      </header>
+      <hr />
+
+<h2 id="블록체인이란">블록체인이란</h2>
+
+<ul>
+  <li>블록체인은 수많은 노드(사용자)에게 하나의 데이터를 분산해 저장한다.</li>
+  <li>새로운 노드(사용자)는 채굴을 통해 확보된다.</li>
+  <li>기존 서비스는 중앙 서버에 데이터를 보관했다는 점에서 탈중앙화(Decentralized) 특징을 가지고 있다.</li>
+</ul>
+
+<hr />
+
+<h2 id="블록체인-특성">블록체인 특성</h2>
+<ul>
+  <li>분산 네트워크를 사용해서 분산성</li>
+  <li>오픈 소스로 활용성이 높아서 확장성</li>
+  <li>모든 거래기록에 접근 가능해서 투명성</li>
+  <li>모든 노드(사용자)가 공동으로 소유해서 무결성</li>
+  <li>공동 소유로 인한 조작 방지가 가능해서 보안성</li>
+</ul>
+
+<hr />
+
+<h2 id="블록체인-특징">블록체인 특징</h2>
+
+<ul>
+  <li><strong>장점</strong>
+    <ul>
+      <li>보안성 향상
+        <ul>
+          <li>분산된 노드로 해킹이 불가능, 암호화된 데이터와 키 값으로만 거래됨</li>
+        </ul>
+      </li>
+      <li>비용 감소
+        <ul>
+          <li>탈중앙화</li>
+        </ul>
+      </li>
+      <li>처리 속도 향상
+        <ul>
+          <li>인증과 증명에 제 3자(발급처)가 필요하지 않음</li>
+        </ul>
+      </li>
+      <li>가시성 극대화
+        <ul>
+          <li>가시성 극대화
+            <ul>
+              <li>실시간으로 여러 노드에 대한 모니터링이 가능</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><strong>단점</strong>
+    <ul>
+      <li>저장 공간 증가
+        <ul>
+          <li>사용할수록 데이터가 늘어, 필요로 하는 저장 공간이 늘어남</li>
+        </ul>
+      </li>
+      <li>환경 오염
+        <ul>
+          <li>채굴 과정에서 많은 양의 전기를 사용하여, 환경오염을 발생</li>
+        </ul>
+      </li>
+      <li>거래검증 주체
+        <ul>
+          <li>전 세계에 분포된 노드가 거래검증의 주체이고, 익명의 검증인은 방대한 양의 컴퓨팅 파워를 이용해 거래를 증명해야 함</li>
+        </ul>
+      </li>
+      <li>처리 비용 낭비 (데이터 중복)
+        <ul>
+          <li>참가한 모든 컴퓨터가 모든 자료를 다운 및 보관해야 함</li>
+        </ul>
+      </li>
+      <li>확장성의 한계
+        <ul>
+          <li>오픈 소스로 활용성은 높으나, 시장에서 처리되는 대량의 데이터를 처리하는 것은 아직 불가능</li>
+        </ul>
+      </li>
+      <li>프라이버시 노출
+        <ul>
+          <li>모든 사용자가 함께 거래내역을 처리하고 검증</li>
+        </ul>
+      </li>
+      <li>익명성의 한계
+        <ul>
+          <li>법률적 문제 등에서 책임 소재가 불명확함</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<hr />
+
+<h2 id="did란-decentralized-identifier-탈중앙화-신원증명">DID란 (Decentralized Identifier, 탈중앙화 신원증명)</h2>
+
+<ul>
+  <li>개인이 자신의 정보에 완전한 통제권을 갖도록 하는 기술</li>
+  <li>DID를 활용한 인증 앱으로 인증하면, 다시 인증을 위한 인증을 할 필요가 없음</li>
+</ul>
+
+<hr />
+
+<h2 id="did의-인증-방식">DID의 인증 방식</h2>
+<ul>
+  <li><strong>기존 인증 방식</strong>
+    <ul>
+      <li>인증 방식에 필요한 구성원
+        <blockquote>
+          <p>발급처, 사용자, 검증자 (ex. 질병관리청, 손님, 고기집 사장님)</p>
+        </blockquote>
+      </li>
+      <li>인증 과정
+        <blockquote>
+          <p>발급처가 증명서를 보유<br />
+  &gt; 검증자가 사용자에게 증명 요청<br />
+  &gt; 사용자가 본인 인증을 통해 증명서 발급을 발급처에 요청<br />
+  &gt; 사용자가 검증자에게 증명서를 전달<br />
+  &gt; 검증자는 증명서의 입증을 위해  발급처에 전달해서 검증<br />
+  (필요한 증명서가 많을 수록, 각 발급처에서 이 과정을 거쳐야 함)<br />
+ <img src="/images/IT_Tech/2021/11/Blockchain_identifier/1.png" alt="" /></p>
+        </blockquote>
+      </li>
+    </ul>
+  </li>
+  <li><strong>DID</strong>
+    <ul>
+      <li>인증 방식에 필요한 구성원
+        <blockquote>
+          <p>발급처, 사용자, 검증자 (ex. 질병관리청, 손님, 고기집 사장님)</p>
+        </blockquote>
+      </li>
+      <li>인증 과정
+        <blockquote>
+          <p>발급처의 증명서를 사용자가 보유(Verifiable credentials),<br />
+     발급처는 증명서의 인증키를 블록체인 기반의 ‘검증정보 저장소(Verifiable Data Registry)’에 보관<br />
+  &gt; 검증자가 사용자에게 증명 요청<br />
+  &gt; 사용자는 필요한 증명서(VC)를 그룹으로 묶어서, 그룹(Verifiable Presentation)을 검증자에게 QR코드로 전달<br />
+  &gt; 검증자는 QR코드에 VC 인증키들을 ‘검증정보 보관소’의 각 인증서 키와 비교해서 검증<br />
+ <img src="/images/IT_Tech/2021/11/Blockchain_identifier/2.png" alt="" /></p>
+        </blockquote>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<hr />
+
+<h2 id="did의-중요성">DID의 중요성</h2>
+
+<ul>
+  <li>공기업 뿐 아니라, 일반 기업에서도 인증정보를 활용한 서비스를 제공하는 것이 가능해짐</li>
+  <li>DID 인증 정보를 보관할 수 있는 ‘지갑 앱’을 통해, 개인의 정보들을 스마트폰에 저장하고 손쉽게 활용 가능해짐
+    <blockquote>
+      <p><strong>주체별 소유한 정보</strong><br />
+     - 발급처(기관) - 증명서<br />
+     - 사용자(스마트폰 지갑 앱) - 증명서에 대한 인증키(VC)<br />
+     - 저장소 - 증명서에 대한 인증키(VC)</p>
+    </blockquote>
+  </li>
+</ul>
+
+<hr />
+
+<h2 id="reference">Reference</h2>
+
+<ul>
+  <li><a href="https://steemit.com/kr/@sungyu1223/3krc2h">블록체인 기술의 특징 및 장단점을 일아봅니다.</a></li>
+  <li><a href="https://yozm.wishket.com/magazine/detail/1185/?fbclid=IwAR2JLU-CqlrrdtMKDF5pBOCoT6JnimRRlgwUQm14XerC3lO1yuXwh-8Guj4">코로나 백신 인증, 왜 굳이 블록체인으로 할까?</a></li>
+</ul>
+
+
+      <div class="c-article__footer u-clearfix">
+        <div class="c-article__tag">
+          
+        </div>
+        <div class="c-article__share">
+          <a href="https://twitter.com/intent/tweet?text=%EB%B8%94%EB%A1%9D%EC%B2%B4%EC%9D%B8%EC%9D%84%20%EC%9D%B4%EC%9A%A9%ED%95%9C%20%EC%8B%9D%EB%B3%84%EA%B3%BC%20DID%20%EC%9D%B8%EC%A6%9D%20%EB%B0%A9%EC%8B%9D&url=https://dong-jun-shin.github.io/2021/11/28/Blockchain_identifier/" title="Share
+          on Twitter" rel="nofollow" target="_blank"><div data-icon='ei-sc-twitter' data-size='s'></div></a>
+          <a href="https://facebook.com/sharer.php?u=https://dong-jun-shin.github.io/2021/11/28/Blockchain_identifier/" title="Share on Facebook" rel="nofollow" target="_blank"><div data-icon='ei-sc-facebook' data-size='s'></div></a>
+          <a href="https://plus.google.com/share?url=https://dong-jun-shin.github.io/2021/11/28/Blockchain_identifier/" title="Share on Google+" rel="nofollow" target="_blank"><div data-icon='ei-sc-google-plus' data-size='s'></div></a>
+        </div>
+      </div>
+      <div class="c-newsletter">
+  <div class="c-newsletter__header">
+    <h4 class="c-newsletter__title">Newsletter</h4>
+    <div class="c-newsletter__subtitle">Subscribe to this blog and receive notifications of new posts by email.</div>
   </div>
-</header> <!-- /.c-header -->
-<div class="c-posts o-opacity" data-page="1" data-totalPages="7">
-  
-  <article class="c-post">
-    
-    <a class="c-post-thumbnail o-opacity" style="background-image: url(/images/IT_Tech/2021/11/Blockchain_identifier/0.png)"
-        href="/2021/11/28/Blockchain_identifier/"></a>
-    
-    <div class="c-post-content">
-      <h2 class="c-post-title">
-        <a href="/2021/11/28/Blockchain_identifier/">블록체인을 이용한 식별과 DID 인증 방식</a>
-      </h2>
-      <p><i>IT_Tech</i></p>
-      
-      
-      <br/>
-      
-      <span class="c-post-date">2021, Nov 28&nbsp;&nbsp;&nbsp;—&nbsp;</span>
-      <span class="c-post-words">3 minute read</span>
+  <form class="c-newsletter-form validate" action="#" method="POST" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" target="_blank" novalidate>
+    <div class="c-newsletter-form__group">
+      <label class="u-screen-reader-text" for="mce-EMAIL">Email address</label>
+      <input class="c-newsletter__email required email" id="mce-EMAIL" type="email" name="EMAIL" placeholder="Your email address" autocomplete="on">
+      <input class="c-newsletter__button" id="mc-embedded-subscribe" type="submit" name="subscribe" value="Subscribe">
     </div>
-  </article> <!-- /.c-post -->
-  
-  <article class="c-post">
-    
-    <a class="c-post-thumbnail o-opacity" style="background-image: url(/images/CS_Architecture/logo.png)"
-        href="/2021/11/27/CSR_SSR-theory/"></a>
-    
-    <div class="c-post-content">
-      <h2 class="c-post-title">
-        <a href="/2021/11/27/CSR_SSR-theory/">CSR과 SSR, 백엔드와 프론트엔드의 개발영역</a>
-      </h2>
-      <p><i>CS_Architecture</i></p>
+  </form>
+</div> <!-- /.c-newsletter -->
+      <div class="c-recent-post">
+        <h4 class="c-recent__title">You might also enjoy</h4>
+        <div class="c-recent__box">
+        
+        
+        
+        
+        
+        
+        
+        
+          <div class="c-recent__item">
+            <a class="c-recent__image" href="/2020/04/24/48/" style="background-image: url( /images/DIY_Making/2020/04/48/0.jpg)"></a>
+            <div class="c-recent__footer">
+              <h4><a href="/2020/04/24/48/">포터블 모니터 2세대</a></h4>
+              <div class="c-recent__date">
+                <time datetime="2020-04-24T00:46:08+09:00">April 24, 2020</time>
+              </div>
+            </div>
+          </div>
+        
+        
+        
+          <div class="c-recent__item">
+            <a class="c-recent__image" href="/2020/04/24/47/" style="background-image: url( /images/DIY_Making/2020/04/47/0.jpg)"></a>
+            <div class="c-recent__footer">
+              <h4><a href="/2020/04/24/47/">외장하드 쿨링 받침</a></h4>
+              <div class="c-recent__date">
+                <time datetime="2020-04-24T00:18:51+09:00">April 24, 2020</time>
+              </div>
+            </div>
+          </div>
+        
+        
+        </div>
+      </div> <!-- /.c-recent-post -->
       
+        <div class="c-comments">
+  <div id="disqus_thread" class="article-comments"></div>
+  <script>
+    (function () {
+      var d = document, s = d.createElement('script');
+      s.src = '//dong-jun-shin-github-io.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the
+    <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+  </noscript>
+</div> <!-- /.c-comments -->
       
-      <br/>
-      
-      <span class="c-post-date">2021, Nov 27&nbsp;&nbsp;&nbsp;—&nbsp;</span>
-      <span class="c-post-words">2 minute read</span>
-    </div>
-  </article> <!-- /.c-post -->
-  
-  <article class="c-post">
-    
-    <a class="c-post-thumbnail o-opacity" style="background-image: url(/images/DevLang_Git/logo.png)"
-        href="/2020/04/24/51/"></a>
-    
-    <div class="c-post-content">
-      <h2 class="c-post-title">
-        <a href="/2020/04/24/51/">ignore 파일 작성시, 참고</a>
-      </h2>
-      <p><i>DevLang_Git</i></p>
-      
-      
-      <br/>
-      
-      <span class="c-post-date">2020, Apr 24&nbsp;&nbsp;&nbsp;—&nbsp;</span>
-      <span class="c-post-words">1 minute read</span>
-    </div>
-  </article> <!-- /.c-post -->
-  
-  <article class="c-post">
-    
-    <a class="c-post-thumbnail o-opacity" style="background-image: url(/images/DIY_Making/2020/04/48/0.jpg)"
-        href="/2020/04/24/48/"></a>
-    
-    <div class="c-post-content">
-      <h2 class="c-post-title">
-        <a href="/2020/04/24/48/">포터블 모니터 2세대</a>
-      </h2>
-      <p><i>DIY_Making</i></p>
-      
-      
-      <br/>
-      
-      <span class="c-post-date">2020, Apr 24&nbsp;&nbsp;&nbsp;—&nbsp;</span>
-      <span class="c-post-words">2 minute read</span>
-    </div>
-  </article> <!-- /.c-post -->
-  
-  <article class="c-post">
-    
-    <a class="c-post-thumbnail o-opacity" style="background-image: url(/images/DIY_Making/2020/04/47/0.jpg)"
-        href="/2020/04/24/47/"></a>
-    
-    <div class="c-post-content">
-      <h2 class="c-post-title">
-        <a href="/2020/04/24/47/">외장하드 쿨링 받침</a>
-      </h2>
-      <p><i>DIY_Making</i></p>
-      
-      
-      <br/>
-      
-      <span class="c-post-date">2020, Apr 24&nbsp;&nbsp;&nbsp;—&nbsp;</span>
-      <span class="c-post-words">1 minute read</span>
-    </div>
-  </article> <!-- /.c-post -->
-  
-  <article class="c-post">
-    
-    <a class="c-post-thumbnail o-opacity" style="background-image: url(/images/DIY_Making/2020/04/46/0.jpg)"
-        href="/2020/04/24/46/"></a>
-    
-    <div class="c-post-content">
-      <h2 class="c-post-title">
-        <a href="/2020/04/24/46/">블루투스 스피커</a>
-      </h2>
-      <p><i>DIY_Making</i></p>
-      
-      
-      <br/>
-      
-      <span class="c-post-date">2020, Apr 24&nbsp;&nbsp;&nbsp;—&nbsp;</span>
-      <span class="c-post-words">1 minute read</span>
-    </div>
-  </article> <!-- /.c-post -->
-  
-  <article class="c-post">
-    
-    <a class="c-post-thumbnail o-opacity" style="background-image: url(/images/DIY_Making/2020/04/45/0.jpg)"
-        href="/2020/04/23/45/"></a>
-    
-    <div class="c-post-content">
-      <h2 class="c-post-title">
-        <a href="/2020/04/23/45/">모니터 받침대</a>
-      </h2>
-      <p><i>DIY_Making</i></p>
-      
-      
-      <br/>
-      
-      <span class="c-post-date">2020, Apr 23&nbsp;&nbsp;&nbsp;—&nbsp;</span>
-      <span class="c-post-words">1 minute read</span>
-    </div>
-  </article> <!-- /.c-post -->
-  
-</div> <!-- /.c-posts -->
+    </div> <!-- /.c-wrap-content -->
+  </div> <!-- /.c-article__content -->
+</article> <!-- /.c-article-page -->
 
-
-
-
-  <button class="c-load-more c-btn c-btn--middle">Load more posts</button>
-
-<div class="c-categories" style="display: none;">
-  <ul class="c-categories__list u-lists-reset">
-      
-    <li class="c-categories__item">
-      
-      <a class="c-categories__link" href="/category/cs-algorithm/">
-        
-        
-        
-        <div class="c-categories__img">
-          <figure style="background-image: url('/images/CS_Algorithm/logo.png');"></figure>
-          <span class="c-categories__more">View all</span>
-        </div>
-        
-        
-        <div class="c-categories__container ">
-          <h2 class="c-categories__header">CS_Algorithm</h2>
-          <p class="c-categories__count"><span>1</span> Posts</p>
-        </div>
-      </a>
-    </li>
-    
-    <li class="c-categories__item">
-      
-      <a class="c-categories__link" href="/category/cs-architecture/">
-        
-        
-        
-        <div class="c-categories__img">
-          <figure style="background-image: url('/images/CS_Architecture/logo.png');"></figure>
-          <span class="c-categories__more">View all</span>
-        </div>
-        
-        
-        <div class="c-categories__container ">
-          <h2 class="c-categories__header">CS_Architecture</h2>
-          <p class="c-categories__count"><span>1</span> Posts</p>
-        </div>
-      </a>
-    </li>
-    
-    <li class="c-categories__item">
-      
-      <a class="c-categories__link" href="/category/cs-network/">
-        
-        
-        
-        <div class="c-categories__img">
-          <figure style="background-image: url('/images/CS_Network/2020/04/37/0.jpg');"></figure>
-          <span class="c-categories__more">View all</span>
-        </div>
-        
-        
-        <div class="c-categories__container ">
-          <h2 class="c-categories__header">CS_Network</h2>
-          <p class="c-categories__count"><span>1</span> Posts</p>
-        </div>
-      </a>
-    </li>
-    
-    <li class="c-categories__item">
-      
-      <a class="c-categories__link" href="/category/diy-autocad/">
-        
-        
-        
-        <div class="c-categories__img">
-          <figure style="background-image: url('/images/DIY_AutoCAD/2020/04/33/0.jpg');"></figure>
-          <span class="c-categories__more">View all</span>
-        </div>
-        
-        
-        <div class="c-categories__container ">
-          <h2 class="c-categories__header">DIY_AutoCAD</h2>
-          <p class="c-categories__count"><span>2</span> Posts</p>
-        </div>
-      </a>
-    </li>
-    
-    <li class="c-categories__item">
-      
-      <a class="c-categories__link" href="/category/diy-making/">
-        
-        
-        
-        <div class="c-categories__img">
-          <figure style="background-image: url('/images/DIY_Making/2020/04/48/0.jpg');"></figure>
-          <span class="c-categories__more">View all</span>
-        </div>
-        
-        
-        <div class="c-categories__container ">
-          <h2 class="c-categories__header">DIY_Making</h2>
-          <p class="c-categories__count"><span>6</span> Posts</p>
-        </div>
-      </a>
-    </li>
-    
-    <li class="c-categories__item">
-      
-      <a class="c-categories__link" href="/category/diy-rhino/">
-        
-        
-        
-        <div class="c-categories__img">
-          <figure style="background-image: url('/images/DIY_Rhino/2020/04/35/0.jpg');"></figure>
-          <span class="c-categories__more">View all</span>
-        </div>
-        
-        
-        <div class="c-categories__container ">
-          <h2 class="c-categories__header">DIY_Rhino</h2>
-          <p class="c-categories__count"><span>2</span> Posts</p>
-        </div>
-      </a>
-    </li>
-    
-    <li class="c-categories__item">
-      
-      <a class="c-categories__link" href="/category/devlang-csharp/">
-        
-        
-        
-        <div class="c-categories__img">
-          <figure style="background-image: url('/images/DevLang_Csharp/logo.png');"></figure>
-          <span class="c-categories__more">View all</span>
-        </div>
-        
-        
-        <div class="c-categories__container ">
-          <h2 class="c-categories__header">DevLang_Csharp</h2>
-          <p class="c-categories__count"><span>1</span> Posts</p>
-        </div>
-      </a>
-    </li>
-    
-    <li class="c-categories__item">
-      
-      <a class="c-categories__link" href="/category/devlang-front/">
-        
-        
-        
-        <div class="c-categories__img">
-          <figure style="background-image: url('/images/DevLang_Front/logo.png');"></figure>
-          <span class="c-categories__more">View all</span>
-        </div>
-        
-        
-        <div class="c-categories__container ">
-          <h2 class="c-categories__header">DevLang_Front</h2>
-          <p class="c-categories__count"><span>1</span> Posts</p>
-        </div>
-      </a>
-    </li>
-    
-    <li class="c-categories__item">
-      
-      <a class="c-categories__link" href="/category/devlang-git/">
-        
-        
-        
-        <div class="c-categories__img">
-          <figure style="background-image: url('/images/DevLang_Git/logo.png');"></figure>
-          <span class="c-categories__more">View all</span>
-        </div>
-        
-        
-        <div class="c-categories__container ">
-          <h2 class="c-categories__header">DevLang_Git</h2>
-          <p class="c-categories__count"><span>4</span> Posts</p>
-        </div>
-      </a>
-    </li>
-    
-    <li class="c-categories__item">
-      
-      <a class="c-categories__link" href="/category/devlang-jsp/">
-        
-        
-        
-        <div class="c-categories__img">
-          <figure style="background-image: url('/images/DevLang_JSP/logo.png');"></figure>
-          <span class="c-categories__more">View all</span>
-        </div>
-        
-        
-        <div class="c-categories__container ">
-          <h2 class="c-categories__header">DevLang_JSP</h2>
-          <p class="c-categories__count"><span>1</span> Posts</p>
-        </div>
-      </a>
-    </li>
-    
-    <li class="c-categories__item">
-      
-      <a class="c-categories__link" href="/category/devlang-java/">
-        
-        
-        
-        <div class="c-categories__img">
-          <figure style="background-image: url('/images/DevLang_Java/2020/04/38/0.jpg');"></figure>
-          <span class="c-categories__more">View all</span>
-        </div>
-        
-        
-        <div class="c-categories__container ">
-          <h2 class="c-categories__header">DevLang_Java</h2>
-          <p class="c-categories__count"><span>4</span> Posts</p>
-        </div>
-      </a>
-    </li>
-    
-    <li class="c-categories__item">
-      
-      <a class="c-categories__link" href="/category/devlang-linux-centos7/">
-        
-        
-        
-        <div class="c-categories__img">
-          <figure style="background-image: url('/images/DevLang_Linux_CentOS7/2020/04/23/0.jpg');"></figure>
-          <span class="c-categories__more">View all</span>
-        </div>
-        
-        
-        <div class="c-categories__container ">
-          <h2 class="c-categories__header">DevLang_Linux_CentOS7</h2>
-          <p class="c-categories__count"><span>3</span> Posts</p>
-        </div>
-      </a>
-    </li>
-    
-    <li class="c-categories__item">
-      
-      <a class="c-categories__link" href="/category/devlang-linux-fedora19/">
-        
-        
-        
-        <div class="c-categories__img">
-          <figure style="background-image: url('/images/DevLang_Linux_Fedora19/logo.png');"></figure>
-          <span class="c-categories__more">View all</span>
-        </div>
-        
-        
-        <div class="c-categories__container ">
-          <h2 class="c-categories__header">DevLang_Linux_Fedora19</h2>
-          <p class="c-categories__count"><span>7</span> Posts</p>
-        </div>
-      </a>
-    </li>
-    
-    <li class="c-categories__item">
-      
-      <a class="c-categories__link" href="/category/devlang-oracle/">
-        
-        
-        
-        <div class="c-categories__img">
-          <figure style="background-image: url('/images/DevLang_Oracle/logo.png');"></figure>
-          <span class="c-categories__more">View all</span>
-        </div>
-        
-        
-        <div class="c-categories__container ">
-          <h2 class="c-categories__header">DevLang_Oracle</h2>
-          <p class="c-categories__count"><span>1</span> Posts</p>
-        </div>
-      </a>
-    </li>
-    
-    <li class="c-categories__item">
-      
-      <a class="c-categories__link" href="/category/devlang-python/">
-        
-        
-        
-        <div class="c-categories__img">
-          <figure style="background-image: url('/images/DevLang_Python/logo.png');"></figure>
-          <span class="c-categories__more">View all</span>
-        </div>
-        
-        
-        <div class="c-categories__container ">
-          <h2 class="c-categories__header">DevLang_Python</h2>
-          <p class="c-categories__count"><span>1</span> Posts</p>
-        </div>
-      </a>
-    </li>
-    
-    <li class="c-categories__item">
-      
-      <a class="c-categories__link" href="/category/devops-maven/">
-        
-        
-        
-        <div class="c-categories__img">
-          <figure style="background-image: url('/images/DevOps_Maven/logo.png');"></figure>
-          <span class="c-categories__more">View all</span>
-        </div>
-        
-        
-        <div class="c-categories__container ">
-          <h2 class="c-categories__header">DevOps_Maven</h2>
-          <p class="c-categories__count"><span>4</span> Posts</p>
-        </div>
-      </a>
-    </li>
-    
-    <li class="c-categories__item">
-      
-      <a class="c-categories__link" href="/category/devops-spring/">
-        
-        
-        
-        <div class="c-categories__img">
-          <figure style="background-image: url('/images/DevOps_Spring/logo.png');"></figure>
-          <span class="c-categories__more">View all</span>
-        </div>
-        
-        
-        <div class="c-categories__container ">
-          <h2 class="c-categories__header">DevOps_Spring</h2>
-          <p class="c-categories__count"><span>1</span> Posts</p>
-        </div>
-      </a>
-    </li>
-    
-    <li class="c-categories__item">
-      
-      <a class="c-categories__link" href="/category/devops-tips/">
-        
-        
-        
-        <div class="c-categories__img">
-          <figure style="background-image: url('/images/DevOps_Tips/2020/04/28/0.jpg');"></figure>
-          <span class="c-categories__more">View all</span>
-        </div>
-        
-        
-        <div class="c-categories__container ">
-          <h2 class="c-categories__header">DevOps_Tips</h2>
-          <p class="c-categories__count"><span>1</span> Posts</p>
-        </div>
-      </a>
-    </li>
-    
-    <li class="c-categories__item">
-      
-      <a class="c-categories__link" href="/category/it-tech/">
-        
-        
-        
-        <div class="c-categories__img">
-          <figure style="background-image: url('/images/IT_Tech/2021/11/Blockchain_identifier/0.png');"></figure>
-          <span class="c-categories__more">View all</span>
-        </div>
-        
-        
-        <div class="c-categories__container ">
-          <h2 class="c-categories__header">IT_Tech</h2>
-          <p class="c-categories__count"><span>1</span> Posts</p>
-        </div>
-      </a>
-    </li>
-    
-  </ul>
-</div> <!-- ./c-categories -->
 </main> <!-- /.c-content -->
   </div> <!-- /.o-wrapper -->
   <div class="c-top" data-icon='ei-chevron-up' data-size='s' title="Scroll To Top"></div> <!-- /.c-top -->
