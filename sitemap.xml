@@ -4,6 +4,22 @@
         xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     
     <url>
+        <loc>https://dong-jun-shin.github.io/2021/12/10/Job_Amazon/</loc>
+        
+        <lastmod>2021-12-10T16:13:23+09:00</lastmod>
+        
+
+        
+        <changefreq>weekly</changefreq>
+        
+
+        
+        <priority>0.5</priority>
+        
+
+    </url>
+    
+    <url>
         <loc>https://dong-jun-shin.github.io/2021/11/28/Svelte_React/</loc>
         
         <lastmod>2021-11-28T21:51:57+09:00</lastmod>
