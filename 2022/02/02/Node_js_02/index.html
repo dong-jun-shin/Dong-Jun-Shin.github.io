@@ -5,9 +5,9 @@
   <meta http-equiv='X-UA-Compatible' content='IE=edge'>
   <meta name='viewport' content='width=device-width, initial-scale=1'>
 
-  <title>Jun's Dev_Blog</title>
-  <meta name='description' content="This blog has applied Flexton.">
-  <link rel='canonical' href="https://dong-jun-shin.github.io/">
+  <title>Node.js(2) - 변수, 자료형, 제어문</title>
+  <meta name='description' content="변수 선언">
+  <link rel='canonical' href="https://dong-jun-shin.github.io/2022/02/02/Node_js_02/">
   <link rel='alternate' type='application/rss+xml' title='Jun's Dev_Blog' href="https://dong-jun-shin.github.io/feed.xml">
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Volkhov:400,700" rel="stylesheet">
@@ -99,574 +99,223 @@
 </aside> <!-- /.c-sidebar -->
 
 <main class="c-content">
-  
-
-<header class="c-header">
-  <div class="c-header__box">
-    <div class="c-search">
-      <div class="c-search__box">
-        <label for="js-search-input" class="u-screen-reader-text">Search for Blog</label>
-        <input type="text" id="js-search-input" class="c-search__text" autocomplete="off" placeholder="Type to search...">
-        <div data-icon='ei-search' data-size='s'></div>
+  <article class="c-article">
+  <div class="c-article__content">
+    <header class="c-header u-hide u-no-margin-top">
+      <div class="c-header__box">
+        <div class="c-search u-full-width">
+          <div class="c-search__box">
+            <label for="js-search-input" class="u-screen-reader-text">Search for Blog</label>
+            <input type="text" id="js-search-input" class="c-search__text" autocomplete="off" placeholder="Type to search...">
+            <div data-icon='ei-search' data-size='s'></div>
+          </div>
+          <ul id="js-results-container" class="c-search-results-list"></ul>
+        </div>
       </div>
-      <ul id="js-results-container" class="c-search-results-list"></ul>
-    </div>
-    <div class="c-nav">
-      <ul class="c-nav__list u-lists-reset">
-        <li class="c-nav__item is-active">
-          <div data-icon='ei-pencil' data-size='s'></div> Posts</li>
-        <li class="c-nav__item">
-          <div data-icon='ei-star' data-size='s'></div> Categories</li>
-      </ul>
-    </div>
+    </header>
+    
+    <div class="c-article__image o-opacity" style="background-image: url( /images/DevLang_Node.js/logo.png )"></div>
+    
+    <div class="c-wrap-content">
+      <header class="c-article__header">
+        <h1 class="c-article__title">Node.js(2) - 변수, 자료형, 제어문</h1>
+        <div class="c-article__date">
+          <span>2022, Feb 02</span>
+        </div>
+      </header>
+      <h2 id="변수-선언">변수 선언</h2>
+
+<h3 id="키워드">키워드</h3>
+<ul>
+  <li>(None Keyword) : global-scoped, 재선언 가능, 재할당 가능</li>
+  <li>var : function-scoped, 재선언 가능, 재할당 가능</li>
+  <li>let : block-scoped, 재선언 불가, 재할당 가능</li>
+  <li>const : block-scoped, 재선언 불가, 재할당 불가</li>
+</ul>
+
+<h3 id="변수-사용-시-유효-범위에-대해">변수 사용 시, 유효 범위에 대해</h3>
+<h4 id="hoisting변수의-범위-조정">hoisting(변수의 범위 조정)</h4>
+<ul>
+  <li>‘끌어올리다’라는 뜻</li>
+  <li>전역, 함수, 블록 등에서 선언된 변수를 끌어올려서 최상위 스코프를 적용</li>
+  <li>특정 범위에서 선언, 할당된 변수는 Javascript Parser에 의해 (내부적으로)최상단에서 선언되고, 기존 위치에서는 할당만 이루어지는 것과 같음(선언과 할당의 분리)</li>
+  <li>hoisting이 이루어져도 메모리 변화는 없음</li>
+  <li>hoisting이 적용되는 경우
+    <ul>
+      <li>변수, 함수 내에서 선언된 변수에서 적용될 수 있음</li>
+      <li>(None Keyword) &gt; global을 최상위 스코프 기준으로 적용</li>
+      <li>var &gt; function을 최상위 스코프 기준으로 적용(속한 함수가 없을 경우, global-scoped가 최상위 스코프)</li>
+      <li>let, const &gt; block을 최상위 스코프 기준으로 적용</li>
+    </ul>
+  </li>
+</ul>
+
+<h4 id="iifeimmediately-invoked-function-expression">IIFE(immediately-invoked function expression)</h4>
+<ul>
+  <li>즉시 실행 함수 표현</li>
+  <li>익명함수와 같음
+    <ul>
+      <li>(function(){})()으로 정의된 형태</li>
+    </ul>
+  </li>
+  <li>보통 전역 스코프를 오염시키지 않기 위해 사용(클로저를 사용할 수도 있음)</li>
+  <li>IIFE 내에서 (None Keyword) 변수를 사용하면 hoisting이 발생(이를 방지하기 위해서는 선언문 시작에 ‘use strict’를 입력)</li>
+  <li>예제
+    <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+      <span class="s1">'use strict'</span>
+      <span class="k">for</span><span class="p">(</span><span class="nx">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">i</span><span class="o">&lt;</span><span class="mi">5</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+          <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'i'</span><span class="p">,</span> <span class="nx">i</span><span class="p">)</span>
+      <span class="p">}</span>
+  <span class="p">})()</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'after loop i is'</span><span class="p">,</span> <span class="nx">i</span><span class="p">)</span> <span class="c1">// ReferenceError: i is not defined</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<hr />
+
+<h2 id="자료형">자료형</h2>
+
+<h3 id="number">Number</h3>
+<ul>
+  <li>숫자를 표현하는 자료형</li>
+  <li>숫자를 입력하면 Number형으로 인식</li>
+  <li>이항 연산 가능(+, -, *, /, %, **)</li>
+  <li>산술 연산 가능(++, –)</li>
+</ul>
+
+<h3 id="string">String</h3>
+<ul>
+  <li>문자열을 표현하는 자료형</li>
+  <li>‘(작은 따옴표) or “(큰 따옴표)를 이용해서 입력하면 String으로 인식</li>
+  <li>문자열 연산(+)</li>
+  <li>문자열 길이 : .length</li>
+</ul>
+
+<h3 id="boolean">boolean</h3>
+<ul>
+  <li>논리(참/거짓)를 나타내는 자료형</li>
+  <li>true와 false로 구성</li>
+  <li>비교 연산의 결과(==, !=, ===, !==, &gt;, &gt;=, &lt;, &lt;=)</li>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td>논리 연산의 결과(&amp;&amp;,</td>
+          <td> </td>
+          <td>, !)</td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+</ul>
+
+<hr />
+
+<h2 id="제어문">제어문</h2>
+
+<h3 id="조건문"><strong>조건문</strong></h3>
+<ul>
+  <li>true, false에 따라 코드를 실행시킬 때 쓰는 문법
+    <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span><span class="p">(</span><span class="nx">boolean1</span><span class="p">){</span><span class="nx">boolean1</span><span class="err">이</span> <span class="kc">true</span> <span class="err">경우</span> <span class="err">실행될</span> <span class="err">코드</span><span class="p">}</span> 
+<span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="nx">boolean2</span><span class="p">)</span> <span class="p">{</span><span class="nx">boolean2</span><span class="err">이</span> <span class="kc">true</span> <span class="err">경우</span> <span class="err">실행될</span> <span class="err">코드</span><span class="p">}</span>
+<span class="k">else</span> <span class="p">{</span><span class="kc">false</span> <span class="err">경우</span> <span class="err">실행될</span> <span class="err">코드</span><span class="p">}</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<h3 id="반복문"><strong>반복문</strong></h3>
+<ul>
+  <li>코드를 반복할 때 쓰는 문법</li>
+  <li>반복문의 종류
+    <ul>
+      <li>정해진 횟수만큼 반복
+        <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="k">for</span><span class="p">(</span><span class="kd">let</span> <span class="nx">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="nx">i</span><span class="o">&lt;</span><span class="mi">5</span><span class="p">;</span><span class="nx">i</span><span class="o">++</span><span class="p">){</span><span class="err">반복될</span> <span class="err">코드</span><span class="p">}</span>
+</code></pre></div>        </div>
+      </li>
+      <li>true 판단 &gt; 코드 실행 &gt; 반복</li>
+      <li>무한 루프를 주의해야 함
+        <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="k">while</span><span class="p">(</span><span class="kc">true</span><span class="p">){</span><span class="err">반복될</span> <span class="err">코드</span><span class="p">}</span>
+</code></pre></div>        </div>
+      </li>
+      <li>코드 실행 &gt; true 판단 &gt; 반복
+        <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="k">do</span><span class="p">{</span><span class="err">반복될</span> <span class="err">코드</span><span class="p">}</span> <span class="k">while</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
+</code></pre></div>        </div>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<hr />
+
+<h2 id="reference">Reference</h2>
+<ul>
+  <li><a href="https://www.youtube.com/playlist?list=PLuHgQVnccGMA9QQX5wqj6ThK7t2tsGxjm">생활코딩 WEB2 - Node.js</a> &gt; 06~07, 14~17, 20</li>
+  <li><a href="https://gist.github.com/LeoHeo/7c2a2a6dbcf80becaaa1e61e90091e5d">var, let, const 차이점은?</a></li>
+</ul>
+
+      <div class="c-article__footer u-clearfix">
+        <div class="c-article__tag">
+          
+        </div>
+        <div class="c-article__share">
+          <a href="https://twitter.com/intent/tweet?text=Node.js(2)%20-%20%EB%B3%80%EC%88%98,%20%EC%9E%90%EB%A3%8C%ED%98%95,%20%EC%A0%9C%EC%96%B4%EB%AC%B8&url=https://dong-jun-shin.github.io/2022/02/02/Node_js_02/" title="Share
+          on Twitter" rel="nofollow" target="_blank"><div data-icon='ei-sc-twitter' data-size='s'></div></a>
+          <a href="https://facebook.com/sharer.php?u=https://dong-jun-shin.github.io/2022/02/02/Node_js_02/" title="Share on Facebook" rel="nofollow" target="_blank"><div data-icon='ei-sc-facebook' data-size='s'></div></a>
+          <a href="https://plus.google.com/share?url=https://dong-jun-shin.github.io/2022/02/02/Node_js_02/" title="Share on Google+" rel="nofollow" target="_blank"><div data-icon='ei-sc-google-plus' data-size='s'></div></a>
+        </div>
+      </div>
+      <div class="c-newsletter">
+  <div class="c-newsletter__header">
+    <h4 class="c-newsletter__title">Newsletter</h4>
+    <div class="c-newsletter__subtitle">Subscribe to this blog and receive notifications of new posts by email.</div>
   </div>
-</header> <!-- /.c-header -->
-<div class="c-posts o-opacity" data-page="1" data-totalPages="8">
-  
-  <article class="c-post">
-    
-    <a class="c-post-thumbnail o-opacity" style="background-image: url(/images/DevLang_Node.js/logo.png)"
-        href="/2022/02/02/Node_js_02/"></a>
-    
-    <div class="c-post-content">
-      <h2 class="c-post-title">
-        <a href="/2022/02/02/Node_js_02/">Node.js(2) - 변수, 자료형, 제어문</a>
-      </h2>
-      <p><i>DevLang_Node.js</i></p>
-      
-      
-      <br/>
-      
-      <span class="c-post-date">2022, Feb 02&nbsp;&nbsp;&nbsp;—&nbsp;</span>
-      <span class="c-post-words">3 minute read</span>
+  <form class="c-newsletter-form validate" action="#" method="POST" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" target="_blank" novalidate>
+    <div class="c-newsletter-form__group">
+      <label class="u-screen-reader-text" for="mce-EMAIL">Email address</label>
+      <input class="c-newsletter__email required email" id="mce-EMAIL" type="email" name="EMAIL" placeholder="Your email address" autocomplete="on">
+      <input class="c-newsletter__button" id="mc-embedded-subscribe" type="submit" name="subscribe" value="Subscribe">
     </div>
-  </article> <!-- /.c-post -->
-  
-  <article class="c-post">
-    
-    <a class="c-post-thumbnail o-opacity" style="background-image: url(/images/DevLang_Node.js/logo.png)"
-        href="/2022/02/01/Node_js_01/"></a>
-    
-    <div class="c-post-content">
-      <h2 class="c-post-title">
-        <a href="/2022/02/01/Node_js_01/">Node.js(1) - 개요 및 설치, 실행</a>
-      </h2>
-      <p><i>DevLang_Node.js</i></p>
+  </form>
+</div> <!-- /.c-newsletter -->
+      <div class="c-recent-post">
+        <h4 class="c-recent__title">You might also enjoy</h4>
+        <div class="c-recent__box">
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        </div>
+      </div> <!-- /.c-recent-post -->
       
+        <div class="c-comments">
+  <div id="disqus_thread" class="article-comments"></div>
+  <script>
+    (function () {
+      var d = document, s = d.createElement('script');
+      s.src = '//dong-jun-shin-github-io.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the
+    <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+  </noscript>
+</div> <!-- /.c-comments -->
       
-      <br/>
-      
-      <span class="c-post-date">2022, Feb 01&nbsp;&nbsp;&nbsp;—&nbsp;</span>
-      <span class="c-post-words">2 minute read</span>
-    </div>
-  </article> <!-- /.c-post -->
-  
-  <article class="c-post">
-    
-    <a class="c-post-thumbnail o-opacity" style="background-image: url(/images/Job/logo.png)"
-        href="/2022/01/23/mirakle_letter_220114/"></a>
-    
-    <div class="c-post-content">
-      <h2 class="c-post-title">
-        <a href="/2022/01/23/mirakle_letter_220114/">[리뷰] 오미크론에 달라지는 근무 트렌드</a>
-      </h2>
-      <p><i>Job</i></p>
-      
-      
-      <br/>
-      
-      <span class="c-post-date">2022, Jan 23&nbsp;&nbsp;&nbsp;—&nbsp;</span>
-      <span class="c-post-words">2 minute read</span>
-    </div>
-  </article> <!-- /.c-post -->
-  
-  <article class="c-post">
-    
-    <a class="c-post-thumbnail o-opacity" style="background-image: url(/images/CS_Algorithm/logo.png)"
-        href="/2021/12/25/Do_it_data_structure_sort/"></a>
-    
-    <div class="c-post-content">
-      <h2 class="c-post-title">
-        <a href="/2021/12/25/Do_it_data_structure_sort/">Do_it_자료구조 학습 정리 2 (정렬)</a>
-      </h2>
-      <p><i>CS_Algorithm</i></p>
-      
-      
-      <br/>
-      
-      <span class="c-post-date">2021, Dec 25&nbsp;&nbsp;&nbsp;—&nbsp;</span>
-      <span class="c-post-words">3 minute read</span>
-    </div>
-  </article> <!-- /.c-post -->
-  
-  <article class="c-post">
-    
-    <a class="c-post-thumbnail o-opacity" style="background-image: url(/images/CS_Algorithm/logo.png)"
-        href="/2021/12/11/Do_it_data_structure/"></a>
-    
-    <div class="c-post-content">
-      <h2 class="c-post-title">
-        <a href="/2021/12/11/Do_it_data_structure/">Do_it_자료구조 학습 정리 1 (문자열 탐색, 연결 리스트, 트리)</a>
-      </h2>
-      <p><i>CS_Algorithm</i></p>
-      
-      
-      <br/>
-      
-      <span class="c-post-date">2021, Dec 11&nbsp;&nbsp;&nbsp;—&nbsp;</span>
-      <span class="c-post-words">2 minute read</span>
-    </div>
-  </article> <!-- /.c-post -->
-  
-  <article class="c-post">
-    
-    <a class="c-post-thumbnail o-opacity" style="background-image: url(/images/Job/logo.png)"
-        href="/2021/12/10/Job_Amazon/"></a>
-    
-    <div class="c-post-content">
-      <h2 class="c-post-title">
-        <a href="/2021/12/10/Job_Amazon/">[해외 취업] 필요한 준비</a>
-      </h2>
-      <p><i>Job</i></p>
-      
-      
-      <br/>
-      
-      <span class="c-post-date">2021, Dec 10&nbsp;&nbsp;&nbsp;—&nbsp;</span>
-      <span class="c-post-words">2 minute read</span>
-    </div>
-  </article> <!-- /.c-post -->
-  
-  <article class="c-post">
-    
-    <a class="c-post-thumbnail o-opacity" style="background-image: url(/images/DevLang_Front/2021/11/Svelte_React/0.png)"
-        href="/2021/11/28/Svelte_React/"></a>
-    
-    <div class="c-post-content">
-      <h2 class="c-post-title">
-        <a href="/2021/11/28/Svelte_React/">React와 비교를 통한 Svelte 알아보기</a>
-      </h2>
-      <p><i>DevLang_Front</i></p>
-      
-      
-      <br/>
-      
-      <span class="c-post-date">2021, Nov 28&nbsp;&nbsp;&nbsp;—&nbsp;</span>
-      <span class="c-post-words">3 minute read</span>
-    </div>
-  </article> <!-- /.c-post -->
-  
-</div> <!-- /.c-posts -->
+    </div> <!-- /.c-wrap-content -->
+  </div> <!-- /.c-article__content -->
+</article> <!-- /.c-article-page -->
 
-
-
-
-  <button class="c-load-more c-btn c-btn--middle">Load more posts</button>
-
-<div class="c-categories" style="display: none;">
-  <ul class="c-categories__list u-lists-reset">
-      
-    <li class="c-categories__item">
-      
-      <a class="c-categories__link" href="/category/cs-algorithm/">
-        
-        
-        
-        <div class="c-categories__img">
-          <figure style="background-image: url('/images/CS_Algorithm/logo.png');"></figure>
-          <span class="c-categories__more">View all</span>
-        </div>
-        
-        
-        <div class="c-categories__container ">
-          <h2 class="c-categories__header">CS_Algorithm</h2>
-          <p class="c-categories__count"><span>3</span> Posts</p>
-        </div>
-      </a>
-    </li>
-    
-    <li class="c-categories__item">
-      
-      <a class="c-categories__link" href="/category/cs-architecture/">
-        
-        
-        
-        <div class="c-categories__img">
-          <figure style="background-image: url('/images/CS_Architecture/logo.png');"></figure>
-          <span class="c-categories__more">View all</span>
-        </div>
-        
-        
-        <div class="c-categories__container ">
-          <h2 class="c-categories__header">CS_Architecture</h2>
-          <p class="c-categories__count"><span>1</span> Posts</p>
-        </div>
-      </a>
-    </li>
-    
-    <li class="c-categories__item">
-      
-      <a class="c-categories__link" href="/category/cs-network/">
-        
-        
-        
-        <div class="c-categories__img">
-          <figure style="background-image: url('/images/CS_Network/2020/04/37/0.jpg');"></figure>
-          <span class="c-categories__more">View all</span>
-        </div>
-        
-        
-        <div class="c-categories__container ">
-          <h2 class="c-categories__header">CS_Network</h2>
-          <p class="c-categories__count"><span>1</span> Posts</p>
-        </div>
-      </a>
-    </li>
-    
-    <li class="c-categories__item">
-      
-      <a class="c-categories__link" href="/category/diy-autocad/">
-        
-        
-        
-        <div class="c-categories__img">
-          <figure style="background-image: url('/images/DIY_AutoCAD/2020/04/33/0.jpg');"></figure>
-          <span class="c-categories__more">View all</span>
-        </div>
-        
-        
-        <div class="c-categories__container ">
-          <h2 class="c-categories__header">DIY_AutoCAD</h2>
-          <p class="c-categories__count"><span>2</span> Posts</p>
-        </div>
-      </a>
-    </li>
-    
-    <li class="c-categories__item">
-      
-      <a class="c-categories__link" href="/category/diy-making/">
-        
-        
-        
-        <div class="c-categories__img">
-          <figure style="background-image: url('/images/DIY_Making/2020/04/48/0.jpg');"></figure>
-          <span class="c-categories__more">View all</span>
-        </div>
-        
-        
-        <div class="c-categories__container ">
-          <h2 class="c-categories__header">DIY_Making</h2>
-          <p class="c-categories__count"><span>6</span> Posts</p>
-        </div>
-      </a>
-    </li>
-    
-    <li class="c-categories__item">
-      
-      <a class="c-categories__link" href="/category/diy-rhino/">
-        
-        
-        
-        <div class="c-categories__img">
-          <figure style="background-image: url('/images/DIY_Rhino/2020/04/35/0.jpg');"></figure>
-          <span class="c-categories__more">View all</span>
-        </div>
-        
-        
-        <div class="c-categories__container ">
-          <h2 class="c-categories__header">DIY_Rhino</h2>
-          <p class="c-categories__count"><span>2</span> Posts</p>
-        </div>
-      </a>
-    </li>
-    
-    <li class="c-categories__item">
-      
-      <a class="c-categories__link" href="/category/devlang-csharp/">
-        
-        
-        
-        <div class="c-categories__img">
-          <figure style="background-image: url('/images/DevLang_Csharp/logo.png');"></figure>
-          <span class="c-categories__more">View all</span>
-        </div>
-        
-        
-        <div class="c-categories__container ">
-          <h2 class="c-categories__header">DevLang_Csharp</h2>
-          <p class="c-categories__count"><span>1</span> Posts</p>
-        </div>
-      </a>
-    </li>
-    
-    <li class="c-categories__item">
-      
-      <a class="c-categories__link" href="/category/devlang-front/">
-        
-        
-        
-        <div class="c-categories__img">
-          <figure style="background-image: url('/images/DevLang_Front/2021/11/Svelte_React/0.png');"></figure>
-          <span class="c-categories__more">View all</span>
-        </div>
-        
-        
-        <div class="c-categories__container ">
-          <h2 class="c-categories__header">DevLang_Front</h2>
-          <p class="c-categories__count"><span>2</span> Posts</p>
-        </div>
-      </a>
-    </li>
-    
-    <li class="c-categories__item">
-      
-      <a class="c-categories__link" href="/category/devlang-git/">
-        
-        
-        
-        <div class="c-categories__img">
-          <figure style="background-image: url('/images/DevLang_Git/logo.png');"></figure>
-          <span class="c-categories__more">View all</span>
-        </div>
-        
-        
-        <div class="c-categories__container ">
-          <h2 class="c-categories__header">DevLang_Git</h2>
-          <p class="c-categories__count"><span>4</span> Posts</p>
-        </div>
-      </a>
-    </li>
-    
-    <li class="c-categories__item">
-      
-      <a class="c-categories__link" href="/category/devlang-jsp/">
-        
-        
-        
-        <div class="c-categories__img">
-          <figure style="background-image: url('/images/DevLang_JSP/logo.png');"></figure>
-          <span class="c-categories__more">View all</span>
-        </div>
-        
-        
-        <div class="c-categories__container ">
-          <h2 class="c-categories__header">DevLang_JSP</h2>
-          <p class="c-categories__count"><span>1</span> Posts</p>
-        </div>
-      </a>
-    </li>
-    
-    <li class="c-categories__item">
-      
-      <a class="c-categories__link" href="/category/devlang-java/">
-        
-        
-        
-        <div class="c-categories__img">
-          <figure style="background-image: url('/images/DevLang_Java/2020/04/38/0.jpg');"></figure>
-          <span class="c-categories__more">View all</span>
-        </div>
-        
-        
-        <div class="c-categories__container ">
-          <h2 class="c-categories__header">DevLang_Java</h2>
-          <p class="c-categories__count"><span>4</span> Posts</p>
-        </div>
-      </a>
-    </li>
-    
-    <li class="c-categories__item">
-      
-      <a class="c-categories__link" href="/category/devlang-linux-centos7/">
-        
-        
-        
-        <div class="c-categories__img">
-          <figure style="background-image: url('/images/DevLang_Linux_CentOS7/2020/04/23/0.jpg');"></figure>
-          <span class="c-categories__more">View all</span>
-        </div>
-        
-        
-        <div class="c-categories__container ">
-          <h2 class="c-categories__header">DevLang_Linux_CentOS7</h2>
-          <p class="c-categories__count"><span>3</span> Posts</p>
-        </div>
-      </a>
-    </li>
-    
-    <li class="c-categories__item">
-      
-      <a class="c-categories__link" href="/category/devlang-linux-fedora19/">
-        
-        
-        
-        <div class="c-categories__img">
-          <figure style="background-image: url('/images/DevLang_Linux_Fedora19/logo.png');"></figure>
-          <span class="c-categories__more">View all</span>
-        </div>
-        
-        
-        <div class="c-categories__container ">
-          <h2 class="c-categories__header">DevLang_Linux_Fedora19</h2>
-          <p class="c-categories__count"><span>7</span> Posts</p>
-        </div>
-      </a>
-    </li>
-    
-    <li class="c-categories__item">
-      
-      <a class="c-categories__link" href="/category/devlang-node-js/">
-        
-        
-        
-        <div class="c-categories__img">
-          <figure style="background-image: url('/images/DevLang_Node.js/logo.png');"></figure>
-          <span class="c-categories__more">View all</span>
-        </div>
-        
-        
-        <div class="c-categories__container ">
-          <h2 class="c-categories__header">DevLang_Node.js</h2>
-          <p class="c-categories__count"><span>2</span> Posts</p>
-        </div>
-      </a>
-    </li>
-    
-    <li class="c-categories__item">
-      
-      <a class="c-categories__link" href="/category/devlang-oracle/">
-        
-        
-        
-        <div class="c-categories__img">
-          <figure style="background-image: url('/images/DevLang_Oracle/logo.png');"></figure>
-          <span class="c-categories__more">View all</span>
-        </div>
-        
-        
-        <div class="c-categories__container ">
-          <h2 class="c-categories__header">DevLang_Oracle</h2>
-          <p class="c-categories__count"><span>1</span> Posts</p>
-        </div>
-      </a>
-    </li>
-    
-    <li class="c-categories__item">
-      
-      <a class="c-categories__link" href="/category/devlang-python/">
-        
-        
-        
-        <div class="c-categories__img">
-          <figure style="background-image: url('/images/DevLang_Python/logo.png');"></figure>
-          <span class="c-categories__more">View all</span>
-        </div>
-        
-        
-        <div class="c-categories__container ">
-          <h2 class="c-categories__header">DevLang_Python</h2>
-          <p class="c-categories__count"><span>1</span> Posts</p>
-        </div>
-      </a>
-    </li>
-    
-    <li class="c-categories__item">
-      
-      <a class="c-categories__link" href="/category/devops-maven/">
-        
-        
-        
-        <div class="c-categories__img">
-          <figure style="background-image: url('/images/DevOps_Maven/logo.png');"></figure>
-          <span class="c-categories__more">View all</span>
-        </div>
-        
-        
-        <div class="c-categories__container ">
-          <h2 class="c-categories__header">DevOps_Maven</h2>
-          <p class="c-categories__count"><span>4</span> Posts</p>
-        </div>
-      </a>
-    </li>
-    
-    <li class="c-categories__item">
-      
-      <a class="c-categories__link" href="/category/devops-spring/">
-        
-        
-        
-        <div class="c-categories__img">
-          <figure style="background-image: url('/images/DevOps_Spring/logo.png');"></figure>
-          <span class="c-categories__more">View all</span>
-        </div>
-        
-        
-        <div class="c-categories__container ">
-          <h2 class="c-categories__header">DevOps_Spring</h2>
-          <p class="c-categories__count"><span>1</span> Posts</p>
-        </div>
-      </a>
-    </li>
-    
-    <li class="c-categories__item">
-      
-      <a class="c-categories__link" href="/category/devops-tips/">
-        
-        
-        
-        <div class="c-categories__img">
-          <figure style="background-image: url('/images/DevOps_Tips/2020/04/28/0.jpg');"></figure>
-          <span class="c-categories__more">View all</span>
-        </div>
-        
-        
-        <div class="c-categories__container ">
-          <h2 class="c-categories__header">DevOps_Tips</h2>
-          <p class="c-categories__count"><span>1</span> Posts</p>
-        </div>
-      </a>
-    </li>
-    
-    <li class="c-categories__item">
-      
-      <a class="c-categories__link" href="/category/it-tech/">
-        
-        
-        
-        <div class="c-categories__img">
-          <figure style="background-image: url('/images/IT_Tech/2021/11/Blockchain_identifier/0.png');"></figure>
-          <span class="c-categories__more">View all</span>
-        </div>
-        
-        
-        <div class="c-categories__container ">
-          <h2 class="c-categories__header">IT_Tech</h2>
-          <p class="c-categories__count"><span>1</span> Posts</p>
-        </div>
-      </a>
-    </li>
-    
-    <li class="c-categories__item">
-      
-      <a class="c-categories__link" href="/category/job/">
-        
-        
-        
-        <div class="c-categories__img">
-          <figure style="background-image: url('/images/Job/logo.png');"></figure>
-          <span class="c-categories__more">View all</span>
-        </div>
-        
-        
-        <div class="c-categories__container ">
-          <h2 class="c-categories__header">Job</h2>
-          <p class="c-categories__count"><span>2</span> Posts</p>
-        </div>
-      </a>
-    </li>
-    
-  </ul>
-</div> <!-- ./c-categories -->
 </main> <!-- /.c-content -->
   </div> <!-- /.o-wrapper -->
   <div class="c-top" data-icon='ei-chevron-up' data-size='s' title="Scroll To Top"></div> <!-- /.c-top -->
