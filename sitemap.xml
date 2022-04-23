@@ -4,6 +4,22 @@
         xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     
     <url>
+        <loc>https://dong-jun-shin.github.io/2022/04/23/SSH_Git_Repo_Clone/</loc>
+        
+        <lastmod>2022-04-23T21:30:27+09:00</lastmod>
+        
+
+        
+        <changefreq>weekly</changefreq>
+        
+
+        
+        <priority>0.5</priority>
+        
+
+    </url>
+    
+    <url>
         <loc>https://dong-jun-shin.github.io/2022/03/20/About_Slack/</loc>
         
         <lastmod>2022-03-20T17:51:05+09:00</lastmod>
