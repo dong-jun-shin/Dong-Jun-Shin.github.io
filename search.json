@@ -1,6 +1,38 @@
 [
   
     {
+      "title"    : "AWS Summit Seoul 2023 Session - 생성 Al 모델의 임베딩 벡터를 이용한 서버리스 추천 검색 구현하기",
+      "category" : "",
+      "tags"     : "",
+      "url"      : "/2023/05/07/Aws_Summit_Seoul_2023_Session_04_gen_ai_embedding_vector/",
+      "date"     : "2023-05-07 02:30:03 +0900"
+    } ,
+  
+    {
+      "title"    : "AWS Summit Seoul 2023 Session - Datadog을 활용한 AWS Serverless Observability",
+      "category" : "",
+      "tags"     : "",
+      "url"      : "/2023/05/07/Aws_Summit_Seoul_2023_Session_03_serverless_observability/",
+      "date"     : "2023-05-07 02:30:03 +0900"
+    } ,
+  
+    {
+      "title"    : "AWS Summit Seoul 2023 Session - 비즈니스 경쟁에서 승리하기 위한 AWS AI/ML 서비스",
+      "category" : "",
+      "tags"     : "",
+      "url"      : "/2023/05/07/Aws_Summit_Seoul_2023_Session_02_ai_ml_service/",
+      "date"     : "2023-05-07 02:30:03 +0900"
+    } ,
+  
+    {
+      "title"    : "AWS Summit Seoul 2023 Session - AWS와 Cisco가 함꼐하는 제로 트러스트!!",
+      "category" : "",
+      "tags"     : "",
+      "url"      : "/2023/05/07/Aws_Summit_Seoul_2023_Session_01_zero_trust/",
+      "date"     : "2023-05-07 02:30:03 +0900"
+    } ,
+  
+    {
       "title"    : "AWS Summit Seoul 2023 방문기",
       "category" : "",
       "tags"     : "",
