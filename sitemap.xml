@@ -4,6 +4,22 @@
         xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     
     <url>
+        <loc>https://dong-jun-shin.github.io/2023/05/08/Beyond_AI_Basic_2023_Week_1/</loc>
+        
+        <lastmod>2023-05-08T21:48:06+09:00</lastmod>
+        
+
+        
+        <changefreq>weekly</changefreq>
+        
+
+        
+        <priority>0.5</priority>
+        
+
+    </url>
+    
+    <url>
         <loc>https://dong-jun-shin.github.io/2023/05/07/Aws_Summit_Seoul_2023_Session_04_gen_ai_embedding_vector/</loc>
         
         <lastmod>2023-05-07T02:30:03+09:00</lastmod>
