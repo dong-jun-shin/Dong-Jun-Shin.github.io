@@ -768,14 +768,14 @@ conda create -n virtual_workspace python=3.8
 <ul>
   <li>Feature 값을 특정 기준으로 분류해 트리 모양으로 구성되며, 목적에 맞는 의사결정을 만드는 모델</li>
   <li>가장 기본이 되는 모델은 의사결정트리(Decision Tree)가 있음</li>
-  <li>그 외에 Random Forest, AdaBoost, GBM, XGBoost, LightGBM, CatBoost 등이 있음
+  <li>그 외에 Random Forest, AdaBoost, GBM, XGBoost/LightGBM/CatBoost 등이 있음 (트리의 발전 순)
     <h2 id="bagging--boosting">Bagging &amp; Boosting</h2>
   </li>
   <li>Bagging
     <ul>
       <li>데이터셋을 랜덤하게 샘플해서 트리를 생성하고 생성한 트리의 의사 결정들을 취합하여 하나의 의사결정으로 구성하는 방식</li>
       <li>대표적으로 Random Forest가 있음</li>
-      <li>구성
+      <li>구성 알고리즘
         <ul>
           <li>Bootstrap: Data를 여러 번 Sampling</li>
           <li>Aggregation: 종합(Ensemble)</li>
@@ -792,6 +792,7 @@ conda create -n virtual_workspace python=3.8
   </li>
   <li>Bagging과 Boosting 차이
     <ul>
+      <li>가장 큰 차이는 Train 데이터를 어떻게 다루냐의 차이</li>
       <li>Tree 생성 방법
         <ul>
           <li>Bagging은 병렬 모델로 트리를 생성 (각 모델은 연관 없음)</li>
@@ -817,7 +818,17 @@ conda create -n virtual_workspace python=3.8
   </li>
   <li>비 균형적 구조
     <ul>
-      <li>LightGBM
+      <li>LightGBM</li>
+    </ul>
+  </li>
+  <li>Category 변수 다루기
+    <ul>
+      <li>LightGBM, CatBoost는 pandas의 category 데이터 타입 가능
+        <ul>
+          <li>category 데이터에 대해 우수한 모델 성능</li>
+        </ul>
+      </li>
+      <li>XGBoost는 numeric 데이터 타입만 가능 (전처리 필요)
         <h2 id="hyper-parameter-살펴보기">Hyper-parameter 살펴보기</h2>
       </li>
     </ul>
@@ -836,7 +847,7 @@ conda create -n virtual_workspace python=3.8
   </li>
   <li>Column &amp; Row Sampling Ratio
     <ul>
-      <li>컬럼(Feature) 중 랜덤으로 일부만 사용해서 Tree를 만듦</li>
+      <li>컬럼(Feature) 또는 로우(Instance) 중 랜덤으로 일부만 사용해서 Tree를 만듦</li>
       <li>Overfitting이 발생할 확률이 비교적 낮음</li>
       <li>다양한 조합으로 여러가지 트리를 만들 수 있음</li>
     </ul>
