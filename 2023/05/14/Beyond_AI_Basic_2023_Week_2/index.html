@@ -322,15 +322,51 @@
       </li>
     </ul>
   </li>
-  <li>모델별 피처 중요도 순위 예시<br />
-||LightGBM|XGBoost|CatBoost|
-|—|—|—|—|
-|feature 1|order_ts-last|order_ts-last|order_ts-last|
-|feature 2|order_ts_diff-max|quantity_diff-skew|year_month_mode|
-|feature 3|order_ts-first|cumsum_price_by_prod_id-skew|order_ts-first|
-|feature 4|cumsum_price_by_prod_id-skew|price_diff-skew|order_ts_diff-max|
-|feature 5|quantity_diff-skew|order_ts-first|cumsum_total_by_prod_id-sum|</li>
+  <li>모델별 피처 중요도 순위 예시</li>
 </ul>
+
+<table>
+  <thead>
+    <tr>
+      <th> </th>
+      <th>LightGBM</th>
+      <th>XGBoost</th>
+      <th>CatBoost</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>feature 1</td>
+      <td>order_ts-last</td>
+      <td>order_ts-last</td>
+      <td>order_ts-last</td>
+    </tr>
+    <tr>
+      <td>feature 2</td>
+      <td>order_ts_diff-max</td>
+      <td>quantity_diff-skew</td>
+      <td>year_month_mode</td>
+    </tr>
+    <tr>
+      <td>feature 3</td>
+      <td>order_ts-first</td>
+      <td>cumsum_price_by_prod_id-skew</td>
+      <td>order_ts-first</td>
+    </tr>
+    <tr>
+      <td>feature 4</td>
+      <td>cumsum_price_by_prod_id-skew</td>
+      <td>price_diff-skew</td>
+      <td>order_ts_diff-max</td>
+    </tr>
+    <tr>
+      <td>feature 5</td>
+      <td>quantity_diff-skew</td>
+      <td>order_ts-first</td>
+      <td>cumsum_total_by_prod_id-sum</td>
+    </tr>
+  </tbody>
+</table>
 
 <p><br /></p>
 
