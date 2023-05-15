@@ -323,23 +323,53 @@
           </li>
         </ul>
       </li>
+      <li>모델별 피처 중요도 순위 예시</li>
     </ul>
   </li>
 </ul>
 
-<hr />
-
-<ul>
-  <li>모델별 피처 중요도 순위 예시
-||LightGBM|XGBoost|CatBoost|
-|—|—|—|—|
-|feature 1|order_ts-last|order_ts-last|order_ts-last|
-|feature 2|order_ts_diff-max|quantity_diff-skew|year_month_mode|
-|feature 3|order_ts-first|cumsum_price_by_prod_id-skew|order_ts-first|
-|feature 4|cumsum_price_by_prod_id-skew|price_diff-skew|order_ts_diff-max|
-|feature 5|quantity_diff-skew|order_ts-first|cumsum_total_by_prod_id-sum|
-___</li>
-</ul>
+<table>
+  <thead>
+    <tr>
+      <th> </th>
+      <th>LightGBM</th>
+      <th>XGBoost</th>
+      <th>CatBoost</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>feature 1</td>
+      <td>order_ts-last</td>
+      <td>order_ts-last</td>
+      <td>order_ts-last</td>
+    </tr>
+    <tr>
+      <td>feature 2</td>
+      <td>order_ts_diff-max</td>
+      <td>quantity_diff-skew</td>
+      <td>year_month_mode</td>
+    </tr>
+    <tr>
+      <td>feature 3</td>
+      <td>order_ts-first</td>
+      <td>cumsum_price_by_prod_id-skew</td>
+      <td>order_ts-first</td>
+    </tr>
+    <tr>
+      <td>feature 4</td>
+      <td>cumsum_price_by_prod_id-skew</td>
+      <td>price_diff-skew</td>
+      <td>order_ts_diff-max</td>
+    </tr>
+    <tr>
+      <td>feature 5</td>
+      <td>quantity_diff-skew</td>
+      <td>order_ts-first</td>
+      <td>cumsum_total_by_prod_id-sum</td>
+    </tr>
+  </tbody>
+</table>
 
 <p><br /></p>
 
@@ -437,19 +467,66 @@ ___</li>
   </li>
 </ul>
 
-<hr />
-
-<p>|parameter|XGBoost|CatBoost|LightGBM|
-|—|—|—|—|
-|Learning rate|learning_rate|learning_rate|learning_rate|
-|Tree depth|max_depth|depth|max_depth|
-|Number of leaves|max_leaves|max_leaves|num_leaves|
-|Number of tree|n_estimators|n_estimators|n_estimators|
-|Early stop|early_stopping_rounds|od_wait|early_stopping_rounds|
-|Row sampling ratio|subsample|subsample|bagging_freq|
-|Column sampling ratio|colsample_bytree|rsm|colsample_bytree|
-|L1/L2 norm penalty|alpha/lambda|l2<em>leaf_reg|lambda_l1/lambda_l2|
-__</em></p>
+<table>
+  <thead>
+    <tr>
+      <th>parameter</th>
+      <th>XGBoost</th>
+      <th>CatBoost</th>
+      <th>LightGBM</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Learning rate</td>
+      <td>learning_rate</td>
+      <td>learning_rate</td>
+      <td>learning_rate</td>
+    </tr>
+    <tr>
+      <td>Tree depth</td>
+      <td>max_depth</td>
+      <td>depth</td>
+      <td>max_depth</td>
+    </tr>
+    <tr>
+      <td>Number of leaves</td>
+      <td>max_leaves</td>
+      <td>max_leaves</td>
+      <td>num_leaves</td>
+    </tr>
+    <tr>
+      <td>Number of tree</td>
+      <td>n_estimators</td>
+      <td>n_estimators</td>
+      <td>n_estimators</td>
+    </tr>
+    <tr>
+      <td>Early stop</td>
+      <td>early_stopping_rounds</td>
+      <td>od_wait</td>
+      <td>early_stopping_rounds</td>
+    </tr>
+    <tr>
+      <td>Row sampling ratio</td>
+      <td>subsample</td>
+      <td>subsample</td>
+      <td>bagging_freq</td>
+    </tr>
+    <tr>
+      <td>Column sampling ratio</td>
+      <td>colsample_bytree</td>
+      <td>rsm</td>
+      <td>colsample_bytree</td>
+    </tr>
+    <tr>
+      <td>L1/L2 norm penalty</td>
+      <td>alpha/lambda</td>
+      <td>l2_leaf_reg</td>
+      <td>lambda_l1/lambda_l2</td>
+    </tr>
+  </tbody>
+</table>
 
 <p><br /></p>
 
@@ -561,7 +638,7 @@ print(study.best_params) # E.g {'x': 2.002108042}
 
 <p><br /></p>
 
-<h3 id="트리-부스팅에서-사용하는-앙상블-방식-">트리 부스팅에서 사용하는 앙상블 방식 (?)</h3>
+<h3 id="트리-부스팅에서-사용하는-앙상블-방식">트리 부스팅에서 사용하는 앙상블 방식</h3>
 <ul>
   <li><strong>Decisioon Tree: Impurity</strong>
     <ul>
