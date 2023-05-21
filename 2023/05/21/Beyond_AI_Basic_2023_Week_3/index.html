@@ -5,9 +5,9 @@
   <meta http-equiv='X-UA-Compatible' content='IE=edge'>
   <meta name='viewport' content='width=device-width, initial-scale=1'>
 
-  <title>C# 실습 코드</title>
-  <meta name='description' content="- 20/04/28 블로그 이전으로 인한 이전 자료 재업로드입니다. -">
-  <link rel='canonical' href="https://dong-jun-shin.github.io/2020/04/23/3/">
+  <title>코칭스터디 Beyond AI Basic 2023 - 3주차 학습</title>
+  <meta name='description' content="">
+  <link rel='canonical' href="https://dong-jun-shin.github.io/2023/05/21/Beyond_AI_Basic_2023_Week_3/">
   <link rel='alternate' type='application/rss+xml' title='Jun's Dev_Blog' href="https://dong-jun-shin.github.io/feed.xml">
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Volkhov:400,700" rel="stylesheet">
@@ -114,36 +114,469 @@
       </div>
     </header>
     
-    <div class="c-article__image o-opacity" style="background-image: url( /images/DevLang_Csharp/logo.png )"></div>
+    <div class="c-article__image o-opacity" style="background-image: url( /images/CS_AI_ML/logo.png )"></div>
     
     <div class="c-wrap-content">
       <header class="c-article__header">
-        <h1 class="c-article__title">C# 실습 코드</h1>
+        <h1 class="c-article__title">코칭스터디 Beyond AI Basic 2023 - 3주차 학습</h1>
         <div class="c-article__date">
-          <span>2020, Apr 23</span>
+          <span>2023, May 21</span>
         </div>
       </header>
-      <p>- 20/04/28 블로그 이전으로 인한 이전 자료 재업로드입니다. -</p>
+      <hr />
 
-<p>https://github.com/Dong-Jun-Shin/Study_C-sharp_18_01</p>
+<h1 id="딥러닝-기초">딥러닝 기초</h1>
+<h2 id="딥러닝-기본-용어-설명">딥러닝 기본 용어 설명</h2>
+<h3 id="딥러닝을-활용하는-데이터-사이언티스트가-갖춰야-할-역량">딥러닝을 활용하는 데이터 사이언티스트가 갖춰야 할 역량</h3>
+<ul>
+  <li>프로그래밍 역량(Implementation Skills)
+    <ul>
+      <li>텐서플로우, 파이토치</li>
+    </ul>
+  </li>
+  <li>수학 및 통계 역량(Math Skills)
+    <ul>
+      <li>선형 대수학(Linear Algebra)</li>
+      <li>확률(Probability)</li>
+    </ul>
+  </li>
+  <li>관련 도메인 지식(Knowing Papers)
+    <ul>
+      <li>많은 양의 최신 자료</li>
+    </ul>
+  </li>
+</ul>
 
-<p>Dong-Jun-Shin/Study_C-sharp_18_01</p>
+<p><br /></p>
 
-<p>study (18/01/12 ~ 18/02/07). Contribute to Dong-Jun-Shin/Study_C-sharp_18_01
-development by creating an account on GitHub.</p>
+<h3 id="딥러닝의-정의">딥러닝의 정의</h3>
+<ul>
+  <li>Artificial Intelligence &gt; Machine Learning &gt; Deep Learning</li>
+</ul>
 
-<p>github.com</p>
+<p><br /></p>
 
+<h3 id="딥러닝의-핵심-요소">딥러닝의 핵심 요소</h3>
+<ul>
+  <li>모델이 학습 가능한 <strong>데이터</strong>
+    <ul>
+      <li>문제에 의존성을 가짐</li>
+      <li>데이터의 종류
+        <ul>
+          <li>정의 문제(Classification)</li>
+          <li>특징 분류 문제(Semantic Segmentation)</li>
+          <li>탐색 문제(Detection)</li>
+          <li>자세 판단 문제(Pose Estimation)</li>
+          <li>시각적 질의응답 문제(Visual QnA)</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>데이터를 원하는 것으로 변환해주는 <strong>모델</strong>
+    <ul>
+      <li>input(x)로 output(y)를 도출하기 위한 파라미터들(w, b)을 찾기 위한 것</li>
+      <li>2012 ~ 2020까지 대표적인 모델 예시
+        <ul>
+          <li>AlexNet - 2012, 첫 딥러닝 모델</li>
+          <li>DQN - 2013, 딥 마인드에서 게임을 학습하는데 사용한 모델</li>
+          <li>Encoder/Decoder - 2014, 번역 등에 사용한 모델</li>
+          <li>AdamOptimizer - 2014, 수많은 하이퍼 파라미터의 최적화에 높은 성능을 보이는 모델</li>
+          <li>GAN - 2015, 이미지 생성 모델</li>
+          <li>ResNet(Residual Networks) - 2015, NN의 층을 깊게 쌓아 성능을 높인 모델</li>
+          <li>Transformer - 2017, 기존 방법론들을 대체한 중요한 모델</li>
+          <li>BERT - 2018, 소수의 데이터를 fine-tuning 하는 개념이 적용된 모델</li>
+          <li>BIG language Models - 2019, GPT 같은 가장 진보된 NLP 모델</li>
+          <li>Self Supervised Learning - 2020, SimCLR 같은 라벨되지 않은 데이터를 학습에 함께 활용하는 방법</li>
+        </ul>
+      </li>
+      <li>그 외 모델
+        <ul>
+          <li>GoogLeNet</li>
+          <li>DenseNet</li>
+          <li>LSTM</li>
+          <li>Deep AutoEncoders</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>정해진 모델과 데이터로 어떻게 학습할 지에 대한 <strong>손실 함수(Loss function)</strong>
+    <ul>
+      <li>손실률(실제와 예측의 차이)을 근사치로 표현한 함수</li>
+      <li>클수록 오답이고, 작을수록 정답</li>
+      <li>종류
+        <ul>
+          <li><strong>회귀 문제(Regression Task)</strong>
+            <ul>
+              <li><strong>평균 제곱 오차 (MSE, Mean-Squared Error)</strong>
+                <ul>
+                  <li>학습값과 예측값의 오차 제곱을 계산한 값</li>
+                  <li>연속적 분포의 특성을 갖는 선형 회귀에서 주로 사용</li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <li><strong>분류 문제(Classification)</strong>
+            <ul>
+              <li><strong>크로스 엔트로피 (CE, Cross-Entropy)</strong>
+                <ul>
+                  <li>확률 분포와 예측 분포 사이의 차이를 측정</li>
+                  <li>이산적 분포의 특성을 갖는 다항 분류에 주로 사용</li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <li><strong>확률 문제(Probability)</strong>
+            <ul>
+              <li><strong>최대 가능도 추정 (MLE, Maximum Likelihood Estimation)</strong>
+                <ul>
+                  <li>각 샘플에 있는 특징을 기여도로 계산해서 다 곱한 값</li>
+                  <li>데이터의 밀도를 추정하는 방법으로 값에 대한 평균과 분산으로 모델링할 때 주로 사용</li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>손실률을 최소화하는 최적화 목적의 <strong>알고리즘</strong>
+    <ul>
+      <li>한정된 데이터로 모델과 손실 함수를 바꿔가며 높은 성능을 내도록 함</li>
+      <li>Dropout</li>
+      <li>Early stopping</li>
+      <li>k-fold validation</li>
+      <li>Weight decay</li>
+      <li>Batch normalization</li>
+      <li>MixUp</li>
+      <li>Ensemble</li>
+      <li>Bayesian Optimization</li>
+    </ul>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h2 id="뉴럴-네트워크---mlp">뉴럴 네트워크 - MLP</h2>
+<h3 id="neural-networks">Neural Networks</h3>
+<ul>
+  <li>포유류의 신경망을 기반으로 분류, 생성, 변환 등 함수를 모방한 개념</li>
+</ul>
+
+<p><br /></p>
+
+<h3 id="linear-neural-networks">Linear Neural Networks</h3>
+<ul>
+  <li>학습된 데이터가 선형의 모습으로 이루어진 가장 간단한 NN의 개념</li>
+  <li>n차원 값에서 m차원 값을 찾고 싶은 경우, 행렬을 곱함
+    <ul>
+      <li>2개의 벡터 공간 사이의 선형성을 찾는 것</li>
+    </ul>
+  </li>
+  <li><strong>Data</strong>: x, y로 구성된 1차원 값 N개로 구성</li>
+  <li><strong>Model</strong>: x를 w라는 스칼로 곱하고, b라는 바이어스를 더함
+    <ul>
+      <li>모델은 x에서 y를 도출하기 위한 w, b를 찾는 것이 목적</li>
+    </ul>
+  </li>
+  <li><strong>Loss</strong>: MSE를 사용</li>
+</ul>
+
+<p><br /></p>
+
+<h3 id="beyond-linear-neural-networks">Beyond Linear Neural Networks</h3>
+<ul>
+  <li>선형 결합의 반복을 통해 네트워크를 여러개 쌓는 방법</li>
+  <li>Non-linear transform(p)을 선형 결합들 사이에 추가해서 반복 결합
+    <ul>
+      <li>단순한 선형 결합은 행렬이 대칭하지 않기 때문에 하나인 네트워크와 같음</li>
+    </ul>
+  </li>
+  <li>Activation functions
+    <ul>
+      <li>Non-linear transform을 위한 함수</li>
+      <li>종류
+        <ul>
+          <li><strong>Rectified Linear Unit(ReLU)</strong>
+            <ul>
+              <li>0보다 큰 값은 그대로 쓰고, 작은 값은 0으로 두는 방법</li>
+            </ul>
+          </li>
+          <li><strong>Sigmoid</strong>
+            <ul>
+              <li>출력값을 0 ~ 1로 제한하는 것</li>
+            </ul>
+          </li>
+          <li><strong>Hyperbolic Tangent</strong>
+            <ul>
+              <li>출력값을 +, -로 제한하는 것</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h3 id="multi-layer-perceptron">Multi-Layer Perceptron</h3>
+<ul>
+  <li>input layer(x), hidden layer(h), output layer(y) 등으로 구성됨</li>
+  <li>linear 또는 transformation 등 변환하는 작업을 하는 hidden layer가 있음</li>
+</ul>
+
+<p><br /></p>
+
+<hr />
+
+<h1 id="최적화">최적화</h1>
+<h2 id="최적화의-주요-용어-이해하기">최적화의 주요 용어 이해하기</h2>
+<h3 id="introduction">Introduction</h3>
+<ul>
+  <li>최적화는 빠르고 정확한 학습을 위한 개념</li>
+  <li>Gradient Descent
+    <ul>
+      <li>1차 미분값을 사용하여 계속 최적화를 반복해서 loss function을 최소화시키는 것</li>
+    </ul>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h3 id="최적화에-있어-중요한-컨셉important-concepts-in-optimization">최적화에 있어 중요한 컨셉(Important Concepts in Optimization)</h3>
+<ul>
+  <li><strong>Generalization</strong>
+    <ul>
+      <li>Input data가 달라져도 Output에 대한 성능차이가 나지 않는 현상</li>
+      <li>학습 데이터와 테스트 데이터 사이의 차이
+        <ul>
+          <li>좋다 =&gt; 차이가 적어서 학습한만큼 나온다</li>
+        </ul>
+      </li>
+      <li>학습 데이터 자체가 안 좋을 경우, Generalization이 좋더라도 안 좋을 수 있음</li>
+    </ul>
+  </li>
+  <li><strong>Underfitting vs. Overfitting</strong>
+    <ul>
+      <li>과소적합, 과적합은 해석하기에 따라 달라질 수 있기 때문에 이론에 가까운 개념임</li>
+    </ul>
+  </li>
+  <li><strong>Cross-validation</strong>
+    <ul>
+      <li>학습데이터를 k개로 나누어 fold를 구성하고, 각 fold로 model을 생성하고 검증하는 K-fold cross-validation이 있음</li>
+      <li>이 때 절대 테스트 데이터는 사용하면 안됨</li>
+    </ul>
+  </li>
+  <li><strong>Bias and Variance</strong>
+    <ul>
+      <li>두가지는 반비례함</li>
+      <li><strong>Bias</strong>: 평균적으로 봤을 때, 일관된 출력을 보이는 정도 (낮을수록 일관됨)</li>
+      <li><strong>Variance</strong>: 입력에 대해 일관된 출력을 보이는 정도 (낮을수록 일관됨)</li>
+    </ul>
+  </li>
+  <li><strong>Bias and Variance Tradeoff</strong>
+    <ul>
+      <li>cost를 줄이기 위해서, Bias와 Variance, noise를 두고 고민해야 함</li>
+    </ul>
+  </li>
+  <li><strong>Bootstrapping</strong>
+    <ul>
+      <li>데이터 중 랜덤하게 일부를 뽑아 샘플링하고 각각의 모델을 생성하는 방법</li>
+      <li>모델들의 예측값이 일치하는 정도를 보고, 전체적인 모델의 예측을 보고자 할 때 사용</li>
+    </ul>
+  </li>
+  <li><strong>Bagging vs. Boosting</strong>
+    <ul>
+      <li><strong>Bagging(Bootstrapping aggregating)</strong>: 동일 모델을 여러개 만들어 각각 학습(병렬 학습)</li>
+      <li><strong>Boosting</strong>: 순차적으로 학습(직렬 학습)</li>
+    </ul>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h2 id="gradient-descent-methods">Gradient Descent Methods</h2>
+<h3 id="practical-gradient-descent-methods">Practical Gradient Descent Methods</h3>
+<ul>
+  <li><strong>Stochastic gradient descent</strong>
+    <ul>
+      <li>전체 데이터 중 하나의 샘플을 이용해서 하나의 Gradient를 구하는 것을 반복하는 것</li>
+    </ul>
+  </li>
+  <li><strong>Mini-batch gradient descent</strong>
+    <ul>
+      <li>전체 데이터 중 일부를 이용해서 하나의 Gradient를 구하는 것을 반복하는 것</li>
+      <li>보통 제일 많이 사용하는 방법</li>
+    </ul>
+  </li>
+  <li><strong>Batch gradient descent</strong>
+    <ul>
+      <li>전체 데이터 모두를 이용해서 하나의 Gradient를 구하는 것을 반복하는 것</li>
+    </ul>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h3 id="batch-size-문제">Batch-size 문제</h3>
+<ul>
+  <li>Testing Function의 Minimum을 찾는 것이 중요</li>
+  <li>Minimum의 개념
+    <ul>
+      <li>제일 잘 예측하는 지점</li>
+      <li><strong>Flat Minimum</strong>
+        <ul>
+          <li>Testing Function과 편차가 크지 않아, 학습 데이터에서 나온 성능만큼 보여주는 것</li>
+          <li>Generalization가 높음</li>
+        </ul>
+      </li>
+      <li><strong>Sharp Minimum</strong>
+        <ul>
+          <li>Testing Function과 편차가 커서, 학습 데이터에서 나온 성능과 차이가 큼</li>
+          <li>Generalization가 낮음</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h3 id="종류">종류</h3>
+<ul>
+  <li>공식의 용어
+    <ul>
+      <li>W:  NN의 Weight를 뜻함</li>
+      <li>에타(η): Learning rate</li>
+      <li>g: Gradient</li>
+      <li>t: Step size</li>
+      <li>베타(β): momentum</li>
+      <li>엡실론(ε): 분모가 0이 되는 것을 방지하기 위한 값(분모값의 안정성을 위한 값)</li>
+      <li>G: 파라미터가 변화한 정도를 누적한 값(gradient 제곱합)</li>
+    </ul>
+  </li>
+  <li><strong>Stochastic Gradient Descent</strong>
+    <ul>
+      <li>데이터 그대로 학습하는 방법</li>
+      <li>Learning rate와 Gradient를 곱한 값을 Weight에서 뺌</li>
+      <li>적절한 Learning rate와 Step size를 찾기 어려움</li>
+    </ul>
+  </li>
+  <li><strong>Momentum(관성)</strong>
+    <ul>
+      <li>momentum을 하이퍼 파라미터로 곱해서 다음 단계에 값이 반영되도록 한 방법</li>
+      <li>일정 구간동안 학습 데이터가 반영될 수 있음</li>
+    </ul>
+  </li>
+  <li><strong>Nesterov Accelerated Gradient</strong>
+    <ul>
+      <li>실제 계산되는 지점에 momentum을 가로질러서 도달하는 방법</li>
+      <li>Lookahead gradient를 계산</li>
+      <li>momentum보다 빠르게 도달할 수 있음</li>
+    </ul>
+  </li>
+  <li><strong>Adagrad</strong>
+    <ul>
+      <li>NN의 파라미터가 변화한 정도를 조정하는 방법</li>
+      <li>많이 변화했으면 둔하게 만들고, 적게 변화했으면 민감해지도록 함</li>
+      <li>G가 계속 커지게 되면 점점 학습이 둔화하는 문제가 있음</li>
+    </ul>
+  </li>
+  <li><strong>Adadelta</strong>
+    <ul>
+      <li>G를 단계별로 고려해서 시간에 따른 변화를 보는 방법</li>
+      <li>Adagrad에서 G가 계속 커지는 현상을 막기위해 나왔으나, 많이 사용되지는 않음</li>
+      <li>단계별로 이전 단계들의 파라미터를 가지고 있어서 속도에 문제가 있음</li>
+    </ul>
+  </li>
+  <li><strong>RMSprop</strong>
+    <ul>
+      <li>Adagrad처럼 NN의 파라미터 변화한 정도와 단계별 사이즈를 고려하는 방법</li>
+    </ul>
+  </li>
+  <li><strong>Adam</strong>
+    <ul>
+      <li>RMSprop과 Momentum의 개념을 합친 방법</li>
+      <li>G의 변화 정도, 단계별 사이즈, 이전 단계에서 사용된 값을 고려</li>
+      <li>일반적으로 많이 사용됨</li>
+    </ul>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h2 id="regularization">Regularization</h2>
+<h3 id="정의">정의</h3>
+<ul>
+  <li>Generalization(오차)를 줄이고 싶은 목적으로 방해되는 요소를 규제하는 방법</li>
+</ul>
+
+<p><br /></p>
+
+<h3 id="종류-1">종류</h3>
+<ul>
+  <li><strong>Early Stopping</strong>
+    <ul>
+      <li>validation error가 커지는 시점을 기준으로 멈추는 방법</li>
+    </ul>
+  </li>
+  <li><strong>Parameter Norm Penalty</strong>
+    <ul>
+      <li>NN 파라미터가 너무 커지지 않도록 패널티를 부여하는 방법</li>
+    </ul>
+  </li>
+  <li><strong>Data Augmentation</strong>
+    <ul>
+      <li>데이터를 여러가지 방식으로 데이터를 늘려서 Input으로 사용하는 방법</li>
+      <li>사진을 예시로 하면, 회전, 반전, 사이즈 수정 등이 있음</li>
+    </ul>
+  </li>
+  <li><strong>Noise Robustness</strong>
+    <ul>
+      <li>데이터에 불규칙한 노이즈를 추가해서 Input이나 weights로 사용하는 방법</li>
+      <li>글자를 예시로 하면, 해상도를 낮추는 방법이 있음</li>
+    </ul>
+  </li>
+  <li><strong>Lebel Smoothing</strong>
+    <ul>
+      <li>학습데이터 2개를 뽑아서 섞어서 Input으로 사용하는 방법</li>
+      <li>분류에 대한 기준을 찾기 위해 사용, 학습한 데이터 양에 비해 높은 성능을 보임</li>
+      <li>사진을 예시로 하면, 강아지, 고양이에 대해 이미지와 분류 비율을 섞어서 사용함</li>
+    </ul>
+  </li>
+  <li><strong>Dropout</strong>
+    <ul>
+      <li>설정한 파라미터 값만큼 NN의 Weight을 바꿔서, 일부 neuron을 0으로 바꾸는 방법</li>
+    </ul>
+  </li>
+  <li><strong>Batch Normalization</strong>
+    <ul>
+      <li>평균을 빼고 분산을 나눠서(표준 편차를 줄이는) 방법</li>
+      <li>각 층의 값들을 100이라 하면 0으로 줄임</li>
+      <li>층이 많이 쌓일수록 높은 성능을 보여주지만, 논란이 많은 방법임</li>
+    </ul>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<hr />
+
+<h2 id="reference">Reference</h2>
+<ul>
+  <li><a href="https://m.post.naver.com/viewer/postView.naver?volumeNo=35664080&amp;memberNo=34635212">제대로 된 인공지능 스터디를 찾고 있다면? AI 심화 스터디</a></li>
+  <li><a href="https://www.boostcourse.org/study-ai111-2023">[코칭스터디 10기] Beyond AI Basic 2023 스터디 전용강좌</a></li>
+</ul>
 
       <div class="c-article__footer u-clearfix">
         <div class="c-article__tag">
           
         </div>
         <div class="c-article__share">
-          <a href="https://twitter.com/intent/tweet?text=C#%20%EC%8B%A4%EC%8A%B5%20%EC%BD%94%EB%93%9C&url=https://dong-jun-shin.github.io/2020/04/23/3/" title="Share
+          <a href="https://twitter.com/intent/tweet?text=%EC%BD%94%EC%B9%AD%EC%8A%A4%ED%84%B0%EB%94%94%20Beyond%20AI%20Basic%202023%20-%203%EC%A3%BC%EC%B0%A8%20%ED%95%99%EC%8A%B5&url=https://dong-jun-shin.github.io/2023/05/21/Beyond_AI_Basic_2023_Week_3/" title="Share
           on Twitter" rel="nofollow" target="_blank"><div data-icon='ei-sc-twitter' data-size='s'></div></a>
-          <a href="https://facebook.com/sharer.php?u=https://dong-jun-shin.github.io/2020/04/23/3/" title="Share on Facebook" rel="nofollow" target="_blank"><div data-icon='ei-sc-facebook' data-size='s'></div></a>
-          <a href="https://plus.google.com/share?url=https://dong-jun-shin.github.io/2020/04/23/3/" title="Share on Google+" rel="nofollow" target="_blank"><div data-icon='ei-sc-google-plus' data-size='s'></div></a>
+          <a href="https://facebook.com/sharer.php?u=https://dong-jun-shin.github.io/2023/05/21/Beyond_AI_Basic_2023_Week_3/" title="Share on Facebook" rel="nofollow" target="_blank"><div data-icon='ei-sc-facebook' data-size='s'></div></a>
+          <a href="https://plus.google.com/share?url=https://dong-jun-shin.github.io/2023/05/21/Beyond_AI_Basic_2023_Week_3/" title="Share on Google+" rel="nofollow" target="_blank"><div data-icon='ei-sc-google-plus' data-size='s'></div></a>
         </div>
       </div>
       <div class="c-newsletter">
@@ -167,9 +600,6 @@ development by creating an account on GitHub.</p>
         
         
         
-        
-        
-        
           <div class="c-recent__item">
             <a class="c-recent__image" href="/2023/05/08/Beyond_AI_Basic_2023_Week_1/" style="background-image: url( /images/CS_AI_ML/2023/05/Beyond_AI_Basic_2023_Week_1/0.png)"></a>
             <div class="c-recent__footer">
@@ -186,6 +616,18 @@ development by creating an account on GitHub.</p>
             <a class="c-recent__image" href="/2023/05/07/Aws_Summit_Seoul_2023_Session_04_gen_ai_embedding_vector/" style="background-image: url( /images/IT_Tech/2023/05/Aws_Summit_Seoul_2023_Session_04_gen_ai_embedding_vector/0.png)"></a>
             <div class="c-recent__footer">
               <h4><a href="/2023/05/07/Aws_Summit_Seoul_2023_Session_04_gen_ai_embedding_vector/">AWS Summit Seoul 2023 Session - 생성 Al 모델의 임베딩 벡터를 이용한 서버리스 추천 검색 구현하기</a></h4>
+              <div class="c-recent__date">
+                <time datetime="2023-05-07T02:30:03+09:00">May 7, 2023</time>
+              </div>
+            </div>
+          </div>
+        
+        
+        
+          <div class="c-recent__item">
+            <a class="c-recent__image" href="/2023/05/07/Aws_Summit_Seoul_2023_Session_03_serverless_observability/" style="background-image: url( /images/IT_Tech/2023/05/Aws_Summit_Seoul_2023_Session_03_serverless_observability/0.png)"></a>
+            <div class="c-recent__footer">
+              <h4><a href="/2023/05/07/Aws_Summit_Seoul_2023_Session_03_serverless_observability/">AWS Summit Seoul 2023 Session - Datadog을 활용한 AWS Serverless Observability</a></h4>
               <div class="c-recent__date">
                 <time datetime="2023-05-07T02:30:03+09:00">May 7, 2023</time>
               </div>
