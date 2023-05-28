@@ -5,9 +5,9 @@
   <meta http-equiv='X-UA-Compatible' content='IE=edge'>
   <meta name='viewport' content='width=device-width, initial-scale=1'>
 
-  <title>AWS Summit Seoul 2023 Session - Datadog을 활용한 AWS Serverless Observability</title>
-  <meta name='description' content="세션 정보  장소: 3층 오디토리움  시간: 16:30 ~ 17:00">
-  <link rel='canonical' href="https://dong-jun-shin.github.io/2023/05/07/Aws_Summit_Seoul_2023_Session_03_serverless_observability/">
+  <title>코칭스터디 Beyond AI Basic 2023 - 4주차 학습</title>
+  <meta name='description' content="">
+  <link rel='canonical' href="https://dong-jun-shin.github.io/2023/05/28/Beyond_AI_Basic_2023_Week_4/">
   <link rel='alternate' type='application/rss+xml' title='Jun's Dev_Blog' href="https://dong-jun-shin.github.io/feed.xml">
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Volkhov:400,700" rel="stylesheet">
@@ -114,132 +114,676 @@
       </div>
     </header>
     
-    <div class="c-article__image o-opacity" style="background-image: url( /images/IT_Tech/2023/05/Aws_Summit_Seoul_2023_Session_03_serverless_observability/0.png )"></div>
+    <div class="c-article__image o-opacity" style="background-image: url( /images/CS_AI_ML/logo.png )"></div>
     
     <div class="c-wrap-content">
       <header class="c-article__header">
-        <h1 class="c-article__title">AWS Summit Seoul 2023 Session - Datadog을 활용한 AWS Serverless Observability</h1>
+        <h1 class="c-article__title">코칭스터디 Beyond AI Basic 2023 - 4주차 학습</h1>
         <div class="c-article__date">
-          <span>2023, May 07</span>
+          <span>2023, May 28</span>
         </div>
       </header>
       <hr />
 
-<h2 id="세션-정보">세션 정보</h2>
+<h1 id="cnn">CNN</h1>
+<h2 id="cnn---convolution은-무엇인가">CNN - Convolution은 무엇인가?</h2>
+<h3 id="convolution">Convolution</h3>
 <ul>
-  <li>장소: 3층 오디토리움</li>
-  <li>시간: 16:30 ~ 17:00</li>
+  <li>이미지를 특정 형태로 변환하는 것</li>
+  <li>용어 정의
+    <ul>
+      <li>I(Image): 이미지</li>
+      <li>K(Kernel): 적용할 컨볼루션 필터</li>
+      <li>O(Output): 필터가 적용된 이미지</li>
+      <li>Dimension = Channel = Depth: 층</li>
+    </ul>
+  </li>
+  <li>원리
+    <ul>
+      <li>필터를 Image의 시작부터 크기대로 적용해서 Output을 얻음
+        <ul>
+          <li>3x3 filter가 있고, 7x7 image가 있는 경우
+            <ul>
+              <li>필터의 크기인 Image(1, 1) ~ Image(3, 3)의 범위에 적용하여 Output(1, 1)을 얻음</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li>필터를 적용 시, Depth는 항상 타겟과 동일한 것을 사용</li>
+      <li>필터는 Output의 Depth만큼 필요함</li>
+    </ul>
+  </li>
 </ul>
 
-<hr />
+<p><br /></p>
 
-<h2 id="세션-목차">세션 목차</h2>
+<h3 id="rgb-image-convolution">RGB Image Convolution</h3>
 <ul>
-  <li>Serverless 관련 설문 조사 (Demo 시연)</li>
-  <li>Serverless 사용 트렌드</li>
-  <li>Observability란?</li>
-  <li>Serverless Observability의 중요성</li>
-  <li>Datadog을 활용한 Serverless Observability</li>
-  <li>Demo 설명</li>
-  <li>Datadog Workflows를 활용한 Serverless Workloads 자동화</li>
+  <li>수학적으로 표현할 때, tensor(32x32)로 표현됨</li>
+  <li>R, G, B 표현을 위해 Depth는 3으로 구성</li>
+  <li>e.g. I(32x32x3), K_R(5x5x3), K_G(5x5x3), K_B(5x5x3) -&gt; O(28x28x3)</li>
 </ul>
 
-<hr />
+<p><br /></p>
 
-<h2 id="세션-내용">세션 내용</h2>
+<h3 id="stack-of-convolutions">Stack of Convolutions</h3>
+<ul>
+  <li>여러개의 Convolutions을 적용하는 것</li>
+</ul>
+
+<p><br /></p>
+
+<h3 id="convolutional-neural-networks">Convolutional Neural Networks</h3>
+<ul>
+  <li>구성
+    <ul>
+      <li>convolution layer
+        <ul>
+          <li>도장을 찍듯이 한 부분을 선택하여 훑어서 값을 얻는 층</li>
+        </ul>
+      </li>
+      <li>pooling layer
+        <ul>
+          <li>convolution layer로 얻은 값들을 다 합쳐서 최종적인 값을 출력함</li>
+        </ul>
+      </li>
+      <li>fully connected layer (dense layer)
+        <ul>
+          <li>분류, 회귀를 통해 원하는 값을 얻는 층</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>각 구성 요소의 목적
+    <ul>
+      <li>convolution layer, pooling layer는 이미지에서 유용한 정보를 추출하는데 사용</li>
+      <li>fully connected layer는 의사 결정을 하기 위한 값을 추출하는데 사용</li>
+    </ul>
+  </li>
+  <li>CNN 성능 향상을 위한 목표
+    <ul>
+      <li>convolution layer를 최대한 많이 쌓고, 파라미터 숫자와 관련있는 fully connected layer를 최소로 하는데 집중</li>
+    </ul>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h3 id="convolution-arithmetic">Convolution Arithmetic</h3>
+<ul>
+  <li>Output size를 구하는 수식
+    <ul>
+      <li>W: width, F: Filter, S: Stride</li>
+      <li>(W-F)/S+1</li>
+    </ul>
+  </li>
+  <li>Patch size / Stride
+    <ul>
+      <li>다음 필터를 적용하기까지의 이동 간격</li>
+      <li>e.g. 1이면 한 칸씩 이동</li>
+    </ul>
+  </li>
+  <li>Padding
+    <ul>
+      <li>추가적으로 부여하는 가상의 테두리 크기</li>
+      <li>e.g. 1이면 한 칸씩 더 붙임</li>
+    </ul>
+  </li>
+  <li>params
+    <ul>
+      <li>convolution layer의 param 개수
+        <ul>
+          <li>K(NxMxD) * O_depth(출력 Depth) * N(나누어진 네트워크 개수)</li>
+        </ul>
+      </li>
+      <li>fully connected layer의 param 개수
+        <ul>
+          <li>I(NxMxD) * C(channel 개수) * O_depth(출력 Depth) * N(나누어진 네트워크 개수)</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h3 id="exercise">Exercise</h3>
+<ul>
+  <li>GPU 메모리 크기가 부족할 경우, 네트워크가 여러개로 나누어져 각각의 GPU로 병렬 수행될 수 있음
+    <ul>
+      <li>N(나누어진 네트워크 수)를 곱해야 전체 파라미터를 계산할 수 있음</li>
+    </ul>
+  </li>
+  <li>Kernel이 모든 위치에 1:1 매핑되기 때문에 fully connected layer가 더 많은 param 개수를 가짐
+    <ul>
+      <li>Convolution operator는 모두 동일하게 적용되기 때문에 일종의 Shared parameter임</li>
+    </ul>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h3 id="1x1-convolution">1X1 Convolution</h3>
+<ul>
+  <li>이미지에서 1픽셀씩 매치시키고 Channel 방향으로 줄이는 방법</li>
+  <li>Dimension reduction
+    <ul>
+      <li>Convolution(1x1)을 이용해서 이전 Dimension(NxM)을 유지하면서 Channel(Depth)만 줄임</li>
+      <li>이를 통해, depth를 증가시키면서 parameter 개수를 줄일 수 있음</li>
+    </ul>
+  </li>
+  <li>e.g. bottleneck architecture</li>
+</ul>
+
+<p><br /></p>
+
+<h2 id="modern-cnn---1x1-convolution의-중요성">Modern CNN - 1x1 convolution의 중요성</h2>
+<ul>
+  <li>layer는 깊게 쌓으면서 param을 줄인 방법</li>
+</ul>
+
+<p><br /></p>
+
+<h3 id="ilsvrc">ILSVRC</h3>
+<ul>
+  <li>ImageNet Large-Scale Visual Recognition Challenge
+    <ul>
+      <li>Classification(분류) / Detection(물체 인식) / Localization(하나의 물체 인식)/ Segmentation(pixel 단위로 특징을 분류)</li>
+      <li>Classification
+        <ul>
+          <li>AlexNet / VGG / ResNet</li>
+          <li>e.g. image가 강아지 사진인지 맞추는 문제</li>
+        </ul>
+      </li>
+      <li>Localization / Detection
+        <ul>
+          <li>R-CNN / Fast R-CNN / Faster R-CNN</li>
+          <li>e.g. image 안에 강아지가 어디 있는지 찾는 문제</li>
+        </ul>
+      </li>
+      <li>Segmentation
+        <ul>
+          <li>FCN / DeepLab</li>
+          <li>e.g. image를 보고 하나가 아닌 전체를 이해하는 문제</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p><img src="/images/CS_AI_ML/2023/05/Beyond_AI_Basic_2023_Week_4/1.png" alt="" /><br />
+  <em>ILSVRC 예시</em></p>
+
+<ul>
+  <li>1000개 정도의 분류</li>
+  <li>1백만개 이상의 이미지들</li>
+  <li>훈련 데이터로 약 46만장 사용</li>
+</ul>
+
+<p><br /></p>
+
+<h3 id="alexnet">AlexNet</h3>
+<ul>
+  <li>특징
+    <ul>
+      <li>Rectified Linear Unit(ReLU) activation function을 사용
+        <ul>
+          <li>0보다 작으면 0, 크면 그대로 사용</li>
+          <li>activation function의 특징인 Non-linear 성질을 가지고 있음</li>
+          <li>e.g. max(0, x)</li>
+        </ul>
+      </li>
+      <li>2개의 GPU 사용</li>
+      <li>Local response normalization(LRN)
+        <ul>
+          <li>ReLU로 0이상의 값이 주변 픽셀에 영향주는 것을 방지하기 위해 정규화하는 방법</li>
+          <li>측면 억제 원리를 사용(lateral inhibition)</li>
+          <li>현재는 잘 사용되지 않음</li>
+        </ul>
+      </li>
+      <li>Overlapping pooling
+        <ul>
+          <li>3x3 영역을 2픽셀 단위로 pooling해서 조금씩 겹치는 부분을 만들어 처리하는 방법</li>
+        </ul>
+      </li>
+      <li>Data Augmentation
+        <ul>
+          <li>overfitting을 방지하기 위해 학습 데이터를 증가시키는 방법</li>
+        </ul>
+      </li>
+      <li>Dropout
+        <ul>
+          <li>랜덤하게 일부 데이터를 제외하는 방법</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h3 id="vggnet">VGGNet</h3>
+<ul>
+  <li>특징
+    <ul>
+      <li>3x3 convolution filters(with stride 1)만 사용
+        <ul>
+          <li>3x3 2번하는 게, 5x5로 filter 했을 때보다 params의 receptive field를 유지하면서 네트워크를 더 깊게 쌓을 수 있음</li>
+        </ul>
+      </li>
+      <li>1x1 convolution for fully connected layers</li>
+      <li>Dropout (p=0.5)</li>
+      <li>VGG16, VGG19</li>
+    </ul>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h3 id="googlenet">GoogLeNet</h3>
+<ul>
+  <li>특징
+    <ul>
+      <li>1x1 convolution filters를 사용해서 Params를 줄임
+        <ul>
+          <li>inception blocks을 활용한 network-in-network(NIN) 구조</li>
+          <li>inception blocks
+            <ul>
+              <li>Input에 3x3, 5x5 conv를 적용하기 전에 1x1 conv를 적용하는 구성</li>
+              <li>1x1를 중간에 사용해서 3x3, 5x5에 적용되는 Depth를 줄여 전체적인 params를 줄임</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h3 id="resnet">ResNet</h3>
+<ul>
+  <li>특징
+    <ul>
+      <li>데이터를 학습할 때, 기존 학습된 데이터랑 다른 차이만을 학습한 방법</li>
+      <li>네트워크가 커짐에 따라, 오히려 학습 에러가 커져서 학습을 더 시킬 수 없는 상황을 개선하기 위해 <code class="highlighter-rouge">identity map</code>이라는 개념을 추가</li>
+      <li>identity map (Residual connection, skip connection)
+        <ul>
+          <li>network의 출력 또는 1x1 conv에 input 결과의 차이만 더함</li>
+          <li>종류
+            <ul>
+              <li>Simple Shortcut</li>
+              <li>Projected Shortcut</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li>Bottleneck architecture
+        <ul>
+          <li>3x3 2번 conv하는 것에서 params를 줄이기 위해, 1x1을 먼저 적용하여 3x3의 input을 줄이고 input을 늘리기 위해 Depth를 늘린 1x1을 다시 conv함</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h3 id="densenet">DenseNet</h3>
+<ul>
+  <li>ResNet에서 차이를 더하면 값이 섞이니, 섞지 말고 이어주는 방법</li>
+  <li>이어줄 경우, channel이 커짐에 따라 param이 기하급수적으로 늘어날 수 있어서 Transition Block으로 param을 줄여줌</li>
+  <li>구조
+    <ul>
+      <li>Dense Block
+        <ul>
+          <li>각 학습의 차이를 이어주는 층</li>
+        </ul>
+      </li>
+      <li>Transition Block
+        <ul>
+          <li>1x1 conv를 해서 param을 줄여주는 층</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p><br /></p>
 
 <h3 id="summary">Summary</h3>
 <ul>
-  <li>MSA와 Serverless 환경의 비중이 늘어남에 따라, Observability가 중요해짐</li>
-  <li>Datadog을 통해 서비스 단위로 직관적인 Serverless 가시성(메트릭) 확보가 가능</li>
-  <li>쉽게 Serverless 트랜잭션(End-to-End에 대한 맵, 페이로드 등 각종 로그) 분석 가능</li>
-  <li>Serverless 가시성 확보를 통해 Serverless를 최적화하고, 트랜잭션을 쉽게 파악하여 장애 분석 시간을 최소화 할 수 있음<br />
-  <img src="/images/IT_Tech/2023/05/Aws_Summit_Seoul_2023_Session_03_serverless_observability/10.jpg" alt="" /><br />
-  <em>Datadog 세션 요약</em></li>
+  <li>VGG: 3x3 conv를 사용.</li>
+  <li>GoogLeNet: 1x1 conv를 사용. params를 줄일 수 있음</li>
+  <li>ResNet: skip-connection 방법 사용. 네트워크를 깊이 쌓을 수 있음</li>
+  <li>DenseNet: concatenation으로 차이를 쌓는 방법 사용.</li>
 </ul>
 
 <p><br /></p>
 
-<h3 id="serverless-관련-설문-조사-demo-시연">Serverless 관련 설문 조사 (Demo 시연)</h3>
+<h2 id="computer-vision-applications">Computer Vision Applications</h2>
+<h3 id="semantic-segmentation">Semantic Segmentation</h3>
 <ul>
-  <li>Datadog이 적용된 설문 시스템 Demo</li>
+  <li>pixel마다 분류하여 labeling하는 것</li>
 </ul>
 
 <p><br /></p>
 
-<h3 id="serverless-사용-트렌드">Serverless 사용 트렌드</h3>
+<h3 id="fully-convolutional-network">Fully Convolutional Network</h3>
 <ul>
-  <li>Serverless는 이제 일반적인 기술이라 할만큼 널리 사용되고 있음</li>
-  <li>하지만 아직 배포는 컨테이너로 하고 있음<br />
-  <img src="/images/IT_Tech/2023/05/Aws_Summit_Seoul_2023_Session_03_serverless_observability/1.jpg" alt="" /><br />
-  <em>Datadog 고객 기준 트렌드 통계</em></li>
-</ul>
-
-<p><br /></p>
-
-<h3 id="observability란">Observability란?</h3>
-<ul>
-  <li>다양한 리소스 및 플랫폼에서 메트릭을 수집</li>
-  <li>로그의 중앙화</li>
-  <li>다양한 언어의 분산된 로그를 추적</li>
-  <li>유연한 모니터링<br />
-  <img src="/images/IT_Tech/2023/05/Aws_Summit_Seoul_2023_Session_03_serverless_observability/2.jpg" alt="" /><br />
-  <em>Observability와 Monitoring의 차이</em></li>
-</ul>
-
-<p><br /></p>
-
-<h3 id="serverless-observability의-중요성">Serverless Observability의 중요성</h3>
-<ul>
-  <li>Serverless를 통해 비용과 관리 부담을 최소화</li>
-  <li>하지만 잘못 설계할 경우, 역으로 비용이 증가하고 이슈 트래킹에 복잡도가 상승함<br />
-  <img src="/images/IT_Tech/2023/05/Aws_Summit_Seoul_2023_Session_03_serverless_observability/3.jpg" alt="" /><br />
-  <em>Observability의 중요성</em><br />
-  <img src="/images/IT_Tech/2023/05/Aws_Summit_Seoul_2023_Session_03_serverless_observability/4.jpg" alt="" /><br />
-  <em>이슈 트래킹에 필요한 다양한 메트릭들</em></li>
-</ul>
-
-<p><br /></p>
-
-<h3 id="datadog을-활용한-serverless-observability">Datadog을 활용한 Serverless Observability</h3>
-<ul>
-  <li>트랜잭션 확인 사례
+  <li>Convolutionalization(컨볼루션화)
     <ul>
-      <li>람다, 서버리스, 라이브러리 등 각종 메트릭 정보를 서비스별로 제공<br />
-<img src="/images/IT_Tech/2023/05/Aws_Summit_Seoul_2023_Session_03_serverless_observability/5.jpg" alt="" /><br />
-<em>Datadog이 제공하는 주요 메트릭</em><br />
-<img src="/images/IT_Tech/2023/05/Aws_Summit_Seoul_2023_Session_03_serverless_observability/6.jpg" alt="" /><br />
-<em>트랜잭션에 대한 FLAME GRAPH와 메트릭을 분석하는 데모</em></li>
+      <li>Fully Connected Layer(dense layer)를 없애기 위해 convolution을 이용한 방법</li>
+      <li>Fully Connected Layer(dense layer) 대신 conv filter를 적용해서 conv layer로 변환
+        <ul>
+          <li>convolution이 가지는 shared parameter의 성질로 인해, input 이미지의 크기에 상관없이 conv filter를 적용 가능</li>
+        </ul>
+      </li>
+      <li>변환된 conv layer는 2차원 정보(이미지의 객체와 위치)를 가지고 있음 (결과가 heat map과 유사)</li>
     </ul>
   </li>
 </ul>
 
 <p><br /></p>
 
-<h3 id="demo-설명">Demo 설명</h3>
+<h3 id="deconvolution">Deconvolution</h3>
 <ul>
-  <li>투표 시스템에 적용한 Datadog Demo
+  <li>conv 연산을 하면 output은 절반으로 줄게 되는데 conv로 줄어든 output을 다시 늘려주는 것</li>
+</ul>
+
+<p><br /></p>
+
+<h2 id="detection">Detection</h2>
+<h3 id="r-cnn">R-CNN</h3>
+<ul>
+  <li>CNN에 입력할 때 고정된 크기로 Crop 또는 Warp한 뒤 네트워크에 입력하는 방법</li>
+  <li>Crop 또는 Warp하는 과정에서 객체가 가지고 있는 형태적인 정보가 왜곡될 수 있음</li>
+  <li>순서
     <ul>
-      <li>투표 시스템은 많이 사용되는 서비스를 기준으로 아키텍처를 설계</li>
-      <li>사용자 진행 시나리오에 대한 화면 캡쳐, 렌더링 정보, 레이턴시 정보, 람다 페이로드 등 Observability 확인 가능</li>
-      <li>브라우저 리퀘스트부터 도달까지 진행된 메트릭 정보를 확인 및 트러블 슈팅 가능</li>
-      <li>서버간의 연관 관계를 맵으로 제공<br />
-<img src="/images/IT_Tech/2023/05/Aws_Summit_Seoul_2023_Session_03_serverless_observability/7.jpg" alt="" /><br />
-<em>투표 시스템의 아키텍처</em></li>
-      <li>CLI를 통해 Datadog을 간편하게 구성가능<br />
-<img src="/images/IT_Tech/2023/05/Aws_Summit_Seoul_2023_Session_03_serverless_observability/8.jpg" alt="" /><br />
-<em>CLI로 Datadog 적용하기</em></li>
+      <li>이미지를 받음</li>
+      <li>이미지 안에서 2000개의 region을 랜덤하게 선택</li>
+      <li>AlexNet으로 각 region의 특징을 계산</li>
+      <li>linear SVMs로 분류</li>
     </ul>
   </li>
 </ul>
 
 <p><br /></p>
 
-<h3 id="datadog-workflows를-활용한-serverless-workloads-자동화">Datadog Workflows를 활용한 Serverless Workloads 자동화</h3>
+<h3 id="sppnet">SPPNet</h3>
 <ul>
-  <li>상황에 따른 알림과 그에 맞는 액션을 자동으로 실행하는 기능을 제공<br />
-  <img src="/images/IT_Tech/2023/05/Aws_Summit_Seoul_2023_Session_03_serverless_observability/9.jpg" alt="" /><br />
-  <em>Serverless Workloads 자동화 단계 예시</em></li>
+  <li>Spatial Pyramid Pooling을 사용해서, R-CNN의 과도한 연산량 문제와 정보 왜곡 문제를 해결한 방법
+    <ul>
+      <li>Spatial Pyramid Pooling은 잘라낸 영역에 대해 미리 정한 영역(1분할, 4분할, …)으로 나누고 각 결과를 고정된 크기의 벡터로 이어서 반환하는 방법</li>
+    </ul>
+  </li>
+  <li>이미지 안에서 CNN을 한 번만 함</li>
+</ul>
+
+<p><br /></p>
+
+<h3 id="fast-r-cnn">Fast R-CNN</h3>
+<ul>
+  <li>binary SVM + bounding box regression을 하나로 합쳐서 multi-pipeline구조의 번거로움을 제거하고 최적화를 위한 방법
+    <ul>
+      <li>기존 물체 분류를 위해 binary SVM을 학습하고, 객체 위치를 보정하기 위해 bounding box regression을 별도로 학습해야 하는 단점이 있었음</li>
+    </ul>
+  </li>
+  <li>구조 개선으로 네트워크 추론 시간이 짧아짐</li>
+  <li>개선점
+    <ul>
+      <li>binary SVM 대신 FC layer와 softmax를 활용</li>
+      <li>CNN으로 얻은 Output(feature vector)를 bounding box regression의 입력으로 사용</li>
+    </ul>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h3 id="faster-r-cnn">Faster R-CNN</h3>
+<ul>
+  <li>하나로 합쳐진 bounding box regression와 Region Proposal(객체 후보)도 하나로 합쳐서 Selective Search 알고리즘의 시간을 없앤 방법
+    <ul>
+      <li>기존 Region Proposal을 얻기 위해 시간이 오래 걸리는 Selective Search 알고리즘 연산이 필요했음</li>
+    </ul>
+  </li>
+  <li>객체 후보 추정 시간이 짧아짐</li>
+  <li>개선점
+    <ul>
+      <li>Selective Search 알고리즘을 사용한 Region Proposal 대신 객체 후보 영역도 학습하는 네트워크(RPN)을 사용</li>
+      <li>Region Proposal Network(RPN)
+        <ul>
+          <li>입력받은 feature map의 마지막 conv 층을 sliding해서 저차원으로 매핑하고 Regression과 classification을 수행
+            <ul>
+              <li>이미지 안에 어떤 물체가 있을 지 미리 알고 템플릿을 만들어 두고 템플릿이 바뀌는 정도를 보고 판단해서 Region Proposal과 score를 출력</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h3 id="yolo">YOLO</h3>
+<ul>
+  <li>이미지 자체를 가지고 분류를 하는 방법</li>
+  <li>분리, 분류를 한번에 하기 때문에 빠름</li>
+  <li>이미지를 SxS으로 나누어 bonding box를 찾고, 실제로 의미있는지를 동시에 예측</li>
+  <li>Tensor = SxSx(B*5+C)
+    <ul>
+      <li>SxS: 그리드에서 나눈 셀 개수</li>
+      <li>
+        <table>
+          <tbody>
+            <tr>
+              <td>B*5: 박스 크기(offsets</td>
+              <td>x,y,w,h)와 중요한 정도(confidence)</td>
+            </tr>
+          </tbody>
+        </table>
+      </li>
+      <li>C: classes 개수</li>
+    </ul>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h1 id="rnn---sequential-models">RNN - Sequential Models</h1>
+<h2 id="rnn">RNN</h2>
+<h3 id="recurrent-neural-network">Recurrent Neural Network</h3>
+<ul>
+  <li>Markov를 기반으로 만들어져 시계열 데이터 처리에 특화된 방법</li>
+  <li>Sequential Data
+    <ul>
+      <li>몇 차원인지, 몇 개의 입력인지 알지 못하는 연속적인 데이터</li>
+    </ul>
+  </li>
+  <li>Sequential Model
+    <ul>
+      <li>Sequential Data를 고려해서 다음 데이터가 무엇인지 예측하는 모델</li>
+      <li>Naive sequence model
+        <ul>
+          <li>늘어나는 과거 데이터를 모두 고려하여 다음 데이터를 예측</li>
+        </ul>
+      </li>
+      <li>Autoregressive model
+        <ul>
+          <li>과거 N개만 정해서 고려하고 다음 데이터를 예측</li>
+        </ul>
+      </li>
+      <li>Markov model(first-order autoregressive model)
+        <ul>
+          <li>바로 전 과거만 보고 고려하여 다음 데이터를 예측</li>
+        </ul>
+      </li>
+      <li>Latent autoregressive model
+        <ul>
+          <li>과거 데이터 중간에 이전 데이터까지 요약된 Hidden state를 두고, Hidden state를 이용해서 다음 데이터를 예측</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>RNN을 만들 때는 Sigmoid나 ReLU를 사용해서 Hidden state를 구하면 문제가 있기 때문에 Tanh를 사용
+    <ul>
+      <li>Sigmoid를 사용하면 값이 줄어드는 문제가 있음(Vanising)</li>
+      <li>ReLU를 사용하면 Weight가 양수일 때, 단계를 거듭하며 값이 너무 커져서 학습할 때 네트워크가 폭발하는 문제가 있음(exploding gradient)</li>
+    </ul>
+  </li>
+  <li>Transformer가 나온 이후, 잘 사용되지 않음</li>
+</ul>
+
+<p><br /></p>
+
+<h3 id="long-short-term-memorylstm">Long Short Term Memory(LSTM)</h3>
+<ul>
+  <li>Short-term dependencies / Long-term Dependencies 문제를 해결하기 위해 나온 방법
+    <ul>
+      <li>요약 과정에서 과거 데이터가 점점 희미해져서 현재에 고려되기 어려움</li>
+      <li>Short-term을 해결할 경우 Long-term Dependencies 문제가 생김</li>
+    </ul>
+  </li>
+  <li>Previous cell state, Previous hidden state, X_t를 Sigmoid, Tanh 연산이 포함된 각 Gate에 통과시켜 적절한 출력을 얻음</li>
+  <li>용어 정의
+    <ul>
+      <li>Previous cell state(이전 데이터까지 요약된 정보)</li>
+      <li>Previous hidden state(이전의 출력값)</li>
+      <li>X_t(현재 값)</li>
+    </ul>
+  </li>
+  <li>Gate
+    <ul>
+      <li>데이터의 사용 조작 여부를 판단하는 것</li>
+    </ul>
+  </li>
+  <li>Gate 구성
+    <ul>
+      <li>Forget gate
+        <ul>
+          <li>Previous cell state 중 어떤 정보를 버릴 지 판단</li>
+        </ul>
+      </li>
+      <li>Input gate
+        <ul>
+          <li>현재 입력 중 어떤 정보를 사용할 지 판단</li>
+          <li>Update cell
+            <ul>
+              <li>Forget gate, Input gate의 출력 결과를 업데이트해서 사용할 것을 구분해서 cell state를 구성</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li>Output gate
+        <ul>
+          <li>업데이트한 cell state로 현재 hidden state를 만듦</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h3 id="gated-recurrent-unitgru">Gated Recurrent Unit(GRU)</h3>
+<ul>
+  <li>cell state 없이, hidden state로만 구현한 방법</li>
+  <li>파라미터가 적어 학습 성능이 좋음</li>
+  <li>Gate 구성
+    <ul>
+      <li>Reset gate</li>
+      <li>Update gate</li>
+    </ul>
+  </li>
+</ul>
+
+<p><br /></p>
+
+<h2 id="transformer">Transformer</h2>
+<ul>
+  <li>재귀적 구조 없이 attention 구조를 활용해서 번역, 문장 구성, 단어 등 Sequential Data를 다루는 일에 사용하는 방법</li>
+  <li>특징
+    <ul>
+      <li>입력과 출력 Sequence의 수가 다를 수 있음</li>
+      <li>1개의 모델로 구성되어 있음</li>
+      <li>attention 구조
+        <ul>
+          <li>입력을 한번에 처리하는 구조</li>
+          <li>같은 개수의 Encoder, Decoder로 구성</li>
+          <li>Encoder
+            <ul>
+              <li>Self-Attention
+                <ul>
+                  <li>각 Embedding 입력을 고려하여 입력 개수만큼의 Vector 출력을 반환
+                    <ul>
+                      <li>e.g. x1, x2, x3 &gt; z1(x1, x2, x3), z2(x1, x2, x3), z3(x1, x2, x3)</li>
+                    </ul>
+                  </li>
+                  <li>Queries vector, Keys vector, Values vector를 이용해서 x1을 변환
+                    <ul>
+                      <li>생성 과정에서 각각의 Neural Network로 입력 개수별 3개의 Vector를 만듦
+                        <ul>
+                          <li>Queries vector와 Keys vector를 내적해서 score를 구함
+                            <ul>
+                              <li>내적을 위해 2개 vector는 항상 차원이 같아야 함</li>
+                            </ul>
+                          </li>
+                          <li>score가 의미있는 범위에 들어가도록 계산하기 위해, keys dimension에 제곱근을 하고 score를 나눠서 Normalize함</li>
+                          <li>그리고 Normalize된 score에 softmax를 연산해서 attention rate를 측정</li>
+                          <li>vector 간의 유사도인 attention rate에 value vectors의 weighted sum을 하면 z1을 구할 수 있음
+                            <ul>
+                              <li>value의 dimension은 queries dimension이나 keys dimension과 같지 않아도 됨</li>
+                            </ul>
+                          </li>
+                        </ul>
+                      </li>
+                    </ul>
+                  </li>
+                  <li>문장 관계 파악 예시에서 행렬로 표현할 때
+                    <ul>
+                      <li>x의 row는 단어의 개수가 될 수 있고, x의 col은 각 단어가 가지는 Embedding dimension을 의미</li>
+                      <li>keys vector에서 col은 attention dimension을 의미</li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+              <li>Feed Forward Neural Network
+                <ul>
+                  <li>기존 NN과 유사</li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <li>Decoder
+            <ul>
+              <li>attention map을 만들기 위해 Input에 해당하는 Keys vector, Values vector를 전달 받아 최종 출력인 Decoder에 전달함</li>
+              <li>Linear + Softmax를 해서 출력</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>많이 사용되는 라이브러리로 <code class="highlighter-rouge">HuggingFace</code>가 있음</li>
+</ul>
+
+<p><br /></p>
+
+<h3 id="vision-transformer">Vision Transformer</h3>
+<ul>
+  <li>Transformer를 활용해서 이미지 분류하는 방법</li>
+  <li>Transformer Encoder와 Multi-head attention(MHA)를 거쳐 이미지 분류</li>
+  <li>활용 예시 (DALL-E)
+    <ul>
+      <li>문장을 가지고 이미지를 만듦
+        <ul>
+          <li>Transformer Encoder만 이용</li>
+          <li>이미지를 분할한 Sequential Data와 문장으로 구성된 Sequential Data를 입력으로 사용</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
 </ul>
 
 <p><br /></p>
@@ -248,8 +792,9 @@
 
 <h2 id="reference">Reference</h2>
 <ul>
-  <li><a href="https://aws.amazon.com/ko/events/summits/seoul/">AWS Summit Seoul 공식 홈페이지</a></li>
-  <li><a href="https://dong-jun-shin.github.io/2023/05/06/Aws_Summit_Seoul_2023/">AWS Summit Seoul 2023 방문기</a></li>
+  <li><a href="https://m.post.naver.com/viewer/postView.naver?volumeNo=35664080&amp;memberNo=34635212">제대로 된 인공지능 스터디를 찾고 있다면? AI 심화 스터디</a></li>
+  <li><a href="https://www.boostcourse.org/study-ai111-2023">[코칭스터디 10기] Beyond AI Basic 2023 스터디 전용강좌</a></li>
+  <li><a href="https://arxiv.org/abs/1704.06857">ILSVRC 예시</a></li>
 </ul>
 
 
@@ -258,10 +803,10 @@
           
         </div>
         <div class="c-article__share">
-          <a href="https://twitter.com/intent/tweet?text=AWS%20Summit%20Seoul%202023%20Session%20-%20Datadog%EC%9D%84%20%ED%99%9C%EC%9A%A9%ED%95%9C%20AWS%20Serverless%20Observability&url=https://dong-jun-shin.github.io/2023/05/07/Aws_Summit_Seoul_2023_Session_03_serverless_observability/" title="Share
+          <a href="https://twitter.com/intent/tweet?text=%EC%BD%94%EC%B9%AD%EC%8A%A4%ED%84%B0%EB%94%94%20Beyond%20AI%20Basic%202023%20-%204%EC%A3%BC%EC%B0%A8%20%ED%95%99%EC%8A%B5&url=https://dong-jun-shin.github.io/2023/05/28/Beyond_AI_Basic_2023_Week_4/" title="Share
           on Twitter" rel="nofollow" target="_blank"><div data-icon='ei-sc-twitter' data-size='s'></div></a>
-          <a href="https://facebook.com/sharer.php?u=https://dong-jun-shin.github.io/2023/05/07/Aws_Summit_Seoul_2023_Session_03_serverless_observability/" title="Share on Facebook" rel="nofollow" target="_blank"><div data-icon='ei-sc-facebook' data-size='s'></div></a>
-          <a href="https://plus.google.com/share?url=https://dong-jun-shin.github.io/2023/05/07/Aws_Summit_Seoul_2023_Session_03_serverless_observability/" title="Share on Google+" rel="nofollow" target="_blank"><div data-icon='ei-sc-google-plus' data-size='s'></div></a>
+          <a href="https://facebook.com/sharer.php?u=https://dong-jun-shin.github.io/2023/05/28/Beyond_AI_Basic_2023_Week_4/" title="Share on Facebook" rel="nofollow" target="_blank"><div data-icon='ei-sc-facebook' data-size='s'></div></a>
+          <a href="https://plus.google.com/share?url=https://dong-jun-shin.github.io/2023/05/28/Beyond_AI_Basic_2023_Week_4/" title="Share on Google+" rel="nofollow" target="_blank"><div data-icon='ei-sc-google-plus' data-size='s'></div></a>
         </div>
       </div>
       <div class="c-newsletter">
@@ -288,15 +833,24 @@
         
         
         
-        
-        
-        
           <div class="c-recent__item">
             <a class="c-recent__image" href="/2023/05/08/Beyond_AI_Basic_2023_Week_1/" style="background-image: url( /images/CS_AI_ML/2023/05/Beyond_AI_Basic_2023_Week_1/0.png)"></a>
             <div class="c-recent__footer">
               <h4><a href="/2023/05/08/Beyond_AI_Basic_2023_Week_1/">코칭스터디 Beyond AI Basic 2023 - 1주차 학습</a></h4>
               <div class="c-recent__date">
                 <time datetime="2023-05-08T21:48:06+09:00">May 8, 2023</time>
+              </div>
+            </div>
+          </div>
+        
+        
+        
+          <div class="c-recent__item">
+            <a class="c-recent__image" href="/2023/05/07/Aws_Summit_Seoul_2023_Session_04_gen_ai_embedding_vector/" style="background-image: url( /images/IT_Tech/2023/05/Aws_Summit_Seoul_2023_Session_04_gen_ai_embedding_vector/0.png)"></a>
+            <div class="c-recent__footer">
+              <h4><a href="/2023/05/07/Aws_Summit_Seoul_2023_Session_04_gen_ai_embedding_vector/">AWS Summit Seoul 2023 Session - 생성 Al 모델의 임베딩 벡터를 이용한 서버리스 추천 검색 구현하기</a></h4>
+              <div class="c-recent__date">
+                <time datetime="2023-05-07T02:30:03+09:00">May 7, 2023</time>
               </div>
             </div>
           </div>
