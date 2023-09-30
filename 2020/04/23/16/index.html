@@ -156,13 +156,13 @@ less [파일명] : more에서 기능이 더 확장된 것 (화살표 이동 가�
 <p>file [파일명] : 파일의 종류(확장자)를 표시</p>
 
 <p>ls -s [파일] : 파일의 링크를 확인<br />
-   -l : 리스트 정보를 자세히 확인  <br />
-       ( <br />
-        파란색은 디렉토리(d),  <br />
-        검은색은 파일(-),  <br />
-        연파랑은 링크파일(l)(=바로가기) <br />
-       ) <br />
-   -a : 숨김 파일까지 모두 표시 <br />
+   -l : 리스트 정보를 자세히 확인
+       (
+        파란색은 디렉토리(d),
+        검은색은 파일(-),
+        연파랑은 링크파일(l)(=바로가기)
+       )
+   -a : 숨김 파일까지 모두 표시
    -il : inode 블록 표시</p>
 
 <p>ln -sf [파일1] [파일2] : 파일1의 링크를 파일2로 변경<br />
@@ -170,7 +170,7 @@ history : 기존 입력했던 기록된 명령어를 표시<br />
 history -c : 기록된 명령어 초기화</p>
 
 <p>tap : 자동완성.<br />
-    &gt; 자동완성이 여러개인 경우, 목록을 보여준다. <br />
+    &gt; 자동완성이 여러개인 경우, 목록을 보여준다.
     &gt; 자동완성이 없는 경우, 아무 반응 없다.</p>
 
 <p>pwd : 현재 디렉토리를 알려준다.</p>
@@ -180,13 +180,13 @@ history -c : 기록된 명령어 초기화</p>
 <p>mount : 현재 연결된 장치 확인</p>
 
 <p>genisoimage [속성] [생성 파일명] [내용물이 있는 경로] : 경로를 통째로 ISO 파일에 담아 제작<br />
-    -b : boot image <br />
-    -J : Joliet Directory Records. iso9660 file name <br />
-    -r : 퍼미션 자동 변경 <br />
-    -T : Translation Table 파일을 갱신(생성) <br />
-    -V [CD-Volume] : CD Volume 추가 <br />
-    -v : 작업 진행 상황 보이기 <br />
-    -o [File name] : 생성 결과 파일명 <br />
+    -b : boot image
+    -J : Joliet Directory Records. iso9660 file name
+    -r : 퍼미션 자동 변경
+    -T : Translation Table 파일을 갱신(생성)
+    -V [CD-Volume] : CD Volume 추가
+    -v : 작업 진행 상황 보이기
+    -o [File name] : 생성 결과 파일명
     -R : Rock</p>
 
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt; 명령어를 찾지 못한다면, 'yum install genisoimage'로 패키지 설치 후 진행 
@@ -199,9 +199,9 @@ history -c : 기록된 명령어 초기화</p>
 <p>파일 크기는 byte 단위이다. (4번째 자리 = kb, 7번째 자리 = mb)</p>
 
 <p>Common<br />
-    fedora : 사용자 기준, 사용자 폴더? <br />
-    / : root <br />
-    /root : root 안의 “root”라는 폴더 <br />
+    fedora : 사용자 기준, 사용자 폴더?
+    / : root
+    /root : root 안의 “root”라는 폴더
     ~ : 관리자 기준, 사용자 폴더?</p>
 
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/lib/systemd/system/runlevel?.target : 레벨 별로 설정되어 있는 init 관련 target 파일 확인   
@@ -216,16 +216,16 @@ history -c : 기록된 명령어 초기화</p>
 
 <h3 id="-2"><편집기></편집기></h3>
 
-<p>-gedit(GNOME Editor) 은 현재 리눅스 GUI환경에서 사용하는 텍스트 에디터(글들을 수정할 때 쓰는 프로그램) <br />
-    &gt; “윈도우의 메모장”과 유사 <br />
+<p>-gedit(GNOME Editor) 은 현재 리눅스 GUI환경에서 사용하는 텍스트 에디터(글들을 수정할 때 쓰는 프로그램)
+    &gt; “윈도우의 메모장”과 유사
     &gt; GNOME(GNU Network Object Model Environment) : 가장 유명한 리눅스 GUI환경의 인터페이스.</p>
 
-<p>-vi(visual editor)는 파일의 내용을 보여줌과 동시에 파일의 내용을 편집할 수 있게 해주는 프로그램(텍스트 에디터) <br />
-    &gt; vi라는 이름은 한 줄씩 편집하는 줄단위 편집기가 아니라 한 화면을 편집하는 비주얼 에디터(visual editor)라는 뜻에서 유래 <br />
+<p>-vi(visual editor)는 파일의 내용을 보여줌과 동시에 파일의 내용을 편집할 수 있게 해주는 프로그램(텍스트 에디터)
+    &gt; vi라는 이름은 한 줄씩 편집하는 줄단위 편집기가 아니라 한 화면을 편집하는 비주얼 에디터(visual editor)라는 뜻에서 유래
     &gt; .swap은 임시 저장 파일로, 중간에 갑자기 종료된 경우 변경 사항에 대한 정보를 가지고 있다.</p>
 
-<p>-vim(vi improved more)이란 vi의 업그레이드 버젼.  <br />
-    &gt; 특징은 기존에 vi는 글자가 모두 같은 색인 것에 비해, vim은 설정파일의 특정 위치에 있는 단어나, 특별한 단어를  <br />
+<p>-vim(vi improved more)이란 vi의 업그레이드 버젼.
+    &gt; 특징은 기존에 vi는 글자가 모두 같은 색인 것에 비해, vim은 설정파일의 특정 위치에 있는 단어나, 특별한 단어를
        다른 색으로 표현해줘서 가독성을 높임</p>
 
 <p>-gedit과 vi는 차이 : “vi,vim”은 TUI환경에서도 사용이 가능, “gedit”은 GUI환경에서만 사용이 가능</p>
@@ -247,8 +247,9 @@ p : 붙여넣기</p>
 <p>입력모드<br />
 i : Insert (현재 위치에서 입력모드)<br />
 a : Insert (다음 글자에서 입력모드)</p>
+
 <blockquote>
-  <h1 id="-주석">: 주석</h1>
+  <p># : 주석</p>
 </blockquote>
 
 <p>명령모드<br />
@@ -267,9 +268,8 @@ mount [장치 이름] [연결할 경로] : 연결한 경로로 장치를 연결�
     -o loop [iso 파일] [연결할 경로] : 시스템 내부의 ISO 파일을 연결</p>
 
 <p>장치 이름은 /dev/cdrom (CD나 DVD 연결하는 장치)이다.<br />
-    &gt; 여러 리눅스별로 각자의 장치 이름을 가지고 있다. (Fedora는 /dev/sr0) <br />
+    &gt; 여러 리눅스별로 각자의 장치 이름을 가지고 있다. (Fedora는 /dev/sr0)
        그래서 통일해서 허용하는 이름이 /dev/cdrom이다.</p>
-
 
       <div class="c-article__footer u-clearfix">
         <div class="c-article__tag">

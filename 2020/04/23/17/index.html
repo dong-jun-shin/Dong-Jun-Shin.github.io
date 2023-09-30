@@ -133,15 +133,15 @@
 &gt; chvt [번호] : 번호에 해당하는 가상 모니터로 이동   
 </code></pre></div></div>
 
-<p>-사용자와 그룹 관련 명령어 <br />
-    &gt; useradd [사용자 이름] : 사용자 추가 <br />
-    &gt; passwd [사용자 이름] : 사용자 암호 지정 or 변경 <br />
-        (사용자는 유효성 검사 존재, 관리자는 무시 가능) <br />
-    &gt; usermod [속성] root [사용자 이름] : 사용자 속성을 변경 <br />
-        (속성 : -u(ID지정), -g <a href="그룹 지정">그룹이름</a>, -d(홈 디렉터리 지정), -s(셸 지정) <br />
-    &gt; userdel [속성] [사용자 이름] : 사용자 삭제 <br />
-        (속성 : -r(홈 디렉토리 포함 모두 삭제) <br />
-    &gt; chage [속성] [숫자] [사용자 이름] : 사용자의 암호를 주기적으로 변경하도록 설정 <br />
+<p>-사용자와 그룹 관련 명령어
+    &gt; useradd [사용자 이름] : 사용자 추가
+    &gt; passwd [사용자 이름] : 사용자 암호 지정 or 변경
+        (사용자는 유효성 검사 존재, 관리자는 무시 가능)
+    &gt; usermod [속성] root [사용자 이름] : 사용자 속성을 변경
+        (속성 : -u(ID지정), -g <a href="그룹 지정">그룹이름</a>, -d(홈 디렉터리 지정), -s(셸 지정)
+    &gt; userdel [속성] [사용자 이름] : 사용자 삭제
+        (속성 : -r(홈 디렉토리 포함 모두 삭제)
+    &gt; chage [속성] [숫자] [사용자 이름] : 사용자의 암호를 주기적으로 변경하도록 설정
         (속성 : -m(월 단위))</p>
 
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt; groups : 현재 사용자가 속한 그룹 조회   
@@ -161,29 +161,29 @@
     chgrp [그룹이름] [파일이름] :  파일을 소유한 사용자를 바꾸는 명령어 (root만 권한이 있다.)   
 </code></pre></div></div>
 
-<p>-링크 <br />
-    &gt; ln [속성] [링크를 가진 파일 이름] [링크파일 이름] : 링크파일을 생성한다. <br />
-        ( -s : 소프트 링크 / 기본은 하드 링크 ) <br />
-        ( 소프트 링크 : 새로운 inode를 만들고 원본 파일 주소를 연결 -&gt; 원본 파일의 위치가 바뀌거나 없어지면 안됨) <br />
-        ( 하드 링크 : inode를 직접 가짐 ) <br />
+<p>-링크
+    &gt; ln [속성] [링크를 가진 파일 이름] [링크파일 이름] : 링크파일을 생성한다.
+        ( -s : 소프트 링크 / 기본은 하드 링크 )
+        ( 소프트 링크 : 새로운 inode를 만들고 원본 파일 주소를 연결 -&gt; 원본 파일의 위치가 바뀌거나 없어지면 안됨)
+        ( 하드 링크 : inode를 직접 가짐 )
     &gt;</p>
 
-<p>-RPM (의존성을 해결한게 YUM) <br />
-    &gt; rpm -Uvh 패키지파일이름.rpm : 설치 <br />
-        ( U-패키지가 설치/업그레이드, v-설치과정의 확인, h-설치진행과정을 “#”마크로 화면에 출력) <br />
-    &gt; rpm -e [패키지이름]: 삭제 <br />
-    &gt; rpm -qa [패키지이름]: 패키지가 설치되었는지 확인 <br />
-    &gt; rpm -qf [파일의절대경로] : 파일이 어느 패키지에 포함된 것인지 확인 <br />
-    &gt; rpm -qlp [패키지이름]: 패키지 파일에 어떤 파일들이 포함되었는지 확인 <br />
+<p>-RPM (의존성을 해결한게 YUM)
+    &gt; rpm -Uvh 패키지파일이름.rpm : 설치
+        ( U-패키지가 설치/업그레이드, v-설치과정의 확인, h-설치진행과정을 “#”마크로 화면에 출력)
+    &gt; rpm -e [패키지이름]: 삭제
+    &gt; rpm -qa [패키지이름]: 패키지가 설치되었는지 확인
+    &gt; rpm -qf [파일의절대경로] : 파일이 어느 패키지에 포함된 것인지 확인
+    &gt; rpm -qlp [패키지이름]: 패키지 파일에 어떤 파일들이 포함되었는지 확인
     &gt; rpm -qip [패키지이름].rpm : 패키지 파일의 상세정보</p>
 
-<p>-YUM (Yellowdog Updater Modified) <br />
-    &gt; yum [속성] install [패키지이름] <br />
-        (-y : 사용자의 확인을 모두 “yes”로 진행) <br />
-    &gt; yum localinstall rpm[파일이름].rpm : RPM 파일 설치 <br />
-    &gt; yum check-update : 업데이트 가능한 목록 보기 <br />
-    &gt; yum update [패키지 이름] : 업데이트 <br />
-    &gt; yum remove [패키지 이름] : 삭제 <br />
+<p>-YUM (Yellowdog Updater Modified)
+    &gt; yum [속성] install [패키지이름]
+        (-y : 사용자의 확인을 모두 “yes”로 진행)
+    &gt; yum localinstall rpm[파일이름].rpm : RPM 파일 설치
+    &gt; yum check-update : 업데이트 가능한 목록 보기
+    &gt; yum update [패키지 이름] : 업데이트
+    &gt; yum remove [패키지 이름] : 삭제
     &gt; yum info [패키지 이름] : 정보 확인</p>
 
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt; yum groupinstall "[패키지그룹이름]" : 패키지 그룹 설치   
@@ -202,18 +202,18 @@
 /etc/yum.conf : yum의 설정 파일<br />
 /etc/yum.repos.d/ : 검색하게 되는 네트워크의 주소를 가진 파일들이 있는 경로<br />
 /etc/yum.repos.d/ *.repo : 패키지 파일 (핵심은 name, baseurl, gpgcheck)<br />
-        ( metadata_expire=7d (7일동안 보관) ) <br />
-        ( enabled=0 (0=설치x, 1=설치) ) <br />
-        ( gpgcheck=0 (0=서명체크x, 1=서명체크) ) <br />
-    &gt; fedora.repo : 출시 시점의 원본 패키지 <br />
-    &gt; fedora-updates.repo : 출시 이후 개선된 패키지 <br />
+        ( metadata_expire=7d (7일동안 보관) )
+        ( enabled=0 (0=설치x, 1=설치) )
+        ( gpgcheck=0 (0=서명체크x, 1=서명체크) )
+    &gt; fedora.repo : 출시 시점의 원본 패키지
+    &gt; fedora-updates.repo : 출시 이후 개선된 패키지
     &gt; fedora-updates-testing.repo : 미완성된 테스트용 패키지</p>
 
 <p>~[유저명] : 유저의 홈 디렉토리</p>
 
 <p>권한관리<br />
 /etc/passwd : 사용자의 정보를 보유<br />
-    (사용자 이름:암호:사용자 고유 ID:소속 그룹 고유 ID:전체 이름:홈 디렉터리:기본 셸) <br />
+    (사용자 이름:암호:사용자 고유 ID:소속 그룹 고유 ID:전체 이름:홈 디렉터리:기본 셸)
 /etc/shadow : 사용자의 비밀번호를 보유<br />
     (!!은 비밀번호 미지정 상태)</p>
 
@@ -222,12 +222,12 @@
 
 <ul>
   <li>root(사용자) != root(그룹)</li>
-  <li>파일의 리스트와 파일 속성 ( <em>중요) <br />
-  (파일유형</em> | 파일 허가권* | 링크 수 | 파일 소유자 이름* | 파일 소유 그룹이름* | 파일 크기(byte) | 마지막 변경 날짜/시간 | 파일 이름)
+  <li>파일의 리스트와 파일 속성 ( <em>중요)
+  (파일유형</em> | 파일 허가권<em>| 링크 수 | 파일 소유자 이름</em> | 파일 소유 그룹이름* | 파일 크기(byte) | 마지막 변경 날짜/시간 | 파일 이름)
     <blockquote>
-      <p>파일 유형 : 디렉터리일 경우 ‘d’, 파일일 경우 ‘-‘ <br />
-파일 허가권 : 3개씩 끊어서 읽음 (‘r’은 read(4), ‘w’는 write(2), ‘x’는 execute(1)) <br />
-      ( 숫자(8진수)로 표시 가능 (2진수로 계산해서 표현 -&gt; 0 ~ 7 (8진수) ) <br />
+      <p>파일 유형 : 디렉터리일 경우 ‘d’, 파일일 경우 ‘-‘
+파일 허가권 : 3개씩 끊어서 읽음 (‘r’은 read(4), ‘w’는 write(2), ‘x’는 execute(1))
+      ( 숫자(8진수)로 표시 가능 (2진수로 계산해서 표현 -&gt; 0 ~ 7 (8진수) )
       ( ex) ‘rw- r– r–’ or ‘6(420) 4(400) 4(400) ‘ 소유자의 파일접근 권한 | 그룹의 파일접근 권한 | 그 외 사용자(Other)의 파일접근 권한 -&gt; 모두 읽기, 소유자만 쓰기)</p>
     </blockquote>
   </li>
@@ -244,22 +244,21 @@
 
 <p>-—————————————————————RPM와 YUM<br />
 RPM(Redhat Package Manager)<br />
-    - Windows의 ‘setup.exe’와 유사 <br />
-    - 확장명은 *.rpm이며, 이를 ‘패키지(Package)’라고 부름 <br />
-    - 패키지이름-버전-릴리즈번호.페도라버전.아키텍쳐.rpm <br />
-        ( ex) gedit-3.8.2-2.fc19.x86_64.rpm <br />
-            &gt; gedit : 패키지 이름 <br />
-            &gt; 3.8.2 : 버전. 대개 3자리수(주버전, 부버전, 패치버전) <br />
-            &gt; 2 : 문제점을 개선할 때마다 붙여지는 번호 <br />
-            &gt; fc19 : 페도라에서 배포할 경우 붙여짐 <br />
-            &gt; x86_64 : 64비트 CPU ( i386~686 : 32비트, src : 소스, noarch : 모든 CPU ) <br />
+    - Windows의 ‘setup.exe’와 유사
+    - 확장명은 *.rpm이며, 이를 ‘패키지(Package)’라고 부름
+    - 패키지이름-버전-릴리즈번호.페도라버전.아키텍쳐.rpm
+        ( ex) gedit-3.8.2-2.fc19.x86_64.rpm
+            &gt; gedit : 패키지 이름
+            &gt; 3.8.2 : 버전. 대개 3자리수(주버전, 부버전, 패치버전)
+            &gt; 2 : 문제점을 개선할 때마다 붙여지는 번호
+            &gt; fc19 : 페도라에서 배포할 경우 붙여짐
+            &gt; x86_64 : 64비트 CPU ( i386~686 : 32비트, src : 소스, noarch : 모든 CPU )
         )</p>
 
 <p>YUM (Yellowdog Updater Modified)<br />
-    - 인터넷을 통해 필요한 파일을 저장소에서 자동으로 다운 및 설치 <br />
-    - 저장소의 URL은 “/etc/yum.repos.d/” <br />
+    - 인터넷을 통해 필요한 파일을 저장소에서 자동으로 다운 및 설치
+    - 저장소의 URL은 “/etc/yum.repos.d/”
     - 개별 설정한 URL을 먼저 탐색한 후, 없으면 원격 저장소에서 탐색</p>
-
 
       <div class="c-article__footer u-clearfix">
         <div class="c-article__tag">

@@ -141,7 +141,7 @@
   </li>
   <li><strong>단점</strong>
     <ul>
-      <li>서비스에 필요한 데이터를 클라이언트(브라우저)에서 추가로 요청하고 재구성해야 하기 때문에 구성이 완료된 콘텐츠를 보여주는 시점은 SSR보다 느리다. 
+      <li>서비스에 필요한 데이터를 클라이언트(브라우저)에서 추가로 요청하고 재구성해야 하기 때문에 구성이 완료된 콘텐츠를 보여주는 시점은 SSR보다 느리다.
 <img src="/images/CS_Architecture/2021/11/CSR_SSR-theory/1.png" alt="" /></li>
     </ul>
   </li>
@@ -170,11 +170,14 @@
 <ol>
   <li><strong>Angular.js</strong>
     <ul>
-      <li>CSR만을 지원하는 프레임워크 (SSR을 위한 공식 지원은 X)</li>
-      <li>SPA(single-page application)를 구축하는데 유용</li>
-      <li>사용자 UI의 요구사항이 많아서, 빠르고 기민한 대응을 위한 프레임워크가 필요할 때 사용</li>
-      <li>페이지 로드 후, 동적으로 콘텐츠를 생성</li>
-      <li>UI가 아닌 콘텐츠를 빠르게 소비하는 사용자의 요구 사항을 충족시키기에는 부족</li>
+      <li>CSR만을 지원하는 프레임워크 (SSR을 위한 공식 지원은 X)
+        <ul>
+          <li>SPA(single-page application)를 구축하는데 유용</li>
+          <li>사용자 UI의 요구사항이 많아서, 빠르고 기민한 대응을 위한 프레임워크가 필요할 때 사용</li>
+          <li>페이지 로드 후, 동적으로 콘텐츠를 생성</li>
+          <li>UI가 아닌 콘텐츠를 빠르게 소비하는 사용자의 요구 사항을 충족시키기에는 부족</li>
+        </ul>
+      </li>
     </ul>
   </li>
   <li><strong>SPA(single-page application)</strong>
@@ -183,15 +186,14 @@
       <li>현재 페이지를 동적으로 작성해서 사용자와 소통하는 웹 애플리케이션</li>
       <li>연속되는 페이지 간의 사용자 경험을 향상</li>
       <li>데스크톱 애플리케이션처럼 동작</li>
-      <li>Frontend 영역과 Backend 영역
-        <ul>
-          <li>CSR View, SSR View | API로 분리</li>
-          <li>기존 개발
-   <img src="/images/CS_Architecture/2021/11/CSR_SSR-theory/2.png" alt="" /></li>
-          <li>CSR(SPA) 개발
-   <img src="/images/CS_Architecture/2021/11/CSR_SSR-theory/3.png" alt="" /></li>
-        </ul>
-      </li>
+      <li>Frontend 영역과 Backend 영역</li>
+    </ul>
+    <ul>
+      <li>CSR View, SSR View | API로 분리</li>
+      <li>기존 개발
+<img src="/images/CS_Architecture/2021/11/CSR_SSR-theory/2.png" alt="" /></li>
+      <li>CSR(SPA) 개발
+<img src="/images/CS_Architecture/2021/11/CSR_SSR-theory/3.png" alt="" /></li>
     </ul>
   </li>
 </ol>

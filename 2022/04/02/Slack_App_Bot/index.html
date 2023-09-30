@@ -128,12 +128,14 @@
 
 <h2 id="slack-app이란">Slack App이란</h2>
 <blockquote>
+
   <p><strong>Slack App</strong>은 Slack의 메시지 창에서 명령어를 통해 다양한 기능을 실행시킬 수 있도록 해주는 확장 프로그램</p>
 </blockquote>
 
 <p><br /></p>
 
 <h2 id="slack-app-예시">Slack App 예시</h2>
+
 <ul>
   <li>Giphy : 자동으로 이미지를 검색해서 슬랙 채널에 이미지를 출력
     <ul>
@@ -145,7 +147,7 @@
     <ul>
       <li>관련 페이지에서 연동을 통해 적용</li>
       <li>‘/todoist {날짜}{할 일 내용}’ 명령을 통해 항목 추가<br />
-  (ex. /todoist 오늘까지 청소하기)</li>
+    (ex. /todoist 오늘까지 청소하기)</li>
     </ul>
   </li>
 </ul>
@@ -156,6 +158,7 @@
 
 <h2 id="slack-bot이란">Slack Bot이란</h2>
 <blockquote>
+
   <ol>
     <li><strong>Slack Bot</strong>은 Slack의 App에 더할 수 있는 기능 중 하나로, 자동으로 메시지를 전송하는 등의 다양한 기능을 수행</li>
     <li>파이썬의 Slacker Lib.를 통해 Slack Bot을 활용</li>
@@ -163,21 +166,23 @@
 </blockquote>
 
 <h2 id="slack-bot-생성방법">Slack Bot 생성방법</h2>
+
 <ul>
   <li>Slack App API 페이지를 통해 App을 새로 만듦<br />
-  (API 페이지 : https://api.slack.com/apps)
-    <ol>
-      <li>‘Create a Slack App’으로 App을 생성</li>
-      <li>App의 ‘Bot Users’의 ‘Add a Bot User’로 Bot을 생성</li>
-      <li>‘OAuth &amp; Permissions’에서 해당 App을 Workspace에 설치</li>
-      <li>설치 후 나온 ‘Bot User OAuth Access Token’ 값을 Slacker의 토큰 값으로 사용</li>
-      <li>수행할 기능에 필요한 권한을 ‘Scopes’ 페이지에서 부여</li>
-      <li>파이썬과 Slacker Lib.를 이용해서 기능 구현</li>
-    </ol>
-  </li>
+  (API 페이지 : <a href="https://api.slack.com/apps">https://api.slack.com/apps</a>)</li>
 </ul>
 
+<ol>
+  <li>‘Create a Slack App’으로 App을 생성</li>
+  <li>App의 ‘Bot Users’의 ‘Add a Bot User’로 Bot을 생성</li>
+  <li>‘OAuth &amp; Permissions’에서 해당 App을 Workspace에 설치</li>
+  <li>설치 후 나온 ‘Bot User OAuth Access Token’ 값을 Slacker의 토큰 값으로 사용</li>
+  <li>수행할 기능에 필요한 권한을 ‘Scopes’ 페이지에서 부여</li>
+  <li>파이썬과 Slacker Lib.를 이용해서 기능 구현</li>
+</ol>
+
 <h1 id="reference">Reference</h1>
+
 <ul>
   <li><a href="https://ndb796.tistory.com/199?category=987004">협업 메신저 끝판왕 슬랙(Slack)</a> &gt; 5~6</li>
 </ul>

@@ -136,13 +136,12 @@
 &gt; Ctrl + Z : 현재 프로세스 일시정지   
 &gt; jobs : 현재 작업중인 프로세스 표시   
 &gt; bg : 현재 백그라운드의 프로세스 표시   
-&gt; 명령어 [&amp;] : 현재 명령을 백그라운드로 실행    - 파일 압축   
-&gt; xz [속성] [파일명] : 확장명 xz로 압축하거나 풀어준다.   
-  
-&gt; bzip2 [속성] [파일명] : 확장명 bz2로 압축하거나 풀어준다.   
-   bunzip2 : 'bzip2 -d'와 동일한 명령어   
-&gt; gzip [속성] [파일명] : 확장명 gz로 압축하거나 풀어준다.   
-   gunzip : 'gzip -d'와 동일한 명령어   
+&gt; 명령어 [&amp;] : 현재 명령을 백그라운드로 실행    - 파일 압축
+&gt; xz [속성] [파일명] : 확장명 xz로 압축하거나 풀어준다.
+&gt; bzip2 [속성] [파일명] : 확장명 bz2로 압축하거나 풀어준다.
+   bunzip2 : 'bzip2 -d'와 동일한 명령어
+&gt; gzip [속성] [파일명] : 확장명 gz로 압축하거나 풀어준다.
+   gunzip : 'gzip -d'와 동일한 명령어
   
     ( 속성 -d : 압축해제)   
 </code></pre></div></div>
@@ -150,66 +149,66 @@
 <ul>
   <li>파일 묶기
     <blockquote>
-      <p>tar [동작][옵션] [파일명] [경로] : 확장명 tar로 묶음 파일 생성(경로까지) 묶음을 풀어 준다.(파일명만) <br />
-      ( 동작 : c(묶기), x(풀기), t(경로확인) ) <br />
+      <p>tar [동작] [옵션] [파일명] [경로] : 확장명 tar로 묶음 파일 생성(경로까지) 묶음을 풀어 준다.(파일명만)
+      ( 동작 : c(묶기), x(풀기), t(경로확인) )
       ( 옵션 : f(파일), v(과정보이기), J(tar + xz), z(tar + gzip), j(tar + bzip2) )</p>
     </blockquote>
   </li>
   <li>파일 위치 검색
     <blockquote>
-      <p>find [경로] [옵션] [조건] [action] : 기본 파일 찾기 <br />
-      ( 옵션 : -name, -user(소유자), -newer(전, 후), -perm(허가권), -size(크기) <br />
-      ( action : -print(디폴트), -exec(외부 명령 실행) <br />
-      ( ex) find /home -name “*.swp” -exec rm { } \;  -&gt;  앞의 검색 결과를 { }에 대입해서 rm 명령어를 실행) <br />
-which [파일명] : PATH에 설정된 디렉터리만 검색 <br />
-whereis [파일명] : 실행 파일, 소스, man페이지 파일까지 검색 <br />
+      <p>find [경로] [옵션] [조건] [action] : 기본 파일 찾기
+      ( 옵션 : -name, -user(소유자), -newer(전, 후), -perm(허가권), -size(크기)
+      ( action : -print(디폴트), -exec(외부 명령 실행)
+      ( ex) find /home -name “*.swp” -exec rm { } \;  -&gt;  앞의 검색 결과를 { }에 대입해서 rm 명령어를 실행)
+which [파일명] : PATH에 설정된 디렉터리만 검색
+whereis [파일명] : 실행 파일, 소스, man페이지 파일까지 검색
 locate [파일이름] : 파일 목록 데이터베이스에서 검색</p>
     </blockquote>
   </li>
   <li>시스템 설정
     <blockquote>
-      <p>system-config-[기능이름] : 설정 <br />
-      ( 기능이름 :  <br />
-          날짜 : date <br />
-          네트워크 : network (텍스트 기반 작동)(자동 고정 IP주소 설정 / IP주소, 서브넷 마스크, 게이트웨이 / DNS 정보 / 드라이버, 장치) <br />
-              &gt; 그래픽 모드 사용은 ‘gnome-control-center network’ <br />
-              &gt; 아래 있는 네트워크 관련 파일 4개를 변경하는 효과 (network, ifcfg-ens32, resolv.conf, hosts) <br />
-          방화벽 : firewall <br />
-          서비스 : services <br />
-          그 외 [keyboard, printer, services, users, bind(네임 서버), display(X 윈도우), httpd(서버), samba(서버)] <br />
+      <p>system-config-[기능이름] : 설정
+      ( 기능이름 :
+          날짜 : date
+          네트워크 : network (텍스트 기반 작동)(자동 고정 IP주소 설정 / IP주소, 서브넷 마스크, 게이트웨이 / DNS 정보 / 드라이버, 장치)
+              &gt; 그래픽 모드 사용은 ‘gnome-control-center network’
+              &gt; 아래 있는 네트워크 관련 파일 4개를 변경하는 효과 (network, ifcfg-ens32, resolv.conf, hosts)
+          방화벽 : firewall
+          서비스 : services
+          그 외 [keyboard, printer, services, users, bind(네임 서버), display(X 윈도우), httpd(서버), samba(서버)]
       )</p>
     </blockquote>
   </li>
   <li>CRON
     <blockquote>
-      <p>주기적 작업을 예약 <br />
-관련된 데몬(서비스)은 “crond”, 관련 파일은 “/etc/crontab” <br />
+      <p>주기적 작업을 예약
+관련된 데몬(서비스)은 “crond”, 관련 파일은 “/etc/crontab”
   ( ex) 03 4**0 root run-parts /etc/cron.weekly (일요일(0) 4시 03분에 해당 위치의 파일 실행) )</p>
     </blockquote>
   </li>
   <li>AT
     <blockquote>
-      <p>일회성 작업을 예약 <br />
-at [시간] : 예약 <br />
-at&gt; 프롬프트에 예약 명령어 입력 후 [Enter] <br />
-완료되면 Ctrl + D <br />
-at -l : 예약 확인 <br />
+      <p>일회성 작업을 예약
+at [시간] : 예약
+at&gt; 프롬프트에 예약 명령어 입력 후 [Enter]
+완료되면 Ctrl + D
+at -l : 예약 확인
 atrm <작업번호> : 예약 취소</작업번호></p>
     </blockquote>
   </li>
   <li>네트워크
     <blockquote>
-      <p>ifup : 네트워크 장치를 ON/OFF하는 명령어 ( systemctl restart network 보다 강력) <br />
-ifconfig : IP주소 설정 확인 <br />
-nslookup : DNS 서버 작동 테스트 <br />
-ping <IP주소 또는="" URL=""> : 해당 컴퓨터가 네트워크 상에서 응답하는지를 테스트   
+      <p>ifup : 네트워크 장치를 ON/OFF하는 명령어 ( systemctl restart network 보다 강력)
+ifconfig : IP주소 설정 확인
+nslookup : DNS 서버 작동 테스트
+ping <IP주소 또는="" URL=""> : 해당 컴퓨터가 네트워크 상에서 응답하는지를 테스트
 system-config-selinux : SELinux의 레벨 설정</IP주소></p>
     </blockquote>
   </li>
   <li>프로세스
     <blockquote>
-      <p>ps : 현재 프로세스의 상태를 확인하는 명령어 ( [사용자 이름] [프로세스 번호] [부모 프로세스 번호] … ) <br />
-kill : 프로세스를 강제로 종료하는 명령어 <br />
+      <p>ps : 현재 프로세스의 상태를 확인하는 명령어 ( [사용자 이름] [프로세스 번호] [부모 프로세스 번호] … )
+kill : 프로세스를 강제로 종료하는 명령어
 pstree : 부모 프로세스와 자식 프로세스의 관계를 트리 형태로 보여줌 (작업 관리자 - 프로세스와 유사)</p>
     </blockquote>
   </li>
@@ -220,8 +219,8 @@ pstree : 부모 프로세스와 자식 프로세스의 관계를 트리 형태�
 <h3 id="-1"><백업></백업></h3>
 
 <p>- backup.sh<br />
-    &gt; set $(date) : 날짜를 파라미터로 저장 <br />
-    &gt; fname=”backup- $2$3.tar.xz” : 파일 이름은 backup-의 지정된 2번째(월), 3번째(일) 파라미터를 받고 .tar.xz <br />
+    &gt; set $(date) : 날짜를 파라미터로 저장
+    &gt; fname=”backup- $2$3.tar.xz” : 파일 이름은 backup-의 지정된 2번째(월), 3번째(일) 파라미터를 받고 .tar.xz
     &gt; tar cfJ /backup/$fname /home : 실행할 명령어, tar명령어로 c(묶기), f(파일), J(tar + xz)의 옵션으로 /home을 /backup/$fname에 저장</p>
 
 <ul>
@@ -273,8 +272,8 @@ pstree : 부모 프로세스와 자식 프로세스의 관계를 트리 형태�
   <li>강제(Enforcing), 허용(Permissive), 비활성(Disabled) 레벨이 존재</li>
   <li>작동 방식
     <blockquote>
-      <p>강제 : 시스템 보안에 영향을 미치는 기능이 감지되면 기능 작동을 막는다. <br />
-허용 : 시스템 보안에 영향을 미치는 기능이 감지되면 로그를 남기고 허용 <br />
+      <p>강제 : 시스템 보안에 영향을 미치는 기능이 감지되면 기능 작동을 막는다.
+허용 : 시스템 보안에 영향을 미치는 기능이 감지되면 로그를 남기고 허용
 비활성 : SELinux를 사용하지 않음</p>
     </blockquote>
   </li>
@@ -285,23 +284,23 @@ pstree : 부모 프로세스와 자식 프로세스의 관계를 트리 형태�
 <ul>
   <li>파이프
     <blockquote>
-      <p>두 개의 프로그램을 연결해주는 통로 <br />
- “|”문자를 사용 <br />
+      <p>두 개의 프로그램을 연결해주는 통로
+ “|”문자를 사용
       ( ex) # ls -l /etc | more) (여러 페이지의 리스트를 넘겨서 볼 수 있게 이어줌)</p>
     </blockquote>
   </li>
   <li>필터
     <blockquote>
-      <p>필요한 것만 걸러주는 명령어 <br />
-grep, tail, wc, sort, awk, sed 등 <br />
-주로 파이프와 같이 사용 <br />
+      <p>필요한 것만 걸러주는 명령어
+grep, tail, wc, sort, awk, sed 등
+주로 파이프와 같이 사용
       ( ex) # ps -ef | grep bash)</p>
     </blockquote>
   </li>
   <li>리디렉션
     <blockquote>
-      <p>표준 입출력의 방향을 바꿔 줌 <br />
-      ( ex) ls -l &gt; list.txt) (현재 명령의 결과를 .txt로 저장) <br />
+      <p>표준 입출력의 방향을 바꿔 줌
+      ( ex) ls -l &gt; list.txt) (현재 명령의 결과를 .txt로 저장)
       ( soft <list.txt> out.txt )</list.txt></p>
     </blockquote>
   </li>
@@ -315,13 +314,13 @@ grep, tail, wc, sort, awk, sed 등 <br />
 <ul>
   <li>포그라운드 프로세스
     <blockquote>
-      <p>화면에 나타나서 사용자와 상호작용 <br />
+      <p>화면에 나타나서 사용자와 상호작용
 대부분의 응용프로그램</p>
     </blockquote>
   </li>
   <li>백그라운드 프로세스
     <blockquote>
-      <p>실행되었지만, 화면에 나타나지 않는 프로세스 <br />
+      <p>실행되었지만, 화면에 나타나지 않는 프로세스
 백신 프로그램, 서버 데몬 등</p>
     </blockquote>
   </li>
@@ -337,7 +336,7 @@ grep, tail, wc, sort, awk, sed 등 <br />
   </li>
   <li>부모 프로세스와 자식 프로세스
     <blockquote>
-      <p>모든 프로세스는 부모 프로세스를 가짐 <br />
+      <p>모든 프로세스는 부모 프로세스를 가짐
 부모 프로세스를 kill하면, 하위 모든 프로세스도 종료</p>
     </blockquote>
   </li>
@@ -348,15 +347,15 @@ grep, tail, wc, sort, awk, sed 등 <br />
 <h3 id="-3"><서비스와 소켓=""></서비스와></h3>
 
 <p>- 서비스<br />
-    &gt; 시스템과 독자적으로 구동되어 제공하는 프로세스 (웹 서버(httpd), DB 서버(mysqld), FTP 서버(vsftpd) 등) <br />
+    &gt; 시스템과 독자적으로 구동되어 제공하는 프로세스 (웹 서버(httpd), DB 서버(mysqld), FTP 서버(vsftpd) 등)
     &gt; 항상 가동</p>
 <ul>
   <li>소켓
     <blockquote>
-      <p>외부에서 특정 서비스를 요청할 경우 systemd가 구동. 요청이 끝나면 소켓 종료 <br />
-서비스를 요청할 때, 처음 연결되는 시간이 앞에서 설명한 서비스에 비교해서 약간 더 걸릴 수 있다. <br />
-      (systemd가 서비스를 새로 구동하는 시간떄문) <br />
-소켓과 관련된 스크립트 파일은 /usr/lib/systemd/system/ 디렉토리에 ‘소켓이름.socket’으로 존재 <br />
+      <p>외부에서 특정 서비스를 요청할 경우 systemd가 구동. 요청이 끝나면 소켓 종료
+서비스를 요청할 때, 처음 연결되는 시간이 앞에서 설명한 서비스에 비교해서 약간 더 걸릴 수 있다.
+      (systemd가 서비스를 새로 구동하는 시간떄문)
+소켓과 관련된 스크립트 파일은 /usr/lib/systemd/system/ 디렉토리에 ‘소켓이름.socket’으로 존재
 예전 페도라는 xinetd 데몬이 소켓의 기능을 담당했었다.</p>
     </blockquote>
   </li>
@@ -372,8 +371,8 @@ grep, tail, wc, sort, awk, sed 등 <br />
 <p>/etc/sysconfig/network : 네트워크 기본 정보가 설정된 파일<br />
 /etc/sysconfig/network-scripts/ifcfg-ens32 : (*중요) ens32 장치에 설정된 네트워크 정보가 모두
 들어있는 파일<br />
-    &gt; BOOTPROTO : 자동IP 여부 (none은 고정) <br />
-    &gt; ONBOOT : 부팅 시 실행 <br />
+    &gt; BOOTPROTO : 자동IP 여부 (none은 고정)
+    &gt; ONBOOT : 부팅 시 실행
 /etc/resolv.conf : DNS 서버와 호스트 이름을 가진 파일<br />
 /etc/hosts : 현 컴퓨터의 호스트 이름, FQDN을 가진 파일</p>
 
@@ -382,7 +381,6 @@ grep, tail, wc, sort, awk, sed 등 <br />
 <p>/usr/lib/systemd/system/ : 서비스의 실행 스크립트 파일이 있는 디렉토리, ‘서비스이름.service’라는 이름으로 파일
 존재 (httpd.service)<br />
 /usr/lib/systemd/system/ : 소켓과 관련된 스크립트 파일이 있는 디렉토리, ‘소켓이름.socket’으로 파일 존재</p>
-
 
       <div class="c-article__footer u-clearfix">
         <div class="c-article__tag">

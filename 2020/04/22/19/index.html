@@ -132,7 +132,7 @@
 <ul>
   <li>mount : 마운트 되어 있는 목록</li>
   <li>grub2-mkconfig -o [경로 + 파일명] : [경로 + 파일명]으로 설정파일이 생성</li>
-  <li>명령어1; 명령어2; … : ‘;’을 이용해서 여러개의 명령어를 동시에 실행 가능 <br />
+  <li>명령어1; 명령어2; … : ‘;’을 이용해서 여러개의 명령어를 동시에 실행 가능
 -————————————————————————-응급복구
 (GRUB 부트로더를 이용한)
     <ol>
@@ -150,22 +150,22 @@
 <h3 id="-1"><GRUB 부트로더=""></GRUB></h3>
 
 <p>- 특징<br />
-    &gt; 부트 정보를 사용자가 임의로 변경해서 부팅 가능 <br />
-    &gt; 다른 여러가지 운영체제와 멀티부팅을 할 수 있다. <br />
+    &gt; 부트 정보를 사용자가 임의로 변경해서 부팅 가능
+    &gt; 다른 여러가지 운영체제와 멀티부팅을 할 수 있다.
     &gt; 커널의 경로와 파일 이름만 알면 부팅 가능 (대화형 설정을 제공해서 가능)</p>
 
 <ul>
   <li>GRUB2의 장점
     <blockquote>
-      <p>셸 스크립트를 지원함으로써 조건식과 함수를 사용 <br />
-동적 모듈을 로드 가능 <br />
-그래픽 부트 메뉴를 지원하고, 부트 스프래시 성능이 개선 <br />
+      <p>셸 스크립트를 지원함으로써 조건식과 함수를 사용
+동적 모듈을 로드 가능
+그래픽 부트 메뉴를 지원하고, 부트 스프래시 성능이 개선
 ISO 이미지를 이용해서 바로 부팅 가능</p>
     </blockquote>
   </li>
   <li>설정 방법
     <blockquote>
-      <p>‘/boot/grub2/grub.cfg’ 설정파일(직접 변경하면 안됨) <br />
+      <p>‘/boot/grub2/grub.cfg’ 설정파일(직접 변경하면 안됨)
 ‘/etc/default/grub’ 파일과 ‘/etc/grub.d/ 디렉터리의 파일을 수정한 후에 ‘grub2-mkconfig’ 명령어를 실행해서 설정</p>
     </blockquote>
   </li>
@@ -181,22 +181,22 @@ ISO 이미지를 이용해서 바로 부팅 가능</p>
   <li>컴파일 순서
     <ol>
       <li>uname -r : 현 커널 버전 확인</li>
-      <li>wget [주소] : 커널 소스 다운로드 (‘https://www.kernel.org/pub/linux/kernel/v3.x/linux-3.11.1.tar.xz’에서 cd/usr/src에 다운) <br />
-( 3.18.1 - https://www.kernel.org/pub/linux/kernel/v3.x/linux-3.18.1.tar.xz )</li>
-      <li>tar xfJ linux-3.11.1.tar.xz : 커널 소스 압축 풀기 <br />
+      <li>wget [주소] : 커널 소스 다운로드 (‘<a href="https://www.kernel.org/pub/linux/kernel/v3.x/linux-3.11.1.tar.xz'에서">https://www.kernel.org/pub/linux/kernel/v3.x/linux-3.11.1.tar.xz'에서</a> cd/usr/src에 다운)
+( 3.18.1 - <a href="https://www.kernel.org/pub/linux/kernel/v3.x/linux-3.18.1.tar.xz">https://www.kernel.org/pub/linux/kernel/v3.x/linux-3.18.1.tar.xz</a> )</li>
+      <li>tar xfJ linux-3.11.1.tar.xz : 커널 소스 압축 풀기
 cd linux-3.11.1 : 압축해제된 폴더로 이동 (4번~ 진행의 전제는 /linux-3.11.1 폴더에서 진행하는 것)</li>
       <li>make mrproper : 커널 설정 초기화</li>
-      <li>make xconfig : 커널 환경 설정 (x 윈도) <br />
+      <li>make xconfig : 커널 환경 설정 (x 윈도)
 make menuconfig : 커널 환경 설정 (console 환경)
         <blockquote>
-          <p>File systems - DOS/FAT/NT Filesystems - NTFS file system support - 하위 항목 두 개 체크 <br />
+          <p>File systems - DOS/FAT/NT Filesystems - NTFS file system support - 하위 항목 두 개 체크
       : NTFS 윈도우즈 파일 포맷에 대한 쓰기 기능 추가</p>
         </blockquote>
       </li>
       <li>make clean : 컴파일 했던 이전 정보 삭제</li>
-      <li>make                      : 커널 컴파일 및 설치 <br />
-make modules_install <br />
-make install <br />
+      <li>make                      : 커널 컴파일 및 설치
+make modules_install
+make install
 ls-l /boot</li>
       <li>cat /boot/grub2/grub.cfg : 부트 로더 확인</li>
     </ol>
@@ -208,22 +208,21 @@ ls-l /boot</li>
 <h3 id="-3"><폴더></폴더></h3>
 
 <p>- /etc/default/grub<br />
-    &gt; GRUB_TIMEOUT=[초] : 부트로더 화면에서 [초]가 지나면 부팅 <br />
+    &gt; GRUB_TIMEOUT=[초] : 부트로더 화면에서 [초]가 지나면 부팅
     &gt; GRUB_DISTRIBUTOR=[] : [] 처음에 뜨는 화면에서 운영체제 이름</p>
 
 <ul>
   <li>/etc/grub.d/00_header
     <blockquote>
-      <p>맨 밑에, 그룹유저와 비밀번호 설정을 위한 구문 추가 <br />
-      cat « EOF <br />
-      set superusers = “grubuser”(사용자 지정 user명) <br />
-      password grubuser(user명) 4321(pw) <br />
+      <p>맨 밑에, 그룹유저와 비밀번호 설정을 위한 구문 추가
+      cat « EOF
+      set superusers = “grubuser”(사용자 지정 user명)
+      password grubuser(user명) 4321(pw)
       EOF</p>
     </blockquote>
   </li>
   <li>/lib/modules/커널버전/</li>
 </ul>
-
 
       <div class="c-article__footer u-clearfix">
         <div class="c-article__tag">

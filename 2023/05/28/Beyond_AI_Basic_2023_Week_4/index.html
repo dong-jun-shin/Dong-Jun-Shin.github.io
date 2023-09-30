@@ -6,7 +6,7 @@
   <meta name='viewport' content='width=device-width, initial-scale=1'>
 
   <title>코칭스터디 Beyond AI Basic 2023 - 4주차 학습</title>
-  <meta name='description' content="CNNCNN - Convolution은 무엇인가?Convolution  이미지를 특정 형태로 변환하는 것  용어 정의          I(Image): 이미지      K(Kernel): 적용할 컨볼루션 필터      O(Output): 필터가 적용된 이미지      Dimensi...">
+  <meta name='description' content="CNN">
   <link rel='canonical' href="https://dong-jun-shin.github.io/2023/05/28/Beyond_AI_Basic_2023_Week_4/">
   <link rel='alternate' type='application/rss+xml' title='Jun's Dev_Blog' href="https://dong-jun-shin.github.io/feed.xml">
   <!-- Fonts -->
@@ -125,8 +125,11 @@
         </div>
       </header>
       <h1 id="cnn">CNN</h1>
+
 <h1 id="cnn---convolution은-무엇인가">CNN - Convolution은 무엇인가?</h1>
+
 <h2 id="convolution">Convolution</h2>
+
 <ul>
   <li>이미지를 특정 형태로 변환하는 것</li>
   <li>용어 정의
@@ -157,6 +160,7 @@
 <p><br /></p>
 
 <h2 id="rgb-image-convolution">RGB Image Convolution</h2>
+
 <ul>
   <li>수학적으로 표현할 때, tensor(32x32)로 표현됨</li>
   <li>R, G, B 표현을 위해 Depth는 3으로 구성</li>
@@ -166,6 +170,7 @@
 <p><br /></p>
 
 <h2 id="stack-of-convolutions">Stack of Convolutions</h2>
+
 <ul>
   <li>여러개의 Convolutions을 적용하는 것</li>
 </ul>
@@ -173,6 +178,7 @@
 <p><br /></p>
 
 <h2 id="convolutional-neural-networks">Convolutional Neural Networks</h2>
+
 <ul>
   <li>구성
     <ul>
@@ -209,6 +215,7 @@
 <p><br /></p>
 
 <h2 id="convolution-arithmetic">Convolution Arithmetic</h2>
+
 <ul>
   <li>Output size를 구하는 수식
     <ul>
@@ -232,12 +239,12 @@
     <ul>
       <li>convolution layer의 param 개수
         <ul>
-          <li>K(NxMxD) * O_depth(출력 Depth) * N(나누어진 네트워크 개수)</li>
+          <li>K(NxMxD) <em>O_depth(출력 Depth)</em> N(나누어진 네트워크 개수)</li>
         </ul>
       </li>
       <li>fully connected layer의 param 개수
         <ul>
-          <li>I(NxMxD) * C(channel 개수) * O_depth(출력 Depth) * N(나누어진 네트워크 개수)</li>
+          <li>I(NxMxD) <em>C(channel 개수)</em> O_depth(출력 Depth) * N(나누어진 네트워크 개수)</li>
         </ul>
       </li>
     </ul>
@@ -247,6 +254,7 @@
 <p><br /></p>
 
 <h2 id="exercise">Exercise</h2>
+
 <ul>
   <li>GPU 메모리 크기가 부족할 경우, 네트워크가 여러개로 나누어져 각각의 GPU로 병렬 수행될 수 있음
     <ul>
@@ -263,6 +271,7 @@
 <p><br /></p>
 
 <h2 id="1x1-convolution">1X1 Convolution</h2>
+
 <ul>
   <li>이미지에서 1픽셀씩 매치시키고 Channel 방향으로 줄이는 방법</li>
   <li>Dimension reduction
@@ -277,6 +286,7 @@
 <p><br /></p>
 
 <h1 id="modern-cnn---1x1-convolution의-중요성">Modern CNN - 1x1 convolution의 중요성</h1>
+
 <ul>
   <li>layer는 깊게 쌓으면서 param을 줄인 방법</li>
 </ul>
@@ -284,6 +294,7 @@
 <p><br /></p>
 
 <h2 id="ilsvrc">ILSVRC</h2>
+
 <ul>
   <li>ImageNet Large-Scale Visual Recognition Challenge
     <ul>
@@ -307,13 +318,10 @@
         </ul>
       </li>
     </ul>
+
+    <p><img src="/images/CS_AI_ML/2023/05/Beyond_AI_Basic_2023_Week_4/1.png" alt="" />
+<em>ILSVRC 예시</em></p>
   </li>
-</ul>
-
-<p><img src="/images/CS_AI_ML/2023/05/Beyond_AI_Basic_2023_Week_4/1.png" alt="" />
-  <em>ILSVRC 예시</em></p>
-
-<ul>
   <li>1000개 정도의 분류</li>
   <li>1백만개 이상의 이미지들</li>
   <li>훈련 데이터로 약 46만장 사용</li>
@@ -322,6 +330,7 @@
 <p><br /></p>
 
 <h2 id="alexnet">AlexNet</h2>
+
 <ul>
   <li>특징
     <ul>
@@ -362,6 +371,7 @@
 <p><br /></p>
 
 <h2 id="vggnet">VGGNet</h2>
+
 <ul>
   <li>특징
     <ul>
@@ -380,6 +390,7 @@
 <p><br /></p>
 
 <h2 id="googlenet">GoogLeNet</h2>
+
 <ul>
   <li>특징
     <ul>
@@ -401,6 +412,7 @@
 <p><br /></p>
 
 <h2 id="resnet">ResNet</h2>
+
 <ul>
   <li>특징
     <ul>
@@ -429,6 +441,7 @@
 <p><br /></p>
 
 <h2 id="densenet">DenseNet</h2>
+
 <ul>
   <li>ResNet에서 차이를 더하면 값이 섞이니, 섞지 말고 이어주는 방법</li>
   <li>이어줄 경우, channel이 커짐에 따라 param이 기하급수적으로 늘어날 수 있어서 Transition Block으로 param을 줄여줌</li>
@@ -451,6 +464,7 @@
 <p><br /></p>
 
 <h2 id="summary">Summary</h2>
+
 <ul>
   <li>VGG: 3x3 conv를 사용.</li>
   <li>GoogLeNet: 1x1 conv를 사용. params를 줄일 수 있음</li>
@@ -461,7 +475,9 @@
 <p><br /></p>
 
 <h1 id="computer-vision-applications">Computer Vision Applications</h1>
+
 <h2 id="semantic-segmentation">Semantic Segmentation</h2>
+
 <ul>
   <li>pixel마다 분류하여 labeling하는 것</li>
 </ul>
@@ -469,6 +485,7 @@
 <p><br /></p>
 
 <h2 id="fully-convolutional-network">Fully Convolutional Network</h2>
+
 <ul>
   <li>Convolutionalization(컨볼루션화)
     <ul>
@@ -486,6 +503,7 @@
 <p><br /></p>
 
 <h2 id="deconvolution">Deconvolution</h2>
+
 <ul>
   <li>conv 연산을 하면 output은 절반으로 줄게 되는데 conv로 줄어든 output을 다시 늘려주는 것</li>
 </ul>
@@ -493,7 +511,9 @@
 <p><br /></p>
 
 <h1 id="detection">Detection</h1>
+
 <h2 id="r-cnn">R-CNN</h2>
+
 <ul>
   <li>CNN에 입력할 때 고정된 크기로 Crop 또는 Warp한 뒤 네트워크에 입력하는 방법</li>
   <li>Crop 또는 Warp하는 과정에서 객체가 가지고 있는 형태적인 정보가 왜곡될 수 있음</li>
@@ -510,6 +530,7 @@
 <p><br /></p>
 
 <h2 id="sppnet">SPPNet</h2>
+
 <ul>
   <li>Spatial Pyramid Pooling을 사용해서, R-CNN의 과도한 연산량 문제와 정보 왜곡 문제를 해결한 방법
     <ul>
@@ -522,6 +543,7 @@
 <p><br /></p>
 
 <h2 id="fast-r-cnn">Fast R-CNN</h2>
+
 <ul>
   <li>binary SVM + bounding box regression을 하나로 합쳐서 multi-pipeline구조의 번거로움을 제거하고 최적화를 위한 방법
     <ul>
@@ -540,6 +562,7 @@
 <p><br /></p>
 
 <h2 id="faster-r-cnn">Faster R-CNN</h2>
+
 <ul>
   <li>하나로 합쳐진 bounding box regression와 Region Proposal(객체 후보)도 하나로 합쳐서 Selective Search 알고리즘의 시간을 없앤 방법
     <ul>
@@ -566,6 +589,7 @@
 <p><br /></p>
 
 <h2 id="yolo">YOLO</h2>
+
 <ul>
   <li>이미지 자체를 가지고 분류를 하는 방법</li>
   <li>분리, 분류를 한번에 하기 때문에 빠름</li>
@@ -591,8 +615,11 @@
 <p><br /></p>
 
 <h1 id="rnn---sequential-models">RNN - Sequential Models</h1>
+
 <h1 id="rnn">RNN</h1>
+
 <h2 id="recurrent-neural-network">Recurrent Neural Network</h2>
+
 <ul>
   <li>Markov를 기반으로 만들어져 시계열 데이터 처리에 특화된 방법</li>
   <li>Sequential Data
@@ -637,6 +664,7 @@
 <p><br /></p>
 
 <h2 id="long-short-term-memorylstm">Long Short Term Memory(LSTM)</h2>
+
 <ul>
   <li>Short-term dependencies / Long-term Dependencies 문제를 해결하기 위해 나온 방법
     <ul>
@@ -686,6 +714,7 @@
 <p><br /></p>
 
 <h2 id="gated-recurrent-unitgru">Gated Recurrent Unit(GRU)</h2>
+
 <ul>
   <li>cell state 없이, hidden state로만 구현한 방법</li>
   <li>파라미터가 적어 학습 성능이 좋음</li>
@@ -700,6 +729,7 @@
 <p><br /></p>
 
 <h1 id="transformer">Transformer</h1>
+
 <ul>
   <li>재귀적 구조 없이 attention 구조를 활용해서 번역, 문장 구성, 단어 등 Sequential Data를 다루는 일에 사용하는 방법</li>
   <li>특징
@@ -770,6 +800,7 @@
 <p><br /></p>
 
 <h2 id="vision-transformer">Vision Transformer</h2>
+
 <ul>
   <li>Transformer를 활용해서 이미지 분류하는 방법</li>
   <li>Transformer Encoder와 Multi-head attention(MHA)를 거쳐 이미지 분류</li>
@@ -788,6 +819,7 @@
 <p><br /></p>
 
 <h1 id="reference">Reference</h1>
+
 <ul>
   <li><a href="https://m.post.naver.com/viewer/postView.naver?volumeNo=35664080&amp;memberNo=34635212">제대로 된 인공지능 스터디를 찾고 있다면? AI 심화 스터디</a></li>
   <li><a href="https://www.boostcourse.org/study-ai111-2023">[코칭스터디 10기] Beyond AI Basic 2023 스터디 전용강좌</a></li>
