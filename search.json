@@ -2,7 +2,7 @@
   
     {
       "title"    : "[코칭스터디] Beyond AI Basic 2023 스터디 후기",
-      "category" : "",
+      "category" : "IT_Tech",
       "tags"     : "",
       "url"      : "/2023/06/11/Beyond_AI_Basic_2023_Review/",
       "date"     : "2023-06-11 16:39:51 +0900"
@@ -10,7 +10,7 @@
   
     {
       "title"    : "코칭스터디 Beyond AI Basic 2023 - 4주 과정 정리",
-      "category" : "",
+      "category" : "CS_AI_ML",
       "tags"     : "",
       "url"      : "/2023/06/06/Beyond_AI_Basic_2023/",
       "date"     : "2023-06-06 13:03:12 +0900"
@@ -18,7 +18,7 @@
   
     {
       "title"    : "코칭스터디 Beyond AI Basic 2023 - 4주차 학습",
-      "category" : "",
+      "category" : "CS_AI_ML",
       "tags"     : "",
       "url"      : "/2023/05/28/Beyond_AI_Basic_2023_Week_4/",
       "date"     : "2023-05-28 23:18:56 +0900"
@@ -26,7 +26,7 @@
   
     {
       "title"    : "코칭스터디 Beyond AI Basic 2023 - 3주차 학습",
-      "category" : "",
+      "category" : "CS_AI_ML",
       "tags"     : "",
       "url"      : "/2023/05/21/Beyond_AI_Basic_2023_Week_3/",
       "date"     : "2023-05-21 12:49:19 +0900"
@@ -34,7 +34,7 @@
   
     {
       "title"    : "코칭스터디 Beyond AI Basic 2023 - 2주차 학습",
-      "category" : "",
+      "category" : "CS_AI_ML",
       "tags"     : "",
       "url"      : "/2023/05/15/Beyond_AI_Basic_2023_Week_2/",
       "date"     : "2023-05-15 23:38:45 +0900"
@@ -42,7 +42,7 @@
   
     {
       "title"    : "코칭스터디 Beyond AI Basic 2023 - 1주차 학습",
-      "category" : "",
+      "category" : "CS_AI_ML",
       "tags"     : "",
       "url"      : "/2023/05/08/Beyond_AI_Basic_2023_Week_1/",
       "date"     : "2023-05-08 21:48:06 +0900"
@@ -50,7 +50,7 @@
   
     {
       "title"    : "AWS Summit Seoul 2023 Session - 생성 Al 모델의 임베딩 벡터를 이용한 서버리스 추천 검색 구현하기",
-      "category" : "",
+      "category" : "IT_Tech",
       "tags"     : "",
       "url"      : "/2023/05/07/Aws_Summit_Seoul_2023_Session_04_gen_ai_embedding_vector/",
       "date"     : "2023-05-07 02:30:03 +0900"
@@ -58,7 +58,7 @@
   
     {
       "title"    : "AWS Summit Seoul 2023 Session - Datadog을 활용한 AWS Serverless Observability",
-      "category" : "",
+      "category" : "IT_Tech",
       "tags"     : "",
       "url"      : "/2023/05/07/Aws_Summit_Seoul_2023_Session_03_serverless_observability/",
       "date"     : "2023-05-07 02:30:03 +0900"
@@ -66,7 +66,7 @@
   
     {
       "title"    : "AWS Summit Seoul 2023 Session - 비즈니스 경쟁에서 승리하기 위한 AWS AI/ML 서비스",
-      "category" : "",
+      "category" : "IT_Tech",
       "tags"     : "",
       "url"      : "/2023/05/07/Aws_Summit_Seoul_2023_Session_02_ai_ml_service/",
       "date"     : "2023-05-07 02:30:03 +0900"
@@ -74,7 +74,7 @@
   
     {
       "title"    : "AWS Summit Seoul 2023 Session - AWS와 Cisco가 함께하는 제로 트러스트!!",
-      "category" : "",
+      "category" : "IT_Tech",
       "tags"     : "",
       "url"      : "/2023/05/07/Aws_Summit_Seoul_2023_Session_01_zero_trust/",
       "date"     : "2023-05-07 02:30:03 +0900"
@@ -82,7 +82,7 @@
   
     {
       "title"    : "AWS Summit Seoul 2023 방문기",
-      "category" : "",
+      "category" : "IT_Tech",
       "tags"     : "",
       "url"      : "/2023/05/06/Aws_Summit_Seoul_2023/",
       "date"     : "2023-05-06 18:04:35 +0900"
@@ -90,7 +90,7 @@
   
     {
       "title"    : "실리콘밸리 데이터 엔지니어의 Career Talk (by. 모두의 연구소)",
-      "category" : "",
+      "category" : "Job",
       "tags"     : "",
       "url"      : "/2023/03/28/Career_Talk_Seminar/",
       "date"     : "2023-03-28 23:04:06 +0900"
@@ -98,7 +98,7 @@
   
     {
       "title"    : "Stable-Diffusion과 ChatGPT에 대한 세미나 (by. 모두의 연구소)",
-      "category" : "",
+      "category" : "IT_Tech",
       "tags"     : "",
       "url"      : "/2023/03/07/Stable_Diffusion_Chat_GPT_Seminar/",
       "date"     : "2023-03-07 22:30:36 +0900"
@@ -106,7 +106,7 @@
   
     {
       "title"    : "2022년 회고록",
-      "category" : "",
+      "category" : "Life",
       "tags"     : "",
       "url"      : "/2023/01/09/Reminiscence_2022/",
       "date"     : "2023-01-09 02:52:36 +0900"
@@ -114,7 +114,7 @@
   
     {
       "title"    : "SSH Key를 활용한 Git repo clone하기(Windows &amp; Linux &amp; MacOS)",
-      "category" : "",
+      "category" : "DevLang_Git",
       "tags"     : "",
       "url"      : "/2022/04/23/SSH_Git_Repo_Clone/",
       "date"     : "2022-04-23 21:36:15 +0900"
@@ -122,7 +122,7 @@
   
     {
       "title"    : "Slack App과 Bot 이용하기",
-      "category" : "",
+      "category" : "Work_Tool",
       "tags"     : "",
       "url"      : "/2022/04/02/Slack_App_Bot/",
       "date"     : "2022-04-02 22:49:07 +0900"
@@ -130,7 +130,7 @@
   
     {
       "title"    : "Slack에 대하여",
-      "category" : "",
+      "category" : "Work_Tool",
       "tags"     : "",
       "url"      : "/2022/03/20/About_Slack/",
       "date"     : "2022-03-20 17:51:05 +0900"
@@ -138,7 +138,7 @@
   
     {
       "title"    : "[리뷰] 기업문화와 채용에 대해",
-      "category" : "",
+      "category" : "Job",
       "tags"     : "",
       "url"      : "/2022/02/17/mirakle_letter_220216/",
       "date"     : "2022-02-17 01:13:29 +0900"
@@ -146,7 +146,7 @@
   
     {
       "title"    : "Node.js(2) - 변수, 자료형, 제어문",
-      "category" : "",
+      "category" : "DevLang_Node.js",
       "tags"     : "",
       "url"      : "/2022/02/02/Node_js_02/",
       "date"     : "2022-02-02 11:01:55 +0900"
@@ -154,7 +154,7 @@
   
     {
       "title"    : "Node.js(1) - 개요 및 설치, 실행",
-      "category" : "",
+      "category" : "DevLang_Node.js",
       "tags"     : "",
       "url"      : "/2022/02/01/Node_js_01/",
       "date"     : "2022-02-01 21:31:15 +0900"
@@ -162,7 +162,7 @@
   
     {
       "title"    : "[리뷰] 오미크론에 달라지는 근무 트렌드",
-      "category" : "",
+      "category" : "Job",
       "tags"     : "",
       "url"      : "/2022/01/23/mirakle_letter_220114/",
       "date"     : "2022-01-23 19:06:14 +0900"
@@ -170,7 +170,7 @@
   
     {
       "title"    : "Do_it_자료구조 학습 정리 2 (정렬)",
-      "category" : "",
+      "category" : "CS_Algorithm",
       "tags"     : "",
       "url"      : "/2021/12/25/Do_it_data_structure_sort/",
       "date"     : "2021-12-25 14:16:26 +0900"
@@ -178,7 +178,7 @@
   
     {
       "title"    : "Do_it_자료구조 학습 정리 1 (문자열 탐색, 연결 리스트, 트리)",
-      "category" : "",
+      "category" : "CS_Algorithm",
       "tags"     : "",
       "url"      : "/2021/12/11/Do_it_data_structure/",
       "date"     : "2021-12-11 15:35:28 +0900"
@@ -186,7 +186,7 @@
   
     {
       "title"    : "[해외 취업] 필요한 준비",
-      "category" : "",
+      "category" : "Job",
       "tags"     : "",
       "url"      : "/2021/12/10/Job_Amazon/",
       "date"     : "2021-12-10 16:13:23 +0900"
@@ -194,7 +194,7 @@
   
     {
       "title"    : "React와 비교를 통한 Svelte 알아보기",
-      "category" : "",
+      "category" : "DevLang_Front",
       "tags"     : "",
       "url"      : "/2021/11/28/Svelte_React/",
       "date"     : "2021-11-28 21:51:57 +0900"
@@ -202,7 +202,7 @@
   
     {
       "title"    : "블록체인을 이용한 식별과 DID 인증 방식",
-      "category" : "",
+      "category" : "IT_Tech",
       "tags"     : "",
       "url"      : "/2021/11/28/Blockchain_identifier/",
       "date"     : "2021-11-28 18:30:06 +0900"
@@ -210,7 +210,7 @@
   
     {
       "title"    : "CSR과 SSR, 백엔드와 프론트엔드의 개발영역",
-      "category" : "",
+      "category" : "CS_Architecture",
       "tags"     : "",
       "url"      : "/2021/11/27/CSR_SSR-theory/",
       "date"     : "2021-11-27 14:37:37 +0900"
@@ -218,7 +218,7 @@
   
     {
       "title"    : "ignore 파일 작성시, 참고",
-      "category" : "",
+      "category" : "DevLang_Git",
       "tags"     : "",
       "url"      : "/2020/04/24/51/",
       "date"     : "2020-04-24 02:38:04 +0900"
@@ -226,7 +226,7 @@
   
     {
       "title"    : "포터블 모니터 2세대",
-      "category" : "",
+      "category" : "DIY_Making",
       "tags"     : "",
       "url"      : "/2020/04/24/48/",
       "date"     : "2020-04-24 00:46:08 +0900"
@@ -234,7 +234,7 @@
   
     {
       "title"    : "외장하드 쿨링 받침",
-      "category" : "",
+      "category" : "DIY_Making",
       "tags"     : "",
       "url"      : "/2020/04/24/47/",
       "date"     : "2020-04-24 00:18:51 +0900"
@@ -242,7 +242,7 @@
   
     {
       "title"    : "블루투스 스피커",
-      "category" : "",
+      "category" : "DIY_Making",
       "tags"     : "",
       "url"      : "/2020/04/24/46/",
       "date"     : "2020-04-24 00:04:58 +0900"
@@ -250,7 +250,7 @@
   
     {
       "title"    : "모니터 받침대",
-      "category" : "",
+      "category" : "DIY_Making",
       "tags"     : "",
       "url"      : "/2020/04/23/45/",
       "date"     : "2020-04-23 23:52:35 +0900"
@@ -258,7 +258,7 @@
   
     {
       "title"    : "포터블 모니터 1세대",
-      "category" : "",
+      "category" : "DIY_Making",
       "tags"     : "",
       "url"      : "/2020/04/23/44/",
       "date"     : "2020-04-23 23:39:51 +0900"
@@ -266,7 +266,7 @@
   
     {
       "title"    : "S펜 개조",
-      "category" : "",
+      "category" : "DIY_Making",
       "tags"     : "",
       "url"      : "/2020/04/23/43/",
       "date"     : "2020-04-23 22:55:51 +0900"
@@ -274,7 +274,7 @@
   
     {
       "title"    : "입력 스트림과 버퍼",
-      "category" : "",
+      "category" : "DevLang_Java",
       "tags"     : "",
       "url"      : "/2020/04/23/38/",
       "date"     : "2020-04-23 19:56:08 +0900"
@@ -282,7 +282,7 @@
   
     {
       "title"    : "[정보 통신] OSI 7계층",
-      "category" : "",
+      "category" : "CS_Network",
       "tags"     : "",
       "url"      : "/2020/04/23/37/",
       "date"     : "2020-04-23 19:54:59 +0900"
@@ -290,7 +290,7 @@
   
     {
       "title"    : "Git 운용 (Git flow , Github flow ,  Gitlab flow)",
-      "category" : "",
+      "category" : "DevLang_Git",
       "tags"     : "",
       "url"      : "/2020/04/23/36/",
       "date"     : "2020-04-23 18:03:51 +0900"
@@ -298,7 +298,7 @@
   
     {
       "title"    : "Python 실습 코드",
-      "category" : "",
+      "category" : "DevLang_Python",
       "tags"     : "",
       "url"      : "/2020/04/23/6/",
       "date"     : "2020-04-23 05:30:54 +0900"
@@ -306,7 +306,7 @@
   
     {
       "title"    : "Front-end 실습코드",
-      "category" : "",
+      "category" : "DevLang_Front",
       "tags"     : "",
       "url"      : "/2020/04/23/9/",
       "date"     : "2020-04-23 05:30:51 +0900"
@@ -314,7 +314,7 @@
   
     {
       "title"    : "Java(기본) 실습 코드",
-      "category" : "",
+      "category" : "DevLang_Java",
       "tags"     : "",
       "url"      : "/2020/04/23/4/",
       "date"     : "2020-04-23 05:30:45 +0900"
@@ -322,7 +322,7 @@
   
     {
       "title"    : "리눅스 이론 정리 (5차시)",
-      "category" : "",
+      "category" : "DevLang_Linux_Fedora19",
       "tags"     : "",
       "url"      : "/2020/04/23/17/",
       "date"     : "2020-04-23 05:30:43 +0900"
@@ -330,7 +330,7 @@
   
     {
       "title"    : "리눅스 이론 정리 (4차시)",
-      "category" : "",
+      "category" : "DevLang_Linux_Fedora19",
       "tags"     : "",
       "url"      : "/2020/04/23/16/",
       "date"     : "2020-04-23 05:30:43 +0900"
@@ -338,7 +338,7 @@
   
     {
       "title"    : "Java(종합) 실습 코드",
-      "category" : "",
+      "category" : "DevLang_Java",
       "tags"     : "",
       "url"      : "/2020/04/23/7/",
       "date"     : "2020-04-23 05:30:42 +0900"
@@ -346,7 +346,7 @@
   
     {
       "title"    : "JSP 실습 코드",
-      "category" : "",
+      "category" : "DevLang_JSP",
       "tags"     : "",
       "url"      : "/2020/04/23/10/",
       "date"     : "2020-04-23 05:30:40 +0900"
@@ -354,7 +354,7 @@
   
     {
       "title"    : "리눅스 이론 정리 (1~3차시)",
-      "category" : "",
+      "category" : "DevLang_Linux_Fedora19",
       "tags"     : "",
       "url"      : "/2020/04/23/15/",
       "date"     : "2020-04-23 05:30:39 +0900"
@@ -362,7 +362,7 @@
   
     {
       "title"    : "C# 실습 코드",
-      "category" : "",
+      "category" : "DevLang_Csharp",
       "tags"     : "",
       "url"      : "/2020/04/23/3/",
       "date"     : "2020-04-23 05:30:35 +0900"
@@ -370,7 +370,7 @@
   
     {
       "title"    : "Git 이론 정리",
-      "category" : "",
+      "category" : "DevLang_Git",
       "tags"     : "",
       "url"      : "/2020/04/23/11/",
       "date"     : "2020-04-23 05:30:30 +0900"
@@ -378,7 +378,7 @@
   
     {
       "title"    : "Fedora19 실습 환경, 설치 순서",
-      "category" : "",
+      "category" : "DevLang_Linux_Fedora19",
       "tags"     : "",
       "url"      : "/2020/04/23/13/",
       "date"     : "2020-04-23 05:30:28 +0900"
@@ -386,7 +386,7 @@
   
     {
       "title"    : "Oracle SQL, PL,SQL 실습 코드",
-      "category" : "",
+      "category" : "DevLang_Oracle",
       "tags"     : "",
       "url"      : "/2020/04/23/8/",
       "date"     : "2020-04-23 05:30:25 +0900"
@@ -394,7 +394,7 @@
   
     {
       "title"    : "가상머신을 이용한 설치 후, 인터넷이 연결 안되는 경우",
-      "category" : "",
+      "category" : "DevLang_Linux_Fedora19",
       "tags"     : "",
       "url"      : "/2020/04/23/14/",
       "date"     : "2020-04-23 05:30:18 +0900"
@@ -402,7 +402,7 @@
   
     {
       "title"    : "Git 스터디 기록",
-      "category" : "",
+      "category" : "DevLang_Git",
       "tags"     : "",
       "url"      : "/2020/04/23/12/",
       "date"     : "2020-04-23 05:30:17 +0900"
@@ -410,7 +410,7 @@
   
     {
       "title"    : "Java(기본) 기본 이론 정리",
-      "category" : "",
+      "category" : "DevLang_Java",
       "tags"     : "",
       "url"      : "/2020/04/23/5/",
       "date"     : "2020-04-23 05:30:13 +0900"
@@ -418,7 +418,7 @@
   
     {
       "title"    : "Rhino 이론 정리",
-      "category" : "",
+      "category" : "DIY_Rhino",
       "tags"     : "",
       "url"      : "/2020/04/22/35/",
       "date"     : "2020-04-22 22:25:56 +0900"
@@ -426,7 +426,7 @@
   
     {
       "title"    : "Rhino 실습 파일",
-      "category" : "",
+      "category" : "DIY_Rhino",
       "tags"     : "",
       "url"      : "/2020/04/22/34/",
       "date"     : "2020-04-22 22:25:01 +0900"
@@ -434,7 +434,7 @@
   
     {
       "title"    : "AutoCAD 이론 정리",
-      "category" : "",
+      "category" : "DIY_AutoCAD",
       "tags"     : "",
       "url"      : "/2020/04/22/33/",
       "date"     : "2020-04-22 22:23:28 +0900"
@@ -442,7 +442,7 @@
   
     {
       "title"    : "AutoCAD 실습 파일",
-      "category" : "",
+      "category" : "DIY_AutoCAD",
       "tags"     : "",
       "url"      : "/2020/04/22/32/",
       "date"     : "2020-04-22 22:22:47 +0900"
@@ -450,7 +450,7 @@
   
     {
       "title"    : "기존 학습한 알고리즘 문제 업로드",
-      "category" : "",
+      "category" : "CS_Algorithm",
       "tags"     : "",
       "url"      : "/2020/04/22/29/",
       "date"     : "2020-04-22 22:16:37 +0900"
@@ -458,7 +458,7 @@
   
     {
       "title"    : "Eclipse 단축키",
-      "category" : "",
+      "category" : "DevOps_Tips",
       "tags"     : "",
       "url"      : "/2020/04/22/28/",
       "date"     : "2020-04-22 22:13:28 +0900"
@@ -466,7 +466,7 @@
   
     {
       "title"    : "Spring을 활용한 웹 실습 코드",
-      "category" : "",
+      "category" : "DevOps_Spring",
       "tags"     : "",
       "url"      : "/2020/04/22/27/",
       "date"     : "2020-04-22 22:09:08 +0900"
@@ -474,7 +474,7 @@
   
     {
       "title"    : "Maven 실습 코드",
-      "category" : "",
+      "category" : "DevOps_Maven",
       "tags"     : "",
       "url"      : "/2020/04/22/26/",
       "date"     : "2020-04-22 22:02:35 +0900"
@@ -482,7 +482,7 @@
   
     {
       "title"    : "Maven 사용 시, Error",
-      "category" : "",
+      "category" : "DevOps_Maven",
       "tags"     : "",
       "url"      : "/2020/04/22/25/",
       "date"     : "2020-04-22 22:00:14 +0900"
@@ -490,7 +490,7 @@
   
     {
       "title"    : "외부 Jar를 Maven repository에 사용하기",
-      "category" : "",
+      "category" : "DevOps_Maven",
       "tags"     : "",
       "url"      : "/2020/04/22/24/",
       "date"     : "2020-04-22 21:57:26 +0900"
@@ -498,7 +498,7 @@
   
     {
       "title"    : "CentOS 7 - Client 설치",
-      "category" : "",
+      "category" : "DevLang_Linux_CentOS7",
       "tags"     : "",
       "url"      : "/2020/04/22/23/",
       "date"     : "2020-04-22 21:52:39 +0900"
@@ -506,7 +506,7 @@
   
     {
       "title"    : "CentOS 7 - Server(B) 설치",
-      "category" : "",
+      "category" : "DevLang_Linux_CentOS7",
       "tags"     : "",
       "url"      : "/2020/04/22/22/",
       "date"     : "2020-04-22 21:51:52 +0900"
@@ -514,7 +514,7 @@
   
     {
       "title"    : "CentOS 7 - Server 설치",
-      "category" : "",
+      "category" : "DevLang_Linux_CentOS7",
       "tags"     : "",
       "url"      : "/2020/04/22/21/",
       "date"     : "2020-04-22 21:50:06 +0900"
@@ -522,7 +522,7 @@
   
     {
       "title"    : "Maven 설치 순서",
-      "category" : "",
+      "category" : "DevOps_Maven",
       "tags"     : "",
       "url"      : "/2020/04/22/20/",
       "date"     : "2020-04-22 21:48:11 +0900"
@@ -530,7 +530,7 @@
   
     {
       "title"    : "리눅스 이론 정리 (7차시)",
-      "category" : "",
+      "category" : "DevLang_Linux_Fedora19",
       "tags"     : "",
       "url"      : "/2020/04/22/19/",
       "date"     : "2020-04-22 21:33:49 +0900"
@@ -538,7 +538,7 @@
   
     {
       "title"    : "리눅스 이론 정리 (6차시)",
-      "category" : "",
+      "category" : "DevLang_Linux_Fedora19",
       "tags"     : "",
       "url"      : "/2020/04/22/18/",
       "date"     : "2020-04-22 21:26:51 +0900"
