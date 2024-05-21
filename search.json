@@ -1,6 +1,22 @@
 [
   
     {
+      "title"    : "채널톡 스타트업 기술 성장기 RDBMS에서 NoSQL로의 전환",
+      "category" : "IT_Tech",
+      "tags"     : "aws_summit_seoul, rdbms, nosql, and migration",
+      "url"      : "/2024/05/21/Aws_Summit_Seoul_2024_Session_01/",
+      "date"     : "2024-05-21 21:55:48 +0900"
+    } ,
+  
+    {
+      "title"    : "AWS Summit Seoul 2024 방문기",
+      "category" : "IT_Tech",
+      "tags"     : "aws_summit_seoul",
+      "url"      : "/2024/05/21/Aws_Summit_Seoul_2024/",
+      "date"     : "2024-05-21 21:55:48 +0900"
+    } ,
+  
+    {
       "title"    : "Nest.js와 Spring 비교",
       "category" : "DevLang_Node.js",
       "tags"     : "spring, node.js, and nest.js",
