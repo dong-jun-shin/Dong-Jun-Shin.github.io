@@ -1,6 +1,70 @@
 [
   
     {
+      "title"    : "Nest.js와 Spring 비교",
+      "category" : "DevLang_Node.js",
+      "tags"     : "spring, node.js, and nest.js",
+      "url"      : "/2024/02/20/Nest_js_vs_Spring/",
+      "date"     : "2024-02-20 23:33:33 +0900"
+    } ,
+  
+    {
+      "title"    : "MODUPOP 테크 세미나 컨퍼런스 발표 가이드를 듣고...",
+      "category" : "Job",
+      "tags"     : "session, guide, and tip",
+      "url"      : "/2024/01/17/tech_presentation_guide/",
+      "date"     : "2024-01-17 19:49:57 +0900"
+    } ,
+  
+    {
+      "title"    : "Production Serverless 환경에서 발생한 OPTIONS(PreFlight) 500 오류 분석 여정",
+      "category" : "CS_Network",
+      "tags"     : "serverless, aws, error, and tracking",
+      "url"      : "/2024/01/07/pre_flight_error_tracking/",
+      "date"     : "2024-01-07 23:10:08 +0900"
+    } ,
+  
+    {
+      "title"    : "MySQL - Gap Lock",
+      "category" : "DevLang_MySQL",
+      "tags"     : "mysql, dead_lock, and gap_lock",
+      "url"      : "/2023/12/11/mysql_gap_lock/",
+      "date"     : "2023-12-11 20:19:03 +0900"
+    } ,
+  
+    {
+      "title"    : "로컬에서 여러개의 서버를 효율적으로 관리하는 방법",
+      "category" : "DevLang_Node.js",
+      "tags"     : "node.js, pm2, and msa",
+      "url"      : "/2023/11/02/server_managing_with_pm2/",
+      "date"     : "2023-11-02 19:02:57 +0900"
+    } ,
+  
+    {
+      "title"    : "Github Pages를 이용한 개인 블로그 구축하기",
+      "category" : "Work_Tool",
+      "tags"     : "blog, markdown, and github_pages",
+      "url"      : "/2023/10/14/build_personal_blog/",
+      "date"     : "2023-10-14 22:47:37 +0900"
+    } ,
+  
+    {
+      "title"    : "Jira 도입에 따른 티켓 이관 작업기",
+      "category" : "Work_Tool",
+      "tags"     : "jira, issue_tracker, and migration",
+      "url"      : "/2023/09/21/migration_to_jira/",
+      "date"     : "2023-09-21 19:19:55 +0900"
+    } ,
+  
+    {
+      "title"    : "사이드 프로젝트의 실패에 대한 회고",
+      "category" : "Life",
+      "tags"     : "side_project and onboarding",
+      "url"      : "/2023/09/05/retrospect_project_failure/",
+      "date"     : "2023-09-05 16:31:55 +0900"
+    } ,
+  
+    {
       "title"    : "[코칭스터디] Beyond AI Basic 2023 스터디 후기",
       "category" : "IT_Tech",
       "tags"     : "",
