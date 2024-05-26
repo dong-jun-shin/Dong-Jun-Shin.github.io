@@ -4,6 +4,38 @@
         xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     
     <url>
+        <loc>https://dong-jun-shin.github.io/2024/05/26/Aws_Summit_Seoul_2024_Session_03/</loc>
+        
+        <lastmod>2024-05-26T23:59:44+09:00</lastmod>
+        
+
+        
+        <changefreq>weekly</changefreq>
+        
+
+        
+        <priority>0.5</priority>
+        
+
+    </url>
+    
+    <url>
+        <loc>https://dong-jun-shin.github.io/2024/05/26/Aws_Summit_Seoul_2024_Session_02/</loc>
+        
+        <lastmod>2024-05-26T23:59:43+09:00</lastmod>
+        
+
+        
+        <changefreq>weekly</changefreq>
+        
+
+        
+        <priority>0.5</priority>
+        
+
+    </url>
+    
+    <url>
         <loc>https://dong-jun-shin.github.io/2024/05/21/Aws_Summit_Seoul_2024_Session_01/</loc>
         
         <lastmod>2024-05-21T21:55:48+09:00</lastmod>

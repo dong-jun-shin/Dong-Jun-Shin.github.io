@@ -1,6 +1,22 @@
 [
   
     {
+      "title"    : "하이퍼커넥트의 AWS Graviton 이전을 위한 거대한 도전과 여정",
+      "category" : "IT_Tech",
+      "tags"     : "aws_summit_seoul, aws_graviton, and migration",
+      "url"      : "/2024/05/26/Aws_Summit_Seoul_2024_Session_03/",
+      "date"     : "2024-05-26 23:59:44 +0900"
+    } ,
+  
+    {
+      "title"    : "당신의 AI는 안전하십니까?",
+      "category" : "IT_Tech",
+      "tags"     : "aws_summit_seoul, ai, and security",
+      "url"      : "/2024/05/26/Aws_Summit_Seoul_2024_Session_02/",
+      "date"     : "2024-05-26 23:59:43 +0900"
+    } ,
+  
+    {
       "title"    : "채널톡 스타트업 기술 성장기 RDBMS에서 NoSQL로의 전환",
       "category" : "IT_Tech",
       "tags"     : "aws_summit_seoul, rdbms, nosql, and migration",
