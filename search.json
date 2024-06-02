@@ -1,6 +1,30 @@
 [
   
     {
+      "title"    : "개발의 미래 - AWS AI 도구로 시간 절약하기",
+      "category" : "IT_Tech",
+      "tags"     : "aws_summit_seoul, ai, and aws_q_developer",
+      "url"      : "/2024/06/02/Aws_Summit_Seoul_2024_Session_06/",
+      "date"     : "2024-06-02 23:08:59 +0900"
+    } ,
+  
+    {
+      "title"    : "삼성전자의 AI기반 SmartThings 인텔리전스 플랫폼",
+      "category" : "IT_Tech",
+      "tags"     : "aws_summit_seoul, ai, iot, and aws_sage_maker",
+      "url"      : "/2024/06/02/Aws_Summit_Seoul_2024_Session_05/",
+      "date"     : "2024-06-02 23:08:58 +0900"
+    } ,
+  
+    {
+      "title"    : "생성형 AI 시대의 고객 데이터 플랫폼 구축 전략",
+      "category" : "IT_Tech",
+      "tags"     : "aws_summit_seoul, ai, aws_red_shift, aws_bedrock, and aws_sage_maker",
+      "url"      : "/2024/06/02/Aws_Summit_Seoul_2024_Session_04/",
+      "date"     : "2024-06-02 23:08:57 +0900"
+    } ,
+  
+    {
       "title"    : "하이퍼커넥트의 AWS Graviton 이전을 위한 거대한 도전과 여정",
       "category" : "IT_Tech",
       "tags"     : "aws_summit_seoul, aws_graviton, and migration",
