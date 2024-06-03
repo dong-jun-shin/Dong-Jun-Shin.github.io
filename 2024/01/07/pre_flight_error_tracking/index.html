@@ -7,6 +7,33 @@
 
   <title>Production Serverless 환경에서 발생한 OPTIONS(PreFlight) 500 오류 분석 여정</title>
   <meta name='description' content="배경검토하고 사인을 해야 하는 수백 장의 PDF 파일을 보여주는 상황에서 빠르게 스크롤할 때, 제품의 PDF 뷰어에 계속해서 그리다가 간헐적으로 OPTIONS 500 Error가 발생하는 문제가 있었습니다. 왜 발생한 것인지 살펴보면서 내용과 과정을 정리하였습니다.">
+  <!-- Twitter Cards -->
+<meta name="twitter:title" content="Production Serverless 환경에서 발생한 OPTIONS(PreFlight) 500 오류 분석 여정">
+<meta name="twitter:description" content="배경
+검토하고 사인을 해야 하는 수백 장의 PDF 파일을 보여주는 상황에서 빠르게 스크롤할 때, 제품의 PDF 뷰어에 계속해서 그리다가 간헐적으로 OPTIONS 500 Error가 발생하는 문제가 있었습니다. 왜 발생한 것인지 살펴보면서 내용과 과정을 정리하였습니다.
+
+">
+
+
+
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://dong-jun-shin.github.io/images/CS_Network/logo.png">
+
+
+<!-- Open Graph -->
+<meta property="og:locale" content="">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Production Serverless 환경에서 발생한 OPTIONS(PreFlight) 500 오류 분석 여정">
+
+<meta property="og:image" content="https://dong-jun-shin.github.io/images/CS_Network/logo.png">
+
+
+<meta property="og:description" content="배경
+검토하고 사인을 해야 하는 수백 장의 PDF 파일을 보여주는 상황에서 빠르게 스크롤할 때, 제품의 PDF 뷰어에 계속해서 그리다가 간헐적으로 OPTIONS 500 Error가 발생하는 문제가 있었습니다. 왜 발생한 것인지 살펴보면서 내용과 과정을 정리하였습니다.
+
+">
+<meta property="og:url" content="https://dong-jun-shin.github.io/2024/01/07/pre_flight_error_tracking/">
+<meta property="og:site_name" content="Jun's Dev_Blog">
   <link rel='canonical' href="https://dong-jun-shin.github.io/2024/01/07/pre_flight_error_tracking/">
   <link rel='alternate' type='application/rss+xml' title='Jun's Dev_Blog' href="https://dong-jun-shin.github.io/feed.xml">
   <!-- Fonts -->
