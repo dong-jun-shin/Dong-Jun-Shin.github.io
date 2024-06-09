@@ -1,6 +1,22 @@
 [
   
     {
+      "title"    : "혁신을 가속화하는 AI - 개발자를 위한 새로운 AWS Gen AI 도구",
+      "category" : "IT_Tech",
+      "tags"     : "aws_summit_seoul, ai, aws_q_developer, and aws_codeguru",
+      "url"      : "/2024/06/09/Aws_Summit_Seoul_2024_Session_08/",
+      "date"     : "2024-06-09 21:50:13 +0900"
+    } ,
+  
+    {
+      "title"    : "데이터 인사이트의 혁신 - Amazon AI 서비스 활용법",
+      "category" : "IT_Tech",
+      "tags"     : "aws_summit_seoul, ai, ml, rag, aws_bedrock, aws_sage_maker, aws_kendra, and aws_q_developer",
+      "url"      : "/2024/06/09/Aws_Summit_Seoul_2024_Session_07/",
+      "date"     : "2024-06-09 21:50:13 +0900"
+    } ,
+  
+    {
       "title"    : "개발의 미래 - AWS AI 도구로 시간 절약하기",
       "category" : "IT_Tech",
       "tags"     : "aws_summit_seoul, ai, and aws_q_developer",
