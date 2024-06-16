@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset='utf-8'>
+  <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+  <meta name='viewport' content='width=device-width, initial-scale=1'>
+
+  <title>RAG를 사용하여 생성형 AI 애플리케이션의 응답 품질 높이기</title>
+  <meta name='description' content="">
+  <!-- Twitter Cards -->
+<meta name="twitter:title" content="RAG를 사용하여 생성형 AI 애플리케이션의 응답 품질 높이기">
+<meta name="twitter:description" content="
+
+">
+
+
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://dong-jun-shin.github.io/images/IT_Tech/2024/06/Aws_Summit_Seoul_2024_Session_10/thumbnail.png">
+
+
+<!-- Open Graph -->
+<meta property="og:locale" content="">
+<meta property="og:type" content="article">
+<meta property="og:title" content="RAG를 사용하여 생성형 AI 애플리케이션의 응답 품질 높이기">
+
+<meta property="og:image" content="https://dong-jun-shin.github.io/images/IT_Tech/2024/06/Aws_Summit_Seoul_2024_Session_10/thumbnail.png">
+
+
+<meta property="og:description" content="
+
+">
+<meta property="og:url" content="https://dong-jun-shin.github.io/2024/06/16/Aws_Summit_Seoul_2024_Session_10/">
+<meta property="og:site_name" content="Jun's Dev_Blog">
+  <link rel='canonical' href="https://dong-jun-shin.github.io/2024/06/16/Aws_Summit_Seoul_2024_Session_10/">
+  <link rel='alternate' type='application/rss+xml' title='Jun's Dev_Blog' href="https://dong-jun-shin.github.io/feed.xml">
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css?family=Volkhov:400,700" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@200;300;400;500;700;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@700&display=swap" rel="stylesheet">
+  <style>
+    
+    /*! normalize.css v7.0.0 | MIT License | github.com/necolas/normalize.css */html{line-height:1.15;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}body{font-weight:normal;letter-spacing:0;margin:0}article,aside,footer,header,nav,section{display:block}h1{font-size:2em;margin:0.67em 0}figcaption,figure,main{display:block}figure{margin:1em 40px}hr{box-sizing:content-box;height:0;overflow:visible}pre{font-family:monospace, monospace;font-size:1em}a{background-color:transparent;-webkit-text-decoration-skip:objects}abbr[title]{border-bottom:none;text-decoration:underline;text-decoration:underline dotted}b,strong{font-weight:inherit}b,strong{font-weight:bolder}code,kbd,samp{font-family:monospace, monospace;font-size:1em}dfn{font-style:italic}mark{background-color:#ff0;color:#000}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-0.25em}sup{top:-0.5em}audio,video{display:inline-block}audio:not([controls]){display:none;height:0}img{border-style:none}svg:not(:root){overflow:hidden}button,input,optgroup,select,textarea{font-family:'Noto Sans KR', sans-serif;font-size:100%;line-height:1.15;margin:0}button,input{overflow:visible}button,select{text-transform:none}button,html [type="button"],[type="reset"],[type="submit"]{-webkit-appearance:button}button::-moz-focus-inner,[type="button"]::-moz-focus-inner,[type="reset"]::-moz-focus-inner,[type="submit"]::-moz-focus-inner{border-style:none;padding:0}button:-moz-focusring,[type="button"]:-moz-focusring,[type="reset"]:-moz-focusring,[type="submit"]:-moz-focusring{outline:1px dotted ButtonText}fieldset{padding:0.35em 0.75em 0.625em}legend{box-sizing:border-box;color:inherit;display:table;max-width:100%;padding:0;white-space:normal}progress{display:inline-block;vertical-align:baseline}textarea{overflow:auto}[type="checkbox"],[type="radio"]{box-sizing:border-box;padding:0}[type="number"]::-webkit-inner-spin-button,[type="number"]::-webkit-outer-spin-button{height:auto}[type="search"]{-webkit-appearance:textfield;outline-offset:-2px}[type="search"]::-webkit-search-cancel-button,[type="search"]::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}details,menu{display:block}summary{display:list-item}canvas{display:inline-block}template{display:none}[hidden]{display:none}body,h1,h2,h3,h4,h5,h6,p,blockquote,pre,dl,dd,ol,ul,fieldset,legend,figure,hr{margin:0;padding:0}li>ul,li>ol{margin-bottom:0}table{border:0.14em solid black;border-collapse:collapse;border-spacing:0;word-break:initial;width:100%}table tr:nth-child(even){background-color:#f2fafd}thead{background-color:#a0d0ee}table th{text-align:center;padding:6px 13px;border:0.1em solid #757575}table td{padding:6px 13px;border:0.1em solid #757575}table tr{padding:6px 13px;border:0.1em solid #757575}@-webkit-keyframes spin{100%{-webkit-transform:rotate(360deg);transform:rotate(360deg)}}@keyframes spin{100%{-webkit-transform:rotate(360deg);transform:rotate(360deg)}}.icon{position:relative;display:inline-block;width:25px;height:25px;overflow:hidden;fill:currentColor}.icon__cnt{width:100%;height:100%;background:inherit;fill:inherit;pointer-events:none;transform:translateX(0);-ms-transform:translate(0.5px, -0.3px)}.icon--m{width:50px;height:50px}.icon--l{width:100px;height:100px}.icon--xl{width:150px;height:150px}.icon--xxl{width:200px;height:200px}.icon__spinner{position:absolute;top:0;left:0;width:100%;height:100%}.icon--ei-spinner .icon__spinner,.icon--ei-spinner-2 .icon__spinner{-webkit-animation:spin 1s steps(12) infinite;animation:spin 1s steps(12) infinite}.icon--ei-spinner-3 .icon__spinner{-webkit-animation:spin 1.5s linear infinite;animation:spin 1.5s linear infinite}.icon--ei-sc-facebook{fill:#3b5998}.icon--ei-sc-github{fill:#333}.icon--ei-sc-google-plus{fill:#dd4b39}.icon--ei-sc-instagram{fill:#3f729b}.icon--ei-sc-linkedin{fill:#0976b4}.icon--ei-sc-odnoklassniki{fill:#ed812b}.icon--ei-sc-skype{fill:#00aff0}.icon--ei-sc-soundcloud{fill:#f80}.icon--ei-sc-tumblr{fill:#35465c}.icon--ei-sc-twitter{fill:#55acee}.icon--ei-sc-vimeo{fill:#1ab7ea}.icon--ei-sc-vk{fill:#45668e}.icon--ei-sc-youtube{fill:#e52d27}.icon--ei-sc-pinterest{fill:#bd081c}.icon--ei-sc-telegram{fill:#0088cc}*,*::after,*::before{box-sizing:border-box}h1,h2,h3,h4,h5,h6,ul,ol,dl,blockquote,p,address,hr,table,fieldset,figure,pre{margin-bottom:20px}ul,ol,dd{margin-left:20px}.highlight{background:#f7f7f7}.highlighter-rouge .highlight{background:#0d1117;color:#e6edf3;border-radius:10px}.highlight .c{color:#8b949e;font-style:italic}.highlight .err{color:#f85149}.highlight .esc{color:#e6edf3}.highlight .g{color:#e6edf3}.highlight .k{color:#ff7b72}.highlight .l{color:#a5d6ff}.highlight .n{color:#e6edf3}.highlight .o{color:#ff7b72;font-weight:bold}.highlight .x{color:#e6edf3}.highlight .p{color:#e6edf3}.highlight .ch{color:#8b949e;font-style:italic}.highlight .cm{color:#8b949e;font-style:italic}.highlight .cp{color:#8b949e;font-weight:bold;font-style:italic}.highlight .cpf{color:#8b949e;font-style:italic}.highlight .c1{color:#8b949e;font-style:italic}.highlight .cs{color:#8b949e;font-weight:bold;font-style:italic}.highlight .gd{color:#ffa198;background-color:#490202}.highlight .ge{color:#e6edf3;font-style:italic}.highlight .ges{color:#e6edf3;font-weight:bold;font-style:italic}.highlight .gr{color:#ffa198}.highlight .gh{color:#79c0ff;font-weight:bold}.highlight .gi{color:#56d364;background-color:#0f5323}.highlight .go{color:#8b949e}.highlight .gp{color:#8b949e}.highlight .gs{color:#e6edf3;font-weight:bold}.highlight .gu{color:#79c0ff}.highlight .gt{color:#ff7b72}.highlight .g-Underline{color:#e6edf3;text-decoration:underline}.highlight .kc{color:#79c0ff}.highlight .kd{color:#ff7b72}.highlight .kn{color:#ff7b72}.highlight .kp{color:#79c0ff}.highlight .kr{color:#ff7b72}.highlight .kt{color:#ff7b72}.highlight .ld{color:#79c0ff}.highlight .m{color:#a5d6ff}.highlight .s{color:#a5d6ff}.highlight .na{color:#e6edf3}.highlight .nb{color:#e6edf3}.highlight .nc{color:#f0883e;font-weight:bold}.highlight .no{color:#79c0ff;font-weight:bold}.highlight .nd{color:#d2a8ff;font-weight:bold}.highlight .ni{color:#ffa657}.highlight .ne{color:#f0883e;font-weight:bold}.highlight .nf{color:#d2a8ff;font-weight:bold}.highlight .nl{color:#79c0ff;font-weight:bold}.highlight .nn{color:#ff7b72}.highlight .nx{color:#e6edf3}.highlight .py{color:#79c0ff}.highlight .nt{color:#7ee787}.highlight .nv{color:#79c0ff}.highlight .ow{color:#ff7b72;font-weight:bold}.highlight .pm{color:#e6edf3}.highlight .w{color:#6e7681}.highlight .mb{color:#a5d6ff}.highlight .mf{color:#a5d6ff}.highlight .mh{color:#a5d6ff}.highlight .mi{color:#a5d6ff}.highlight .mo{color:#a5d6ff}.highlight .sa{color:#79c0ff}.highlight .sb{color:#a5d6ff}.highlight .sc{color:#a5d6ff}.highlight .dl{color:#79c0ff}.highlight .sd{color:#a5d6ff}.highlight .s2{color:#a5d6ff}.highlight .se{color:#79c0ff}.highlight .sh{color:#79c0ff}.highlight .si{color:#a5d6ff}.highlight .sx{color:#a5d6ff}.highlight .sr{color:#79c0ff}.highlight .s1{color:#a5d6ff}.highlight .ss{color:#a5d6ff}.highlight .bp{color:#e6edf3}.highlight .fm{color:#d2a8ff;font-weight:bold}.highlight .vc{color:#79c0ff}.highlight .vg{color:#79c0ff}.highlight .vi{color:#79c0ff}.highlight .vm{color:#79c0ff}.highlight .il{color:#a5d6ff}body{font-family:"Open Sans",Helvetica Neue,Helvetica,"Noto Sans KR",Arial,sans-serif;font-size:15px;line-height:28px;color:#404040;background-color:#fbfbfb;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}*::selection{color:#fff;background-color:#3af}h1,h2,h3,h4,h5,h6{font-family:"Noto Sans KR",serif;font-weight:700;line-height:initial}h1{font-weight:900;font-size:32px;line-height:110%;margin-top:0.67em;margin-bottom:0.67em}h2{font-weight:700;font-size:28px;margin-top:0.83em;margin-bottom:0.83em}h3{font-weight:500;font-size:24px;margin-top:1em;margin-bottom:1em}h4{font-weight:400;font-size:20px;margin-top:1.33em;margin-bottom:1.33em}h5{font-weight:300;font-size:18px;margin-top:1.33em;margin-bottom:1.33em;color:#333}h6{font-weight:200;font-size:16px;margin-top:1.33em;margin-bottom:1.33em;color:#444}img{max-width:100%;height:auto;vertical-align:middle}img+strong:before{display:inline-block;content:"▲";padding-right:5px;font-size:14px}img+strong{display:block;font-size:14px}p:has(>img):has(>strong){text-align:center}a{text-decoration:none;color:#0086e6;transition:.35s}a:hover{color:#005999}blockquote{padding-left:20px;border-left:4px solid #3af;font-family:'Noto Sans KR', serif;font-style:normal;font-size:14px;background-color:#eef8fc}blockquote p{padding:10px}hr{height:4px;margin:20px 0;border:0;background-color:#6B6B6B}pre{overflow:auto;padding:14px;font-size:14px;white-space:pre-wrap;word-wrap:break-word;word-break:break-all;font-family:Courier, 'Noto Sans KR', monospace}code{border-radius:10px;overflow:auto;white-space:pre-wrap;word-wrap:break-word;word-break:break-all;font-family:Courier, 'Noto Sans KR', monospace;font-weight:bold;font-size:12px;color:#eb5757;background-color:#edeeee;margin:0 2px;padding:5px 6px}li code,pre code{font-size:14px}pre code{color:#eb5757;background-color:transparent}.o-wrapper{max-width:1440px;position:relative}.o-opacity{animation-duration:0.7s;animation-delay:0.2s;animation-fill-mode:both;animation-name:opacity}@keyframes opacity{from{opacity:0}to{opacity:1}}.c-btn{display:inline-block;white-space:nowrap;vertical-align:middle;font-family:'Noto Sans KR', serif;font-size:12px;text-align:center;padding:5px 15px;cursor:pointer;transition:.35s}.c-btn--primary{color:#fff;background-color:#3af;background:linear-gradient(135deg, #3af 0%, #62d5ff 100%)}.c-btn--secondary{color:#fff;background-color:#cfcfdd;background:linear-gradient(135deg, #a2a2bd 0%, #cfcfdd 100%)}.c-btn--bar{color:#fff;background-color:#444;background:#525252;font-size:14px;width:76%;height:40px}.c-btn--round{border-radius:30px}.c-btn--shadow{box-shadow:8px 10px 20px 0 rgba(46,61,73,0.15)}.c-btn--shadow:hover{box-shadow:2px 4px 8px 0px rgba(46,61,73,0.2)}.c-btn--middle{display:block;width:300px;max-width:100%}.c-btn--big{display:block;width:100%}.c-btn:hover{color:#fff;transition:.35s}.c-btn:active{transform:translateY(2px)}.c-sidebar{display:flex;flex-direction:column;justify-content:space-between;position:fixed;top:0;left:0;bottom:0;width:360px;padding:40px 20px 20px;text-align:center;box-shadow:1px 1px 0 rgba(31,35,46,0.15);background-color:#fff}.c-sidebar-author .c-author__cover{width:100px;height:100px;margin:0 auto 10px;border-radius:50%;overflow:hidden;background-color:#cfcfdd}.c-sidebar-author .c-author__cover img{width:100%;height:100%;border-radius:50%;transition:.35s}.c-sidebar-author .c-author__cover img:hover{transform:scale3d(0.9, 0.9, 1)}.c-sidebar-author .c-contact-menu .c-btn{min-width:110px}.c-sidebar-author .c-contact-menu .c-btn .icon{width:18px;height:18px;vertical-align:text-bottom;fill:#fff}.c-sidebar-author .c-author__info{font-family:'Noto Sans KR', serif}.c-sidebar-author .c-author__name{font-size:18px;font-weight:700;line-height:21px}.c-sidebar-author .c-author__job{font-size:12px;color:#a0a0a0;margin:5px 0 0}.c-sidebar-author .c-contact-menu{margin-top:30px;margin-left:0px;margin-bottom:10px;margin-right:0px}.c-sidebar-author .c-contact-menu .c-btn--secondary{margin-right:10px}.c-sidebar-author .c-author__about{max-width:400px;margin:0 auto 15px;font-size:13px}.c-sidebar-footer .c-social__title{position:relative;font-family:'Noto Sans KR', serif;font-size:15px;font-weight:700;color:#444}.c-sidebar-footer .c-social__title::before{content:"";display:block;height:2px;width:calc(50% - 40px);transform:translateY(-50%);position:absolute;top:50%;left:0;background-color:#444}.c-sidebar-footer .c-social__title::after{content:"";display:block;height:2px;width:calc(50% - 40px);transform:translateY(-50%);position:absolute;top:50%;right:0;background-color:#444}.c-sidebar-footer .c-social__list{list-style-type:none;padding:0;margin:15px 0}.c-sidebar-footer .c-social__list .c-social__item{display:inline-block;width:27px;height:27px}.c-sidebar-footer .c-social__list .icon{width:27px;height:27px;fill:#444;vertical-align:middle;transition:.35s}.c-sidebar-footer .c-social__list .icon:hover{fill:#3af;transform:scale(1.2);transition:.35s}.c-sidebar-footer .c-copyright p{font-size:13px;margin:0}@media only screen and (max-width: 900px){.c-sidebar{position:relative;width:100%;padding:20px}.c-sidebar .c-contact-menu{margin:20px 0}.c-sidebar-footer .c-social .c-social__title{clip:rect(1px, 1px, 1px, 1px);height:1px;overflow:hidden;position:absolute !important;width:1px;word-wrap:normal !important}.c-sidebar-footer .c-social__list{margin:0}.c-sidebar-footer .c-copyright{clip:rect(1px, 1px, 1px, 1px);height:1px;overflow:hidden;position:absolute !important;width:1px;word-wrap:normal !important}}@media only screen and (max-width: 480px){.c-sidebar-author .c-author__cover{width:80px;height:80px}.c-sidebar-author .c-author__cover img{width:100%;height:100%}.c-sidebar-author .c-contact-menu{margin:15px 0px 10px 0px}.c-sidebar-author .c-contact-menu .c-btn{min-width:80px;font-size:10px;padding:4px 15px;margin-right:5px}.c-sidebar-author .c-contact-menu .c-btn .icon{width:16px;height:16px}.c-sidebar-author .c-contact-menu-bar{margin:0px}.c-sidebar-author .c-contact-menu-bar .c-btn{min-width:80px;font-size:12px;padding:4px 15px;width:63%;height:37px;margin-left:28px;margin-right:32px}.c-sidebar-author .c-contact-menu-bar .c-btn .icon{width:16px;height:16px}.c-sidebar-footer .c-social .c-social__title{clip:rect(1px, 1px, 1px, 1px);height:1px;overflow:hidden;position:absolute !important;width:1px;word-wrap:normal !important}.c-sidebar-footer .c-social__list{margin:0}.c-sidebar-footer .c-social__list .icon{width:25px;height:25px}.c-sidebar-footer .c-copyright{clip:rect(1px, 1px, 1px, 1px);height:1px;overflow:hidden;position:absolute !important;width:1px;word-wrap:normal !important}}.c-content{position:relative;display:flex;flex-direction:row;flex-wrap:wrap;align-items:stretch;padding:0 20px 0;margin-left:360px}@media only screen and (max-width: 900px){.c-content{position:static;padding:0 15px 0;margin-left:0}}.c-posts{width:100%;display:flex;flex-direction:row;flex-wrap:wrap}.c-post{width:100%;max-width:100%;margin-bottom:20px;display:flex;flex-direction:row;align-items:stretch;min-height:180px;border-radius:10px;overflow:hidden;transition:.35s;background-color:#fff;box-shadow:0 1px 1px 0 rgba(31,35,46,0.15)}.c-post:hover{transform:translate(0px, -2px);box-shadow:0 15px 45px -10px rgba(10,16,34,0.2)}.c-post .c-post-thumbnail{display:block;width:30%;max-width:100%;min-height:180px;border-radius:10px 0 0 10px;background-color:rgba(220,235,245,0.2);background-size:cover;background-position:50% 50%}.c-post .c-post-content{padding:15px;width:70%}.c-post .c-post-content .c-post-title{font-size:30px;font-weight:400;margin:0 0 15px}.c-post .c-post-content .c-post-title a{text-decoration:none;color:#263959}.c-post .c-post-content .c-post-tags{padding:3px 5px;border-radius:3px;background-color:rgba(135,131,120,0.2);color:#eb5757;font-size:85%;font-family:'Courier Prime', 'Noto Sans KR'}.c-post .c-post-content .c-post-date,.c-post .c-post-content .c-post-words{font-size:12px}.c-load-more{padding:20px;margin:20px auto 40px;font-size:13px;color:#fff;border:none;background-color:#3af;outline:none}.c-load-more:hover{background-color:#0086e6}@media only screen and (max-width: 1200px){.c-post{width:48%;max-width:100%;margin:0 1% 20px;flex-direction:column}.c-post .c-post-thumbnail{width:100%;border-radius:10px 10px 0 0}.c-post .c-post-content{width:100%}.c-post .c-post-content .c-post-title{font-size:21px;margin:15px 0}}@media only screen and (max-width: 480px){.c-post{width:100%;max-width:100%;margin:0 0 20px}.c-post .c-post-content{width:100%}.c-post .c-post-content .c-post-title{font-size:21px;margin:15px 0}}.c-article{width:100%;margin:20px 0}.c-wrap-content{padding:7%;background-color:#fff}.c-article__image{position:relative;background-color:rgba(220,235,245,0.2);background-position:center;background-size:cover;background-repeat:no-repeat}.c-article__image:after{content:"";display:block;padding-top:56%}.c-article__header{margin-bottom:100px;padding-bottom:10px;text-align:center;border-bottom:1px solid #6B6B6B}.c-article__header .c-article__title{margin-bottom:10px}.c-article__date span{font-size:13px;text-transform:uppercase;color:#a0a0a0}.c-article__footer{margin:60px 0 0;padding-top:20px;padding-bottom:10px;text-align:center;border-top:1px solid #6B6B6B}.c-article__footer .c-article__share{transition:.35s}.c-article__footer .c-article__share a .icon{vertical-align:middle;transition:.35s}.c-article__footer .c-article__share a .icon:hover{opacity:.7;transition:.35s}.c-article__footer .c-article__tag{margin-bottom:5px}.c-article__footer .c-article__tag a{display:inline-block;vertical-align:middle;padding:5px 10px;font-family:'Noto Sans KR', serif;font-size:10px;line-height:10px;text-transform:uppercase;background-color:rgba(115,138,160,0.6);color:#fff}.c-article__footer .c-article__tag a:hover{background-color:rgba(80,100,118,0.6)}.c-article__footer .c-article__tag a:last-child{margin-right:0}.c-recent-post{padding:30px 0}.c-recent-post .c-recent__title{font-size:14px;text-align:center;text-transform:uppercase;margin-bottom:30px}.c-recent-post .c-recent__box{display:flex;flex-direction:row;flex-wrap:wrap}.c-recent-post .c-recent__item{max-width:23%;flex-basis:23%;margin:0 1% 20px;border-radius:10px;overflow:hidden;text-align:center;background-color:#fff;box-shadow:0 1px 1px 0 rgba(31,35,46,0.15);transition:.35s}.c-recent-post .c-recent__item h4{margin-bottom:5px;font-size:12px;text-transform:uppercase}.c-recent-post .c-recent__item h4 a{color:#444}.c-recent-post .c-recent__item:hover{box-shadow:2px 4px 8px 0px rgba(46,61,73,0.2)}.c-recent-post .c-recent__footer{padding:15px}.c-recent-post .c-recent__image{display:block;width:100%;min-height:180px;background-color:rgba(220,235,245,0.2);background-size:cover;background-position:center;background-repeat:no-repeat}.c-recent-post .c-recent__date{color:#a0a0a0;font-size:12px}@media only screen and (max-width: 1200px){.c-recent-post .c-recent__item{max-width:48%;flex-basis:48%}}@media only screen and (max-width: 900px){.c-article{margin:15px 0}}@media only screen and (max-width: 480px){.c-wrap-content{padding:15px}.c-article__header{margin-bottom:5px}.c-article__header .c-article__title{font-size:24px;margin-bottom:5px}.c-recent-post .c-recent__item{max-width:100%;flex-basis:100%;margin:0 0 20px}}.c-blog-tags{width:100%;padding:20px;margin:20px 0 40px;background-color:#fff}.c-blog-tags h1{text-align:center;margin-bottom:0}.c-blog-tags h2{font-size:18px;text-transform:uppercase;margin:30px 0;color:#757575}.c-tag__list{list-style:none;padding:0 0 40px;margin:40px 0 0;border-bottom:1px solid #6B6B6B}.c-tag__list li{display:inline-block;margin-right:15px}.c-tag__list li a{color:#404040;text-transform:uppercase;font-size:12px}.c-tag__list li a:hover{color:#000}.c-tag__item{margin-bottom:15px}.c-tag__image{width:50px;height:50px;border-radius:50%;margin-right:5px}@media only screen and (max-width: 480px){.c-blog-tags{padding:15px}.c-blog-tags h1{font-size:27px}.c-blog-tags h2{font-size:16px;margin:15px 0}.c-tag__list{padding:0 0 30px;margin:30px 0 0}.c-tag__item{margin-bottom:5px}.c-tag__image{display:none}}.c-header{position:relative;width:100%;margin:20px 0}.c-header__box{position:relative;display:flex;flex-direction:row;justify-content:space-between;align-items:center}.c-header__box .icon--ei-search{position:absolute;top:7px;left:15px;fill:#ccc}.c-search{width:80%}.c-search .c-search__box{display:flex;align-items:center}.c-search .c-search__text{position:relative;width:100%;padding:10px 10px 10px 40px;border:1px solid #f2fafd;border-radius:30px;outline:none;color:#a0a0a0}.c-search .c-search__text::placeholder{color:#ccc}.c-search .c-search__text:hover{box-shadow:0 1px 0px rgba(132,135,138,0.1);transition:.35s}.c-search .c-search-results-list{position:absolute;width:100%;margin:10px 0 0;list-style-type:none;background-color:#fff;z-index:1}.c-search .c-search-results-list li{display:flex;flex-wrap:wrap;align-items:center;margin:0;padding:20px 25px 0;background-color:#fff;line-height:1.4;border-left:solid 1px #edeeee;border-right:solid 1px #edeeee}.c-search .c-search-results-list li:first-child{border-top-left-radius:5px;border-top-right-radius:5px;border-top:solid 1px #edeeee}.c-search .c-search-results-list li:last-child{border-bottom-left-radius:5px;border-bottom-right-radius:5px;padding-bottom:25px;border-bottom:solid 1px #edeeee}.c-search .c-search-results-list li a{font-size:16px}.c-nav{flex-grow:1;padding-left:20px}.c-nav .c-nav__list{display:flex;justify-content:flex-end}.c-nav .c-nav__list .c-nav__item{display:flex;align-items:center;float:left;padding:4px 10px;font-size:10px;text-transform:uppercase;white-space:nowrap;border:1px solid #f2fafd;box-shadow:0 1px 0px rgba(132,135,138,0.4);will-change:transform;transform:translateY(0px);cursor:pointer}.c-nav .c-nav__list .c-nav__item:hover{color:#222;background-color:#fff}.c-nav .c-nav__list .c-nav__item.is-active{box-shadow:0 0 0 rgba(132,135,138,0.5);transform:translateY(1px);color:#cfcfdd}.c-nav .c-nav__list .c-nav__item.is-active:hover{background-color:#fbfbfb}.c-nav .c-nav__list .c-nav__item:first-child{border-radius:10px 0 0 10px}.c-nav .c-nav__list .c-nav__item:last-child{border-radius:0 10px 10px 0}.c-nav .c-nav__list .c-nav__item .icon{width:18px;height:18px;margin-right:3px}@media only screen and (max-width: 900px){.c-header{margin:15px 0}}@media only screen and (max-width: 480px){.c-header .c-header__box{flex-direction:column}.c-header .c-search{width:100%}.c-header .c-search .c-search__text{padding:8px 8px 8px 40px}.c-header .c-nav{margin-top:15px}.c-header .c-nav .c-nav__list{justify-content:center}.c-header .c-nav .c-nav__item{padding:4px 8px}}.c-categories{width:100%}.c-categories__list{width:100%;display:flex;flex-direction:row;flex-wrap:wrap}.c-categories__item{max-width:25%;flex-basis:25%;padding:0 10px 20px}.c-categories__link{height:100%;display:flex;flex-direction:column;align-items:center;padding:20px 10px;border-radius:5px;box-shadow:5px 5px 25px rgba(46,61,73,0.15);background-color:#fff;transition:.35s}.c-categories__link:hover{box-shadow:2px 4px 8px 0px rgba(46,61,73,0.2)}.c-categories__link:hover .c-categories__img .c-categories__more{opacity:1;transition:.35s}.c-categories__link .c-categories__container{width:100%;word-wrap:break-word}.c-categories__link .c-categories__container.c-empty-figure{display:flex;flex-direction:column;justify-content:center;flex-grow:1}.c-categories__img{position:relative;max-width:100%}.c-categories__img figure{position:relative;width:200px;max-width:100%;margin-bottom:20px;overflow:hidden;background-size:cover;background-repeat:no-repeat;background-position:center;border-radius:50%;box-shadow:inset 0 1px 3px rgba(141,165,185,0.3)}.c-categories__img figure:after{content:"";display:block;padding-top:100%}.c-categories__img figure:before{content:"";position:absolute;top:0;bottom:0;left:0;right:0;background-color:rgba(0,0,0,0.15)}.c-categories__img .c-categories__more{display:inline-block;position:absolute;top:50%;left:50%;transform:translate(-50%, -50%);font-weight:700;color:#fff;text-transform:uppercase;text-shadow:0 1px 0 rgba(104,172,191,0.3);opacity:0;transition:.35s}.c-categories__container{text-align:center}.c-categories__container .c-categories__header{font-size:13px;margin-bottom:10px;font-weight:normal;text-transform:uppercase;color:#404040}.c-categories__container .c-categories__count{font-family:'Noto Sans KR', serif;font-size:12px;color:#404040;margin-bottom:0}.c-categories__container .c-categories__count span{display:inline-block;width:20px;height:20px;line-height:20px;vertical-align:baseline;margin-right:5px;border-radius:50%;color:#fff;background-color:#ee6c6c}@media only screen and (max-width: 1200px){.c-categories .c-categories__item{max-width:33.333%;flex-basis:33.333%}}@media only screen and (max-width: 1050px){.c-categories .c-categories__item{max-width:50%;flex-basis:50%}}@media only screen and (max-width: 480px){.c-categories .c-categories__item{max-width:100%;flex-basis:100%;padding:0 0 20px}}.c-form-box{position:absolute;top:0;width:calc(100% - 40px);min-height:100vh;padding:0 20px;background-color:#fff;z-index:1}.c-form-bnt__close{position:absolute;top:0px;left:0;width:30px;height:30px;cursor:pointer;transition:.35s}.c-form-bnt__close:hover{transform:scale(0.8);opacity:.8}.c-form{position:relative;width:750px;max-width:100%;margin:40px auto}.c-form .c-form__title{margin:0 0 40px;min-width:0;border:0;padding:0;font-family:"Noto Sans KR",serif;text-transform:uppercase;text-align:center}.c-form a{color:#404040}.c-form__group{margin-bottom:20px}.c-form__group label{display:block;text-transform:uppercase;font-size:10px}.c-form__group input,.c-form__group textarea{width:100%;padding:10px 15px;color:#404040;border:1px solid #f2fafd;outline:none;transition:.35s}.c-form__group input:focus,.c-form__group textarea:focus{box-shadow:0 4px 25px rgba(132,135,138,0.1)}.c-form__group button{padding:20px;text-transform:uppercase;outline:none;border:none}.c-thank-you p{position:relative;padding:20px 40px;width:750px;max-width:100%;text-transform:uppercase;font-size:12px;line-height:18px;font-weight:700;margin:40px auto 0;text-align:center;color:#fff;background:linear-gradient(135deg, #55b5ad 0%, #5ec9c5 100%)}.c-thank-you p .c-form-bnt__close{width:25px;height:25px;background:transparent}.c-thank-you p a{color:#fff}@media only screen and (max-width: 900px){.c-form-box{width:100%;left:0;right:0}}@media only screen and (max-width: 480px){.c-form-bnt__close{width:25px;height:25px}}.c-newsletter{padding:30px 0 60px;margin:0 auto;border-bottom:1px solid #6B6B6B}.c-newsletter__header{text-align:center}.c-newsletter__header .c-newsletter__title{font-size:14px;text-transform:uppercase;text-align:center}.c-newsletter__header .c-newsletter__subtitle{margin-bottom:15px}.c-newsletter-form{width:100%;max-width:750px;margin:0 auto}.c-newsletter-form .c-newsletter-form__group{display:flex}.c-newsletter__email{width:70%;height:40px;padding:10px 15px;border:1px solid #ddd;border-right-color:transparent;outline:none;transition:.35s}.c-newsletter__email:focus{box-shadow:0 4px 25px rgba(132,135,138,0.1)}.c-newsletter__button{width:30%;height:40px;color:#fff;background-color:#3af;transition:.35s;border:none;outline:none;cursor:pointer}.c-newsletter__button:hover{background-color:#0086e6}@media only screen and (max-width: 480px){.c-newsletter__button{font-size:13px}}.c-comments{padding:30px 0;border-top:1px solid #6B6B6B}.c-top{position:fixed;width:40px;height:40px;bottom:20px;color:#757575;cursor:pointer;transition:.35s;right:-100px;z-index:10;opacity:.5}.c-top--active{right:15px}.c-top:hover{color:#757575;opacity:1}.u-text-left{text-align:left}.u-text-right{text-align:right}.u-text-center{text-align:center}.u-text-justify{text-align:justify}.u-block{display:block}.u-inline-block{display:inline-block}.u-inline{display:inline}.u-full-width{display:block;width:100%}.u-vertical-center{display:flex;align-items:center;justify-content:center}.u-responsive-image{max-width:100%;height:auto;vertical-align:middle}.u-show{display:block !important}.u-hide{display:none !important}.u-invisible{visibility:hidden}.u-float-left{float:left}.u-float-right{float:right}.u-no-padding-top{padding-top:0}.u-no-padding-bottom{padding-bottom:0}.u-no-padding-left{padding-left:0}.u-no-padding-right{padding-right:0}.u-no-padding{padding:0}.u-no-margin-top{margin-top:0}.u-no-margin-bottom{margin-bottom:0}.u-no-margin-left{margin-left:0}.u-no-margin-right{margin-right:0}.u-no-margin{margin:0}.u-lists-reset{list-style-type:none;margin:0;padding:0}.u-clearfix::before,.u-clearfix::after{content:"";display:table;clear:both}.u-screen-reader-text{clip:rect(1px, 1px, 1px, 1px);height:1px;overflow:hidden;position:absolute !important;width:1px;word-wrap:normal !important}
+
+  </style>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-VNMTFT1R2R"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+  
+    gtag('config', 'G-VNMTFT1R2R');
+  </script>
+</head>
+
+<body>
+  
+    <script>
+  (function (i, s, o, g, r, a, m) {
+  i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+    (i[r].q = i[r].q || []).push(arguments)
+}, i[r].l = 1 * new Date(); a = s.createElement(o),
+    m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+  })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+  ga('create', 'G-VNMTFT1R2R', 'auto');
+  ga('send', 'pageview');
+
+</script> <!-- /google analytics -->
+  
+  <div class="o-wrapper">
+    <aside class="c-sidebar">
+  <div class="c-sidebar-author">
+    <div class="c-author__cover">
+      <a href="/">
+        <img src="/images/Profile/profile.png" alt="Dong-Jun Shin">
+      </a>
+    </div>
+    <div class="c-author__info">
+      <div class="c-author__name">Dong-Jun Shin</div>
+      <span class="c-author__job">Web Developer</span>
+    </div>
+    <div class="c-contact-menu">
+      <a href="/about/profile" class="c-contact-btn c-btn c-btn--secondary c-btn--round c-btn--shadow"><span data-icon='ei-tag' data-size='s'></span> About me</a>
+      
+      <a target="_blank" href="https://github.com/Dong-Jun-Shin" class="c-btn c-btn--primary c-btn--round c-btn--shadow"><span data-icon='ei-sc-github' data-size='s'></span> Visit Github</a>
+      
+    </div>
+    <div class="c-contact-menu-bar" style="margin-top: 0px; margin-bottom: 25px;">
+      <a href="/" class="c-contact-btn c-btn c-btn--bar c-btn--round c-btn--shadow">All Posts</a>
+    </div>
+    <p class="c-author__about">개발자로 성장하며 배운 것을 정리한 블로그<br/>[Dev 학습, 컨퍼런스, 사이드 프로젝트]</p>
+  </div>
+
+  <div class="c-sidebar-footer">
+    <div class="c-social">
+      <div class="c-social__title">Social</div>
+      <ul class="c-social__list u-lists-reset">
+        
+        
+        
+        
+        
+        
+        
+        
+        
+          <li class="c-social__item"><a href="https://youtube.com/channel/UCIHM7drY2vvvFhrhXtpbbzw" target="_blank"><div data-icon='ei-sc-youtube' data-size='s'></div></a></li>
+        
+        
+        
+        
+        
+      </ul>
+    </div>
+    <div class="c-copyright">
+      <p>2024 &copy; Dong-Jun Shin</p>
+      <a target="_blank" href="https://analytics.google.com/"><img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fdong-jun-shin.github.io&count_bg=%23FFD540&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=true"/></a>
+      <a target="_blank" href="https://search.google.com/search-console"><img src="https://img.shields.io/badge/Info-Search-informational?style=flat-square"/></a>
+    </div>
+  </div>
+</aside> <!-- /.c-sidebar -->
+
+<main class="c-content">
+  <article class="c-article">
+  <div class="c-article__content">
+    <header class="c-header u-hide u-no-margin-top">
+      <div class="c-header__box">
+        <div class="c-search u-full-width">
+          <div class="c-search__box">
+            <label for="js-search-input" class="u-screen-reader-text">Search for Blog</label>
+            <input type="text" id="js-search-input" class="c-search__text" autocomplete="off" placeholder="Type to search...">
+            <div data-icon='ei-search' data-size='s'></div>
+          </div>
+          <ul id="js-results-container" class="c-search-results-list"></ul>
+        </div>
+      </div>
+    </header>
+    
+    <div class="c-article__image o-opacity" style="background-image: url( /images/IT_Tech/2024/06/Aws_Summit_Seoul_2024_Session_10/thumbnail.png )"></div>
+    
+    <div class="c-wrap-content">
+      <header class="c-article__header">
+        <h1 class="c-article__title">RAG를 사용하여 생성형 AI 애플리케이션의 응답 품질 높이기</h1>
+        <div class="c-article__date">
+          <span>2024, Jun 16</span>
+        </div>
+      </header>
+      <p><img src="/images/IT_Tech/2024/06/Aws_Summit_Seoul_2024_Session_10/IMG_1628.jpg" alt="" /></p>
+
+<h1 id="세션-정보">세션 정보</h1>
+<ul>
+  <li>장소: 1층 그랜드볼룸 102+103+104호</li>
+  <li>시간: 5:20 ~ 6:00</li>
+</ul>
+
+<h1 id="세션-목차">세션 목차</h1>
+
+<ul>
+  <li>파운데이션 모델 커스터마이징</li>
+  <li>검색 증강 생성 (RAG) 개요</li>
+  <li>Amazon Bedrock 지식저장소란?</li>
+  <li>Advanced RAG (고급 기법)</li>
+  <li>Amazon Bedrock 지식저장소 및 RAG 고급 데모</li>
+</ul>
+
+<h1 id="세션-내용">세션 내용</h1>
+<h2 id="summary">Summary</h2>
+
+<ul>
+  <li>파운데이션 모델 커스터마이징
+    <ul>
+      <li>커스터마이징은 도메인 특화 용어 사용, 전문성 강화, 문맥 인식 능력 향상을 위해 필요함</li>
+      <li>커스터마이징 방법에는 프롬프트 엔지니어링, 검색 증강 생성(RAG), 파인 튜닝, 모델 훈련이 있음</li>
+      <li>각 방법은 품질을 향상시키지만, 복잡도, 비용, 시간도 증가함</li>
+    </ul>
+  </li>
+  <li>검색 증강 생성 (RAG) 개요
+    <ul>
+      <li>RAG는 외부 데이터를 검색해 모델 입력에 제공하여 증강된 응답을 얻는 기법임</li>
+      <li>사용자의 과거 데이터를 활용해 개인화된 검색이 가능하고, DB나 API 호출로 데이터를 요약할 수 있음</li>
+      <li>데이터 검색 방식으로 규칙 기반, 구조화된 데이터, 시맨틱 검색이 있으며, 임베딩은 단어 간의 의미와 관계를 벡터로 표현한 것임</li>
+    </ul>
+  </li>
+  <li>Amazon Bedrock 지식저장소란?
+    <ul>
+      <li>Bedrock의 지식 저장소는 RAG 워크플로우를 End-to-End로 지원하는 완전 관리형 서비스임</li>
+      <li>S3와 같은 데이터 저장소 연동, 증분 업데이트, 다양한 파일 형식 지원 및 임베딩 모델 연동을 제공함</li>
+      <li>Retrieve API, RetrieveAndGenerate API를 이용해 임베딩 또는, 임베딩부터 LLM 응답 생성까지 처리할 수 있음</li>
+    </ul>
+  </li>
+  <li>Advanced RAG (고급 기법)
+    <ul>
+      <li>Hybrid-Fusion, RAG-Fusion, HyDE, Parent Document, Re-ranker 등 여러 기법을 조합해 사용자의 쿼리에 대한 검색 정확도를 높일 수 있음</li>
+      <li>다양한 검색 결과를 결합하고, 가상 문서를 생성하여 검색 범위를 확장함</li>
+      <li>복잡한 문서를 임베딩하고 시맨틱 검색을 결합해 더 정확하고 유용한 정보를 제공함</li>
+    </ul>
+  </li>
+  <li>Amazon Bedrock 지식저장소 및 RAG 고급 데모
+    <ul>
+      <li>Amazon Bedrock 지식저장소를 생성하고 데이터를 추가하여 RAG를 활용하는 데모임</li>
+      <li>LangChain과 SDK를 사용하여 지식저장소를 호출하는 코드를 제시함</li>
+      <li>복잡한 문서를 임베딩하고 Advanced RAG 기법을 적용한 시스템을 시연함</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="파운데이션-모델-커스터마이징">파운데이션 모델 커스터마이징</h2>
+
+<ul>
+  <li>커스터마이징은 도메인에 특화된 용어 사용, 전문성 강화, 문맥 인식 능력 향상을 위해 필요함</li>
+</ul>
+
+<p><img src="/images/IT_Tech/2024/06/Aws_Summit_Seoul_2024_Session_10/IMG_1631.jpg" alt="" />
+<strong>[모델 커스터마이징의 필요성]</strong></p>
+
+<ul>
+  <li>커스터마이징하기 위한 방법으로 <strong>프롬프트 엔지니어링, 검색 증강 생성(RAG), 파인 튜닝, 모델 훈련</strong> 4가지가 있음</li>
+  <li>각 방법에 따라 품질이 좋아지지만, 적용하기 위한 복잡한 정도, 비용, 시간도 함께 늘어남</li>
+</ul>
+
+<p><img src="/images/IT_Tech/2024/06/Aws_Summit_Seoul_2024_Session_10/IMG_1634.jpg" alt="" />
+<strong>[모델의 커스터마이징 방법론]</strong></p>
+
+<ul>
+  <li>커스터마이징 방법은 <strong>특정 정보의 필요 여부, 실시간 추론의 필요 여부, 데이터의 복잡도</strong>에 따라 선택할 수 있음</li>
+  <li><strong>RAG로 증강</strong>: 특정 정보이면서 문서와 같은 정적 데이터</li>
+  <li><strong>에이전트, 도구로 보강</strong>: 실시간 업데이트되는 데이터</li>
+  <li><strong>파인 튜닝</strong>: 복잡하거나 보편적이지 않은 도메인 데이터</li>
+  <li><strong>프롬프트 엔지니어링</strong>: 간단하고 보편적인 데이터</li>
+</ul>
+
+<p><img src="/images/IT_Tech/2024/06/Aws_Summit_Seoul_2024_Session_10/IMG_1635.jpg" alt="" />
+<strong>[커스터마이징 방법론을 선택하는 기준(도식에서 왼쪽이 yes, 오른쪽이 no)]</strong></p>
+
+<h2 id="검색-증강-생성-rag-개요">검색 증강 생성 (RAG) 개요</h2>
+
+<ul>
+  <li>RAG는 외부 데이터를 검색해서 모델의 입력에 제공함으로, 증강된 응답을 얻는 기법</li>
+  <li><strong>질문의 답이 있는</strong> 문서를 찾는 기술</li>
+</ul>
+
+<p><img src="/images/IT_Tech/2024/06/Aws_Summit_Seoul_2024_Session_10/IMG_1636.jpg" alt="" />
+<strong>[검색 증강 생성이란]</strong></p>
+
+<p><img src="/images/IT_Tech/2024/06/Aws_Summit_Seoul_2024_Session_10/IMG_1638.jpg" alt="" />
+<strong>[검색 증강 생성의 한 줄 정의]</strong></p>
+
+<ul>
+  <li>RAG는 외부 정보를 반영해서 답변의 정확도를 향상</li>
+  <li>외부 정보로 실시간 데이터도 있고, 이를 활용해서 챗봇과 같은 기능을 강화하기에 적합</li>
+  <li>사용자의 과거 데이터를 이용해서 개인화된 검색을 하는 것이 가능</li>
+  <li>DB나 API 호출을 통해 데이터를 요약할 수 있음</li>
+</ul>
+
+<p><img src="/images/IT_Tech/2024/06/Aws_Summit_Seoul_2024_Session_10/IMG_1639.jpg" alt="" />
+<strong>[RAG 사용 사례]</strong></p>
+
+<ul>
+  <li>데이터를 검색하는 방법으로 <strong>규칙 기반, 구조화된 데이터, 시맨틱 검색</strong>이 있음</li>
+  <li>규칙 기반은 정형화되지 않은 데이터에서 일치하는 키워드를 기준으로 검색하는 방법</li>
+  <li>구조화된 데이터는 DB와 같이 정형화된 데이터에 쿼리문을 이용해서 검색하는 방법</li>
+  <li>시맨틱 검색은 벡터 DB와 같이 의미론적으로 더 관련있는 데이터를 검색하는 방법</li>
+</ul>
+
+<p><img src="/images/IT_Tech/2024/06/Aws_Summit_Seoul_2024_Session_10/IMG_1640.jpg" alt="" />
+<strong>[데이터를 검색하는 방식]</strong></p>
+
+<ul>
+  <li>임베딩은 단어 간의 의미와 관계를 숫자(벡터)로 표현한 것</li>
+  <li>유사한 정도에 따라 데이터가 모이고, 군집의 형태로 구성됨</li>
+</ul>
+
+<p><img src="/images/IT_Tech/2024/06/Aws_Summit_Seoul_2024_Session_10/IMG_1641.jpg" alt="" />
+<strong>[임베딩이란]</strong></p>
+
+<ul>
+  <li>RAG는 연관성이 높은 데이터를 사용할수록 정확도를 높일 수 있기 때문에 검색하는 방식이 중요</li>
+  <li>검색의 정확도를 높이기 위해 검색 방식이 중요하고, 의미론적 관계를 나타낼 수 있는 임베딩 방식이 적합함</li>
+</ul>
+
+<p><img src="/images/IT_Tech/2024/06/Aws_Summit_Seoul_2024_Session_10/IMG_1642.jpg" alt="" />
+<strong>[RAG에서 임베딩이 중요한 이유]</strong></p>
+
+<ul>
+  <li>텍스트 임베딩을 위한 모델로 AWS에서 Amazon Titan 서비스를 사용할 수 있음</li>
+</ul>
+
+<p><img src="/images/IT_Tech/2024/06/Aws_Summit_Seoul_2024_Session_10/IMG_1643.jpg" alt="" />
+<strong>[Amazon Titan 소개]</strong></p>
+
+<ul>
+  <li>RAG는 사용자가 프롬프트를 입력하면 임베딩 모델을 통해 시맨틱 검색을 하고, 결과로 나온 컨택스트로 프롬프트를 증강시켜서 더 품질높은 응답을 어듬</li>
+</ul>
+
+<p><img src="/images/IT_Tech/2024/06/Aws_Summit_Seoul_2024_Session_10/IMG_1644.jpg" alt="" />
+<strong>[RAG의 동작 흐름]</strong></p>
+
+<ul>
+  <li>RAG는 아래와 같은 문제로 어려움이 있음
+    <ul>
+      <li>DB, 파일, 크롤링 등 여러 형태의 데이터 소스에 대해 관리가 필요함</li>
+      <li>데이터 크기가 큰 경우 벡터로 임베딩할 때, 많은 컴퓨팅 자원과 시간이 필요</li>
+      <li>새로운 데이터가 추가될 때마다 벡터 스토어에 갱신이 필요함 (추가에 대한 증분 업데이트)</li>
+      <li>RAG 시스템을 구축하고 유지하기 위해, 데이터 수집부터 결과 활용까지 여러 단계에 대한 구현이 필요함</li>
+      <li>RAG 시스템이 대규모 데이터 처리와 실시간 검색을 제공하고, 동시에 많은 처리를 요청할 수 있도록 확장성도 고려해야 함</li>
+      <li>데이터 수집 ~ 결과 활용 단계 중 여러 작업에 대한 순차 처리, 병렬 처리에 대한 고려가 필요하고 시스템 구성 요소 간 의존성을 관리가 필요</li>
+    </ul>
+  </li>
+</ul>
+
+<p><img src="/images/IT_Tech/2024/06/Aws_Summit_Seoul_2024_Session_10/IMG_1645.jpg" alt="" />
+<strong>[RAG 구현을 위해 극복해야 할 기술적 문제들]</strong></p>
+
+<h2 id="amazon-bedrock-지식저장소란">Amazon Bedrock 지식저장소란?</h2>
+
+<ul>
+  <li>Bedrock의 지식 저장소(Knowledge base)는 완전 관리형 서비스로 RAG 워크플로에 대해 End-to-End로 지원</li>
+  <li>모델에 데이터 저장소를 안전하게 연결</li>
+  <li>저작권 표시와 손쉬운 검색을 제공</li>
+</ul>
+
+<p><img src="/images/IT_Tech/2024/06/Aws_Summit_Seoul_2024_Session_10/IMG_1647.jpg" alt="" />
+<strong>[Amazon Bedrock 지식저장소 소개]</strong></p>
+
+<ul>
+  <li>S3와 같은 데이터 저장소 연동, 증분 업데이트 지원, 다양한 파일 형식 지원</li>
+  <li>문서 청킹 전략 지원</li>
+  <li>임베딩 모델 연동 제공</li>
+  <li>다양한 벡터 스토어 지원</li>
+</ul>
+
+<p><img src="/images/IT_Tech/2024/06/Aws_Summit_Seoul_2024_Session_10/IMG_1649.jpg" alt="" />
+<strong>[Bedrock 사용 시, 데이터 통합 워크플로 단계에 지원하는 기능]</strong></p>
+
+<ul>
+  <li>Amazon Bedrock을 사용할 경우, 데이터 통합에 대한 자동화와 데이터 수집에 대한 완전한 관리가 가능</li>
+</ul>
+
+<p><img src="/images/IT_Tech/2024/06/Aws_Summit_Seoul_2024_Session_10/IMG_1650.jpg" alt="" />
+<strong>[완전 관리형 서비스]</strong></p>
+
+<ul>
+  <li>Bedrock 지식저장소는 RAG를 위한 외부 데이터 검색 및 생성 단계에서 벡터 스토어 관리와 임베딩 기능을 지원</li>
+</ul>
+
+<p><img src="/images/IT_Tech/2024/06/Aws_Summit_Seoul_2024_Session_10/IMG_1651.jpg" alt="" />
+<strong>[Amazon Bedrock 지식저장소를 데이터 관리 부분에 적용]</strong></p>
+
+<ul>
+  <li>더 나아가, 지식저장소에서 제공하는 <code class="highlighter-rouge">RetrieveAndGenerate API</code>를 이용해서 임베딩 ~ LLM 응답 생성까지 처리할 수 있음</li>
+</ul>
+
+<p><img src="/images/IT_Tech/2024/06/Aws_Summit_Seoul_2024_Session_10/IMG_1652.jpg" alt="" />
+<strong>[검색 및 생성 API 소개]</strong></p>
+
+<ul>
+  <li><code class="highlighter-rouge">Retrieve API</code>로 임베딩 및 저장소 검색까지만 처리할 수도 있음</li>
+</ul>
+
+<p><img src="/images/IT_Tech/2024/06/Aws_Summit_Seoul_2024_Session_10/IMG_1653.jpg" alt="" />
+<strong>[검색 API 소개]</strong></p>
+
+<h2 id="advanced-rag-고급-기법">Advanced RAG (고급 기법)</h2>
+
+<ul>
+  <li>Hybrid-Fusion: 외부 데이터를 검색할 때, 시맨틱 검색과 키워드 검색을 같이 사용하는 방법
+    <ul>
+      <li>정확도는 올라가지만, 구현 및 유지보수의 복잡성 증가와 성능 문제가 발생할 수 있음</li>
+    </ul>
+  </li>
+  <li>RAG-Fusion (Query Rewriting): 사용자의 쿼리에 대해 모델로 재작성하여 명확한 질문의 형태로 만들고 시맨틱 검색에 사용하는 방법
+    <ul>
+      <li>구체적이지 않은 쿼리도 비교적 훌륭하게 답변을 생성하지만, 재작성 과정에서 결과가 왜곡되거나 처리 시간이 길어질 수 있음</li>
+    </ul>
+  </li>
+  <li>HyDE (Hypothetical Document Embeddings): 쿼리를 분석하여 주제와 관련된 가상의 문서를 생성하고 임베딩한 후, 시맨틱 검색에 사용하는 방법
+    <ul>
+      <li>검색 범위가 확장되어 다양성이 높아질 수 있으나, 가상의 문서를 생성하고 관리하는 것이 복잡할 수 있고 가상 문서에 실제 문서가 반영되지 못하면 신뢰성이 떨어질 수 있음</li>
+    </ul>
+  </li>
+  <li>Rank-Fusion으로 여러 개의 검색 결과를 하나로 결합</li>
+</ul>
+
+<p><img src="/images/IT_Tech/2024/06/Aws_Summit_Seoul_2024_Session_10/IMG_1655.jpg" alt="" />
+<strong>[Advanced RAG 기법 - 1]</strong></p>
+
+<ul>
+  <li>Parent Document: 관련된 상위 문서까지 활용해서 검색된 결과에 더 나은 문맥을 제공하고 정보 구조화를 할 수 있는 기법
+    <ul>
+      <li>더 나은 문맥을 고려한 답변을 얻을 수 있지만, 문서의 관계를 유지하고 관리하는 것이 복잡할 수 있고 상위 문서에 대한 추가 처리로 시간이 길어질 수 있음</li>
+    </ul>
+  </li>
+  <li>Re-ranker: 초기 검색 결과를 다시 평가하고 재정렬해서 더 나은 검색을 하는 방법
+    <ul>
+      <li>정확성과 관련성을 높일 수 있으나, 추가되는 평가 과정에서 많은 컴퓨팅 자원과 시간이 필요</li>
+    </ul>
+  </li>
+</ul>
+
+<p><img src="/images/IT_Tech/2024/06/Aws_Summit_Seoul_2024_Session_10/IMG_1657.jpg" alt="" />
+<strong>[Advanced RAG 기법 - 2]</strong></p>
+
+<ul>
+  <li>Advanced RAG 기법은 2개 이상 조합하는 방식으로 활용이 가능</li>
+  <li>예시는 Hybrid-Fusion, Re-ranker, Parent doc 기법을 조합한 Advanced Context Retrieval 기법으로 잘못된 응답을 제거
+    <ul>
+      <li>Hybrid-Fusion을 통해 다양한 검색 방법을 결합하고, Re-ranker를 통해 결과를 재정렬하며, Parent Document 기법을 통해 문서의 맥락을 고려하여 정확도를 높임</li>
+    </ul>
+  </li>
+  <li>검색 과정에서 발생할 수 있는 사용자 쿼리와 관련성이 낮은 결과를 효과적으로 제거하고, 사용자에게 더 정확하고 유용한 정보를 제공</li>
+</ul>
+
+<p><img src="/images/IT_Tech/2024/06/Aws_Summit_Seoul_2024_Session_10/IMG_1658.jpg" alt="" />
+<strong>[Advanced RAG를 조합해서 문제를 해결]</strong></p>
+
+<ul>
+  <li>문서 하나를 임베딩할 때, 문서 안에 존재하는 이미지, html, 텍스트 등 여러 종류의 데이터를 모두 분리하고 임베딩해서 벡터 스토어에 저장</li>
+  <li>위 과정을 통해 다양한 형태의 데이터를 통합적으로 검색하고 분석할 수 있게 됨</li>
+  <li>예시는 차트 이미지를 LLM 모델(Claude3)로 텍스트 변환하고, 변환된 요약 텍스트를 임베딩 모델로 저장하는 과정</li>
+</ul>
+
+<p><img src="/images/IT_Tech/2024/06/Aws_Summit_Seoul_2024_Session_10/IMG_1661.jpg" alt="" />
+<strong>[멀티 모달 검색]</strong></p>
+
+<h2 id="amazon-bedrock-지식저장소-및-rag-고급-데모">Amazon Bedrock 지식저장소 및 RAG 고급 데모</h2>
+
+<ul>
+  <li>RAG를 위한 지식저장소를 생성하는 데모</li>
+</ul>
+
+<p><img src="/images/IT_Tech/2024/06/Aws_Summit_Seoul_2024_Session_10/IMG_1666.GIF" alt="" />
+<strong>[RAG가 없는 대화 - 정확도가 낮은 답변을 생성]</strong></p>
+
+<p><img src="/images/IT_Tech/2024/06/Aws_Summit_Seoul_2024_Session_10/IMG_1667.jpg" alt="" />
+<strong>[지식저장소(Knowledge base) 생성]</strong></p>
+
+<p><img src="/images/IT_Tech/2024/06/Aws_Summit_Seoul_2024_Session_10/IMG_1668.jpg" alt="" />
+<strong>[생성된 지식저장소]</strong></p>
+
+<ul>
+  <li>생성된 지식저장소에 데이터를 넣는 데모</li>
+</ul>
+
+<p><img src="/images/IT_Tech/2024/06/Aws_Summit_Seoul_2024_Session_10/IMG_1671.GIF" alt="" />
+<strong>[지식저장소에 데이터를 드래그 앤 드롭으로 추가하는 과정]</strong></p>
+
+<p><img src="/images/IT_Tech/2024/06/Aws_Summit_Seoul_2024_Session_10/IMG_1672.jpg" alt="" />
+<strong>[추가된 데이터를 임베딩하는 중]</strong></p>
+
+<p><img src="/images/IT_Tech/2024/06/Aws_Summit_Seoul_2024_Session_10/IMG_1673.jpg" alt="" />
+<img src="/images/IT_Tech/2024/06/Aws_Summit_Seoul_2024_Session_10/IMG_1674.jpg" alt="" />
+<strong>[추가한 데이터를 반영한 모델과 대화]</strong></p>
+
+<ul>
+  <li>LangChain과 SDK를 각각 이용해서 Amazon Bedrock 지식저장소를 사용하는 코드를 제시</li>
+</ul>
+
+<p><img src="/images/IT_Tech/2024/06/Aws_Summit_Seoul_2024_Session_10/IMG_1676.jpg" alt="" />
+<strong>[Amazon Bedrock 지식저장소를 호출하는 코드]</strong></p>
+
+<ul>
+  <li>Advanced Rag를 구현한 아키텍처</li>
+  <li>다양한 AWS 서비스를 통합하여 사용자 쿼리를 처리하고 분석하는 시스템
+    <ul>
+      <li>Amazon OpenSearch Service, Amazon Bedrock LLM (대형 언어 모델), Amazon Titan Text G1 등</li>
+    </ul>
+  </li>
+  <li>문서를 파싱하고 임베딩한 후 요약하여 대용량 데이터 분석을 위해 Amazon OpenSearch에 인덱싱하여 저장</li>
+  <li>저장된 데이터에 대한 검색 결과를 Re-ranker 모델로 분석</li>
+</ul>
+
+<p><img src="/images/IT_Tech/2024/06/Aws_Summit_Seoul_2024_Session_10/IMG_1682.jpg" alt="" />
+<strong>[데모 아키텍처]</strong></p>
+
+<ul>
+  <li>복잡한 문서를 임베딩하고 Hybrid Search(시맨틱 + 키워드 검색) RAG 기법을 적용한 시스템에 질문하는 데모</li>
+</ul>
+
+<p><img src="/images/IT_Tech/2024/06/Aws_Summit_Seoul_2024_Session_10/IMG_1687.GIF" alt="" />
+<strong>[질문 후 나오는 답변이 나오는 모습]</strong></p>
+
+<p><img src="/images/IT_Tech/2024/06/Aws_Summit_Seoul_2024_Session_10/IMG_1687.jpg" alt="" />
+<strong>[검색 결과 얻은 관련 컨텐츠]</strong></p>
+
+<ul>
+  <li>문서의 의미적 맥락과 키워드 매칭을 모두 고려하여 관련성을 평가한 답변을 얻음</li>
+</ul>
+
+<p><img src="/images/IT_Tech/2024/06/Aws_Summit_Seoul_2024_Session_10/IMG_1688.jpg" alt="" />
+<strong>[Hybrid Search 결과]</strong></p>
+
+<ul>
+  <li>Parent Document는 상위 문서 컨텍스트를 포함시켜 검색 정확도를 높임</li>
+  <li>HyDE는 주제와 관련된 가상 문서를 생성하고 임베딩하여 의미적 유사성을 극대화</li>
+</ul>
+
+<p><img src="/images/IT_Tech/2024/06/Aws_Summit_Seoul_2024_Session_10/IMG_1689.jpg" alt="" />
+<strong>[추가로 Parent Document와 HyDE를 적용한 후 같은 질문의 결과]</strong></p>
+
+<ul>
+  <li>Re-ranker는 초기 검색 결과에 대해 다양한 요소를 고려하여 다시 순위를 지정하고, 더 높은 정확도를 얻음</li>
+</ul>
+
+<p><img src="/images/IT_Tech/2024/06/Aws_Summit_Seoul_2024_Session_10/IMG_1691.jpg" alt="" />
+<strong>[추가로 Re-ranker를 적용한 후 같은 질문의 결과]</strong></p>
+
+<ul>
+  <li>Amazon Bedrock 지식저장소 시스템을 구축하는 예시</li>
+</ul>
+
+<p><img src="/images/IT_Tech/2024/06/Aws_Summit_Seoul_2024_Session_10/IMG_1692.jpg" alt="" />
+<strong>[AWS 서비스로 구성한 Bedrock 지식저장소 아키텍처]</strong></p>
+
+<ul>
+  <li>SageMaker를 활용해서 Advanced RAG를 적용한 시스템의 예시</li>
+</ul>
+
+<p><img src="/images/IT_Tech/2024/06/Aws_Summit_Seoul_2024_Session_10/IMG_1694.jpg" alt="" />
+<strong>[Advanced RAG가 추가된 아키텍처]</strong></p>
+
+<ul>
+  <li>RAG 컨셉과 배경, Bedrock 지식저장소를 활용한 데이터 수집 워크플로우, Advanced RAG 기법에 대해 이야기함</li>
+</ul>
+
+<p><img src="/images/IT_Tech/2024/06/Aws_Summit_Seoul_2024_Session_10/IMG_1697.jpg" alt="" />
+<strong>[요약 내용]</strong></p>
+
+<p><img src="/images/IT_Tech/2024/06/Aws_Summit_Seoul_2024_Session_10/IMG_1698.jpg" alt="" />
+<strong>[데모에 사용한 코드와 참고 문서]</strong></p>
+
+<h1 id="reference">Reference</h1>
+
+<ul>
+  <li><a href="https://aws.amazon.com/ko/events/summits/seoul/">AWS Summit Seoul 공식 홈페이지</a></li>
+  <li><a href="https://dong-jun-shin.github.io/2024/05/21/Aws_Summit_Seoul_2024/">AWS Summit Seoul 2024 방문기</a></li>
+</ul>
+
+
+      <div class="c-article__footer u-clearfix">
+        <div class="c-article__tag">
+          
+          <a href="/tags#aws_summit_seoul">&#35; aws_summit_seoul</a>
+          
+          <a href="/tags#ai">&#35; ai</a>
+          
+          <a href="/tags#rag">&#35; rag</a>
+          
+          <a href="/tags#aws_bedrock">&#35; aws_bedrock</a>
+          
+          <a href="/tags#lang_chain">&#35; lang_chain</a>
+          
+        </div>
+        <div class="c-article__share">
+          <a href="https://twitter.com/intent/tweet?text=RAG%EB%A5%BC%20%EC%82%AC%EC%9A%A9%ED%95%98%EC%97%AC%20%EC%83%9D%EC%84%B1%ED%98%95%20AI%20%EC%95%A0%ED%94%8C%EB%A6%AC%EC%BC%80%EC%9D%B4%EC%85%98%EC%9D%98%20%EC%9D%91%EB%8B%B5%20%ED%92%88%EC%A7%88%20%EB%86%92%EC%9D%B4%EA%B8%B0&url=https://dong-jun-shin.github.io/2024/06/16/Aws_Summit_Seoul_2024_Session_10/" title="Share
+          on Twitter" rel="nofollow" target="_blank"><div data-icon='ei-sc-twitter' data-size='s'></div></a>
+          <a href="https://facebook.com/sharer.php?u=https://dong-jun-shin.github.io/2024/06/16/Aws_Summit_Seoul_2024_Session_10/" title="Share on Facebook" rel="nofollow" target="_blank"><div data-icon='ei-sc-facebook' data-size='s'></div></a>
+          <a href="https://plus.google.com/share?url=https://dong-jun-shin.github.io/2024/06/16/Aws_Summit_Seoul_2024_Session_10/" title="Share on Google+" rel="nofollow" target="_blank"><div data-icon='ei-sc-google-plus' data-size='s'></div></a>
+        </div>
+      </div>
+      <div class="c-newsletter">
+  <div class="c-newsletter__header">
+    <h4 class="c-newsletter__title">Newsletter</h4>
+    <div class="c-newsletter__subtitle">Subscribe to this blog and receive notifications of new posts by email.</div>
+  </div>
+  <form class="c-newsletter-form validate" action="#" method="POST" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" target="_blank" novalidate>
+    <div class="c-newsletter-form__group">
+      <label class="u-screen-reader-text" for="mce-EMAIL">Email address</label>
+      <input class="c-newsletter__email required email" id="mce-EMAIL" type="email" name="EMAIL" placeholder="Your email address" autocomplete="on">
+      <input class="c-newsletter__button" id="mc-embedded-subscribe" type="submit" name="subscribe" value="Subscribe">
+    </div>
+  </form>
+</div> <!-- /.c-newsletter -->
+      <div class="c-recent-post">
+        <h4 class="c-recent__title">You might also enjoy</h4>
+        <div class="c-recent__box">
+        
+        
+          <div class="c-recent__item">
+            <a class="c-recent__image" href="/2024/06/16/Aws_Summit_Seoul_2024_Session_09/" style="background-image: url( /images/IT_Tech/2024/06/Aws_Summit_Seoul_2024_Session_09/thumbnail.png)"></a>
+            <div class="c-recent__footer">
+              <h4><a href="/2024/06/16/Aws_Summit_Seoul_2024_Session_09/">Imply Druid를 활용한 실시간 데이터 분석과 당근마켓 사례</a></h4>
+              <div class="c-recent__date">
+                <time datetime="2024-06-16T20:10:46+09:00">June 16, 2024</time>
+              </div>
+            </div>
+          </div>
+        
+        
+        
+          <div class="c-recent__item">
+            <a class="c-recent__image" href="/2024/06/09/Aws_Summit_Seoul_2024_Session_08/" style="background-image: url( /images/IT_Tech/2024/06/Aws_Summit_Seoul_2024_Session_08/thumbnail.png)"></a>
+            <div class="c-recent__footer">
+              <h4><a href="/2024/06/09/Aws_Summit_Seoul_2024_Session_08/">혁신을 가속화하는 AI - 개발자를 위한 새로운 AWS Gen AI 도구</a></h4>
+              <div class="c-recent__date">
+                <time datetime="2024-06-09T21:50:13+09:00">June 9, 2024</time>
+              </div>
+            </div>
+          </div>
+        
+        
+        
+          <div class="c-recent__item">
+            <a class="c-recent__image" href="/2024/06/09/Aws_Summit_Seoul_2024_Session_07/" style="background-image: url( /images/IT_Tech/2024/06/Aws_Summit_Seoul_2024_Session_07/thumbnail.png)"></a>
+            <div class="c-recent__footer">
+              <h4><a href="/2024/06/09/Aws_Summit_Seoul_2024_Session_07/">데이터 인사이트의 혁신 - Amazon AI 서비스 활용법</a></h4>
+              <div class="c-recent__date">
+                <time datetime="2024-06-09T21:50:13+09:00">June 9, 2024</time>
+              </div>
+            </div>
+          </div>
+        
+        
+        
+          <div class="c-recent__item">
+            <a class="c-recent__image" href="/2024/06/02/Aws_Summit_Seoul_2024_Session_06/" style="background-image: url( /images/IT_Tech/2024/06/Aws_Summit_Seoul_2024_Session_06/thumbnail.png)"></a>
+            <div class="c-recent__footer">
+              <h4><a href="/2024/06/02/Aws_Summit_Seoul_2024_Session_06/">개발의 미래 - AWS AI 도구로 시간 절약하기</a></h4>
+              <div class="c-recent__date">
+                <time datetime="2024-06-02T23:08:59+09:00">June 2, 2024</time>
+              </div>
+            </div>
+          </div>
+        
+        
+        </div>
+      </div> <!-- /.c-recent-post -->
+      
+        <div class="c-comments">
+  <div id="disqus_thread" class="article-comments"></div>
+  <script>
+    (function () {
+      var d = document, s = d.createElement('script');
+      s.src = '//dong-jun-shin-github-io.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the
+    <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+  </noscript>
+</div> <!-- /.c-comments -->
+      
+    </div> <!-- /.c-wrap-content -->
+  </div> <!-- /.c-article__content -->
+</article> <!-- /.c-article-page -->
+
+</main> <!-- /.c-content -->
+  </div> <!-- /.o-wrapper -->
+  <div class="c-top" data-icon='ei-chevron-up' data-size='s' title="Scroll To Top"></div> <!-- /.c-top -->
+  <script src="/js/jquery-3.3.1.min.js"></script>
+<script src="/js/evil-icons.min.js"></script>
+<script src="/js/jquery.fitvids.js"></script>
+<script src="/js/simple-jekyll-search.min.js"></script>
+<script src="/js/main.js"></script>
+<!-- /javascripts -->
+</body>
+</html>
