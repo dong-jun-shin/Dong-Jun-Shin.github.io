@@ -89,6 +89,14 @@
     } ,
   
     {
+      "title"    : "코드 리뷰 문화를 개선하고 생산성을 올려보자",
+      "category" : "Work_Tool",
+      "tags"     : "Github, PR, 프로세스, 생산성, and 개선",
+      "url"      : "/2024/03/23/improve_pr_review_process/",
+      "date"     : "2024-03-23 14:22:00 +0900"
+    } ,
+  
+    {
       "title"    : "Nest.js와 Spring 비교",
       "category" : "DevLang_Node.js",
       "tags"     : "spring, node.js, and nest.js",
