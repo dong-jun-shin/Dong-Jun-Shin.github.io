@@ -1,6 +1,14 @@
 [
   
     {
+      "title"    : "퇴사 회고(라 쓰고, 2022년 ~ 2024년 정리)",
+      "category" : "Life",
+      "tags"     : "retrospective, skill, communication, challenge, and startup",
+      "url"      : "/2024/08/21/2_years_of_experience_from_2022/",
+      "date"     : "2024-08-21 23:47:38 +0900"
+    } ,
+  
+    {
       "title"    : "RAG를 사용하여 생성형 AI 애플리케이션의 응답 품질 높이기",
       "category" : "IT_Tech",
       "tags"     : "aws_summit_seoul, ai, rag, aws_bedrock, and lang_chain",
