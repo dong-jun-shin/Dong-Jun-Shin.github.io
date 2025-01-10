@@ -1,18 +1,18 @@
 [
   
     {
-      "title"    : "순열과 조합 - 1, 어떤 원리로 경우의 수를 계산할 수 있는걸까?",
-      "category" : "CS_Algorithm",
-      "tags"     : "Algorithm and Math",
-      "url"      : "/2025/01/10/permutation_and_combination_theory/",
-      "date"     : "2025-01-10 17:45:03 +0900"
-    } ,
-  
-    {
       "title"    : "순열과 조합 - 2, 경우의 수 뿐만 아니라 경우를 직접 구해보자",
       "category" : "CS_Algorithm",
       "tags"     : "Algorithm and Math",
       "url"      : "/2025/01/10/permutation_and_combination_implements/",
+      "date"     : "2025-01-10 17:45:03 +0900"
+    } ,
+  
+    {
+      "title"    : "순열과 조합 - 1, 어떤 원리로 경우의 수를 계산할 수 있는걸까?",
+      "category" : "CS_Algorithm",
+      "tags"     : "Algorithm and Math",
+      "url"      : "/2025/01/10/permutation_and_combination_theory/",
       "date"     : "2025-01-10 17:45:02 +0900"
     } ,
   
