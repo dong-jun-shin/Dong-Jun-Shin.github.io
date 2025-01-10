@@ -1,15 +1,370 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset='utf-8'>
-  <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-  <meta name='viewport' content='width=device-width, initial-scale=1'>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <title>코드 리뷰 문화를 개선하고 생산성을 올려보자</title>
-  <meta name='description' content="코드 리뷰 문화를 개선하고 생산성을 올려보자">
+  <meta
+    name="description"
+    content="코드 리뷰 문화를 개선하고 생산성을 올려보자배경제가 속해있는 제품 서비스 팀은 5명으로 구성되어 2주 스프린트 단위로 개발을 진행하는 조직이었습니다. 저희 팀은 배포할 시기가 되면 기존 계획했던 일정이 부족하여 배포 예정에 포함되어 있던 이슈를 다음 스프린트로 옮기는 일이 잦았었는..."
+  />
   <!-- Twitter Cards -->
 <meta name="twitter:title" content="코드 리뷰 문화를 개선하고 생산성을 올려보자">
 <meta name="twitter:description" content="코드 리뷰 문화를 개선하고 생산성을 올려보자
+
+배경
+
+제가 속해있는 제품 서비스 팀은 5명으로 구성되어 2주 스프린트 단위로 개발을 진행하는 조직이었습니다. 저희 팀은 배포할 시기가 되면 기존 계획했던 일정이 부족하여 배포 예정에 포함되어 있던 이슈를 다음 스프린트로 옮기는 일이 잦았었는데, 이는 외부 일정의 차질과 협업 관계에서 신뢰를 떨어뜨리는 심각한 문제라고 생각하여 분석을 해보았습니다.
+
+일정이 지연되는 이유 중 여러가지가 있겠지만 외부보다는 팀 내부에서 개선할 부분이 있을지 살펴보았고, 주로 PR 리뷰에서 예측했던 일정이 지연되는 것을 확인하였습니다. 이번 글은 일정 지연 빈도를 줄이기 위해 PR 리뷰 프로세스의 개선을 시도한 내용과 문제를 해결하기 위해 리서치했던 과정을 정리한 내용을 담아 보았습니다.
+
+현재 프로세스
+
+현재 1개의 이슈를 처리할 때, 다음과 같은 단계를 거치게 됩니다.
+
+1. 작업
+2. PR 생성
+3. 리뷰 요청
+4. 대기
+5. 리뷰 반영
+6. 4 ~ 5를 반복한 후 승인
+7. master로 merge
+
+
+문제점
+
+주로 3번까지는 담당자들이 열심히 집중하여 빠르게 올라왔습니다. 하지만 4번에서 리뷰어들이 바빠 리뷰의 우선순위가 밀리면서 1차 지연이 발생했고, 리뷰를 반영 후 다시 리뷰를 요청하면서 n번에 거듭한 지연이 발생하고 있었습니다.
+
+PR 리뷰 과정에서 여러 문제가 생기고, 이로 인해 생산성이 저하되는 것을 확인했으니 더 정확한 원인을 파악해볼 차례입니다. 저는 PR 리뷰를 할 때 병목이 생기는 부분을 명확하게 구분해보고자, 리뷰를 하는 사람과 리뷰를 받는 사람의 관점으로 나누어 보았습니다.
+
+1. 리뷰를 하는 사람
+
+먼저 리뷰를 하는 사람 입장에서 가용 리소스, 코드 리뷰 관점으로 나누어 볼 수 있습니다.
+
+
+  가용 리소스 관점의 문제
+    
+      자신이 맡은 이슈를 포함하여 PR 리뷰보다 우선 순위가 높은 일들이 많았습니다.
+        
+          PR 리뷰도 충분히 중요한 일이라는 점은 이미 모두가 인지하였지만, 내 업무를 하기에도 시간이 부족한 상황입니다.
+        
+      
+      MSA 구조에서 PR리뷰를 하면 PR이 여러개 서비스 repo에 섞여있어, 리뷰 대상 PR이 명확하지 않은 문제가 있었습니다.
+        
+          리뷰가 필요한 PR, 작업중인 PR, (Sub PR을 합칠 목적의)메인 PR 등이 섞여있어 리뷰 대상을 파악하기가 힘든 상황입니다.
+        
+      
+      PR이 일정 마감 직전에 리뷰되는 문제가 있었습니다.
+        
+          PR 리뷰를 하기 부담스러운 문제로 인해 미루어지고, 일정이 촉박할 때 리뷰가 되면서 문제를 놓치는 경우가 많아지게 됩니다.
+        
+      
+    
+  
+  코드 리뷰 관점의 문제
+    
+      main 브랜치에 merge하기 위해서는 팀장의 승인이 필요하여, 한 명에게 책임과 권한이 집중되면서 병목이 발생하고 있었습니다.
+        
+          병목이 심화되면서, 리뷰는 점점 더뎌지고 리뷰를 하는 사람, 받는 사람 모두 지치는 상황입니다.
+        
+      
+      PR 템플릿과 티켓의 내용이 정리되어 있지 않아, 작업 담당자 이외의 사람이 파악하는데 지연되는 문제가 있었습니다.
+        
+          해당 PR에 대한 내용을 쉽게 파악할 수 있도록 간결하고 명확한 정리가 중요
+        
+      
+      코드에서 의미를 유추, 해석, 의도의 파악이 어려울 때 지연
+        
+          이미 서로 lint에 명시된 컨벤션 정도는 맞추었지만, 리뷰에서 이해에 도움을 주기 위해 컨벤션을 좀 더 다듬으면 좋을 것 같다고 생각
+        
+      
+    
+  
+
+
+2. 리뷰를 받는 사람(작업 담당자)
+
+그리고 리뷰를 받는 사람 입장에서는 업무 진행 관점으로 볼 수 있습니다.
+
+
+  업무 진행 관점의 문제
+    
+      리뷰가 오래 걸릴수록, 동시에 진행하는 업무로 인한 생산성 하락 문제가 있었습니다.
+        
+          동시에 관리하는 업무가 많은 상황에서 생산성은 떨어지고 일정 마감일이 되어 리뷰가 완료되면 이는 생산성을 더 떨어뜨리게 됩니다.
+        
+      
+      다른 업무를 진행할 때 필요한 스위칭 비용이 높아지는 문제가 있었습니다.
+        
+          현재 업무를 정리해두고, 다른 업무 시작을 위해 파악하는 시간이 필요한 상황입니다.
+        
+      
+      여러 작업을 동시에 파악하고 관리하고 있어야 하기 때문에 더 많은 리소스를 사용해야 하는 문제가 있었습니다.
+        
+          현재 진행 상황을 체크하고 일정을 준수할 수 있도록 여러가지 상황을 고려하는 작업이 많아지게 되는 상황입니다.
+        
+      
+    
+  
+
+
+문제 현황 분석
+
+앞서 살펴본 문제들로 인해 지연이 있다고 판단하였고, 어느 정도의 병목이 있는지 파악해보고자 했습니다.
+
+
+  PR 리뷰에 소요된 시간
+    전체 PR 리뷰 기간: 09/05 ~ (다음 해)03/06
+총 PR 개수: 468개
+평균 PR 리뷰 완료 시간: 3일 7시간 22분 21초
+최소 PR 리뷰 완료 시간: 12초
+최대 PR 리뷰 완료 시간: 1개월 17일 3시간 16분 38초
+    
+  
+
+
+우선 저는 저희 팀이 맡고 있는 메인 서비스 저장소를 선택하여 반년동안 진행했던 PR 리뷰에 대해 분석을 해보았습니다. 그 결과, 평균적으로 리뷰를 진행하기 위해 PR 건당 3 ~ 4일이 소요되고 있었고, 길게는 1개월하고도 17일이 걸리기도 하였습니다.
+
+간단한 Key 교체, 환경설정 변경, 배포하기 위해 급하게 승인됐던 PR들을 고려하면, 1 ~ 2주 정도의 체감 소요 시간이 얼추 맞았습니다.
+
+목표 수립
+
+문제를 해결하기 전, 우리가 기대한 결과가 어떤 모습일지 명확하게 해야 합니다. 결과를 명확하게 함으로써, 방향을 명확하게 하고 우리가 문제를 해결하는데 집중할 수 있도록 합니다. 그럼 앞서 나열한 문제점이 해결되었을 때, 우리가 기대하는 결과는 어떤 모습일까요?
+
+제가 생각해본 결과는 다음과 같았습니다.
+
+
+  개인이 리뷰 시간을 분리해서 할당하고, 업무 관리를 위해 진행 상황 공유를 하도록 업무 프로세스 개선
+  명확하게 구분할 수 있도록 리뷰 대상 PR을 리스트업
+  일정 마감 직전에 문제가 되지 않도록 리뷰 대상 PR에 자체 우선순위를 부여
+  리뷰 승인을 부담없이 할 수 있도록 여러 명에게 책임을 나누어 병목 최소화
+  내용을 쉽게 파악할 수 있도록 해당 PR에 대해 간결하고 명확한 일감 정리
+  이미 서로 lint에 명시된 컨벤션 정도는 맞추었지만, 리뷰에서 빠른 코드 이해를 위해 기존 컨벤션 정책 개선
+
+
+목표 달성 시 기대효과
+
+그리고 세운 목표를 달성했을 때, 어떤 변화가 있을지도 생각해봅니다.
+
+
+  PR 리뷰를 Spot성 업무가 아닌 계획 가능한 업무로 만듦
+  컨벤션과 그라운드 룰 수립, 명확하고 간결한 내용(이슈, 코드) 전달을 통해 리뷰어의 가독성, 생산성을 향상
+  이슈가 오래 방치되지 않도록 하여, 동시에 진행하는 업무 개수, 비용을 감소
+
+
+이제 문제를 해결해보자
+
+문제를 파악하고 목표를 수립하였으며 목표 달성에 따른 기대효과까지 정리를 하였습니다. 이제는 해결하는 일만 남았습니다.
+
+이번 개선 과정은 구성원들에게 큰 부담을 지우지 않도록 하여 개선된 프로세스가 잘 정착되는 것을 우선으로 몇가지 개선 방안을 생각해보았습니다. 기존에 하던 방식이 아니기 때문에 개인의 부담이 아예 없을 수는 없지만, 전체적으로는 모두의 부담을 덜고 생산성이 높아질 수 있을 것이라고 생각했습니다.
+
+해결 방안 요약
+
+
+  Issue managing Template 개선
+  팀 리뷰 문화 구축 및 정착
+  PR Notification System 도입
+
+
+Issue managing Template 개선
+
+1. PR Template
+
+
+  개발자만 보는 내용으로 개발자에게 의도를 전달하는 목적으로 작성
+  템플릿은 이슈 설명, 해결을 위한 접근 방법, 추가적으로 변경된 내용, 신경써서 보기 원하는 부분, 리뷰 시 참고 사항으로 5가지 항목으로 구성하였습니다. 이 5가지는 처음 작업을 파악하기 위해, 궁금해 할 것이 무엇일 지, 리뷰를 하는 사람 입장에서 생각하여 구성한 항목입니다.
+
+
+[이슈 설명]
+&gt; 어떤 기능을 구현한건지, 이슈 대응이라면 어떤 이슈인지 PR이 열린 배경과 목적을 리뷰어들이 쉽게 이해할 수 있도록 적어주세요. (잘 정리된 티켓 링크로 대체 가능)
+- {수정하고자 하는 상황}
+
+[해결을 위한 접근 방법]
+&gt; 문제를 해결하면서 주요 변경된 부분들에 대해 적어주세요.
+- {수정한 방법}
+
+[추가적으로 변경된 내용]
+&gt; 리팩토링, lint 적용 등 이슈 해결 외에 변경된 사항을 적어주세요. (없을 경우, "없음")
+- 없음
+
+[신경써서 보기를 원하는 부분]
+&gt; 개발 과정에서 다른 분들의 의견이 궁금했거나 꼭 확인해주었으면 하는 부분
+- {요청하고 싶은 내용}
+
+[리뷰 시 참고 사항]
+- {리뷰어가 알아야 할 작업 사항}
+- {리뷰어가 알아야 할 이슈 사항}
+
+
+
+정리한 템플릿은 PR에 적용하면 다음과 같이 사용할 수 있습니다.
+
+
+[PR에 실제 템플릿을 적용한 예시]
+
+2. Jira 이슈
+
+
+  개발자, 비개발자 모두가 보는 내용으로 비개발적인 내용을 전달하는 목적으로 작성
+  Jira Template App을 활용하는 방법으로 적용 가능
+  템플릿은 As-Is, To-Be, Reference로 정리하여, 비개발적인 관점으로 구성하였습니다.
+
+
+[As-Is]
+- {현재 상황}
+
+[To-Be]
+- {작업 후 상황}
+
+[References]
+- {히스토리}
+- {참고 링크}
+- {기타. 이슈와 관련된 사항}
+
+
+팀 리뷰 문화 구축 및 정착
+
+각자의 스타일로 작업을 하다 보니, 한눈에 읽히기 어려운 점이 있었습니다. 코드 리뷰는 협업을 하는 것이기 때문에, 컨벤션을 정해서 리뷰 지연을 해소해보고자 하였습니다.
+
+먼저 팀 단위의 리뷰 문화를 구축하기 위해 논의가 필요했고, 다 같이 논의할 수 있도록 업무 프로세스, PR 리뷰, Code 관점에서 그라운드 룰과 컨벤션에 대한 초안을 정리해보았습니다.
+
+
+  업무 프로세스
+
+
+- PR 리뷰도 하나의 업무입니다.
+- 다른 사람의 PR을 리뷰하는 것을 자신의 일정 관리에 고려하지 않아서 지연이 되는 경우가 빈번했습니다.
+- PR 리뷰도 하나의 업무로 우선순위와 함께 일정에 고려헤서 팀 단위에서 집중할 수 있는 시간을 확보하는 것이 중요합니다.
+
+
+
+  PR 리뷰
+
+
+- 변화를 작게 유지합니다.
+  - 수정사항이 많아지면 리뷰어가 파악하는데 필요한 시간과 에너지는 더 커집니다.
+  - PR을 올릴 때 300~500줄 목표로 시작하고, 팀에 맞는 컨벤션으로 개선을 합니다.
+- 리뷰는 자주, 짧은 세션으로 진행합니다.
+  - 리뷰어의 부담을 덜고, 계획적으로 업무하기 좋은 여건이 됩니다.
+- 의미있는 PR을 만들기에 충분한 정보를 제공합니다.
+  - 리뷰어가 파악하는데 필요한 시간을 많이 아낄 수 있습니다.
+  - 템플릿 등을 함께 활용한다면 가독성을 더욱 높일 수 있습니다.
+- Approve는 팀 내 누구나 할 수 있습니다.
+  - Approve는 책임보다는 의견을 표현하는 것입니다.
+  - 리뷰는 코드의 완벽함이 아닌 최선을 위해 하는 것입니다.
+- Label 지정하기
+  - 마감 기한 설정, 배포 유형, QC 필요 여부 등 업무 진행에 변화를 줄 수 있는 부분을 표시합니다.
+  - PR을 구조화함으로 파악하는 시간을 줄이고, 자동화를 적용하며 협업에 필요한 과정을 줄일 수 있습니다.
+
+
+
+  Code convention
+
+
+- 주석, draft PR, PR 템플릿, PR 코멘트 등을 활용합니다.
+  - 설명이 필요한 부분을 표시함으로써 협업 과정의 불필요한 소통을 줄일 수 있습니다.
+  - 설명이 필요한 부분은 작업이 추가적으로 필요한 부분, 코드만으로 이해하기 어려운 부분, 특이사항이 있는 부분 등이 있습니다.
+
+
+이렇게 초안을 작성하였습니다. 작성한 초안은 팀에 맞는 문화를 구축하기 위해 제안을 하였고, 문화가 정착될 수 있도록 지속적인 추가/수정 피드백 요청과 리뷰 문화가 팀에 맞도록 개선 요청을 제안하였습니다.
+
+PR Notification System
+
+이제 정립한 그라운드 룰과 컨벤션을 팀에서 잘 지켜질 수 있도록 하는 일이 필요합니다. 수립한 정책이 지켜지고 있는지 확인하며 요청하거나 PR을 관리하는 과정에서 직접 PR 마감 기한을 변경하며 관리해야 한다면, 구성원들에게 개선보다 부담으로 다가올 것입니다.
+
+그래서 부담이 될 수 있는 부분을 대신 담당해줄 시스템의 도입을 생각하였고, PR Label과 리마인더 봇을 만들게 되었습니다.
+우선 시스템이 어디까지 담당할 지 역할의 범위를 정하는 것이 필요합니다.
+
+저는 앞서 말했던 부담이 될 수 있는 부분을 시스템의 역할로 보고, 다음과 같이 정의하였습니다.
+
+
+  리뷰해야 하는 PR에 지정된 label을 기준으로 우선순위를 정리하는 역할을 수행합니다.
+  우선순위, 보류된 PR, 초과된 PR등 리뷰해야 하는 PR을 모아서 주기적으로 알려주는 역할을 수행합니다.
+  PR에 지정된 마감 기한 Label의 관리와 필수 Label, 타이틀, 본문 등의 부재를 확인하고 요청하는 역할을 수행합니다.
+
+
+PR Label 활용
+
+먼저 시스템에서 활용할 수 있도록 마감 기한, PR 유형, 진행 상태 등을 Label 유형으로 정의하였습니다.
+
+
+  마감 기한의 경우, PR당 3일 내에 다루어 질 수 있도록 D-n, 기한 초과로 구성하였습니다.
+  PR 유형은 업무 진행 유형을 반영하여 신규기능, 기능개선, 오류수정, 기타수정과 QC 여부를 다룰 수 있도록 하였습니다.
+  진행 상태는 merge 대기, 보류를 구분하였고 별도의 진행 상태가 없이 기한이 있다면 진행 중인 상태로 판단하였습니다.
+
+
+이 기준들로 구성된 전체 PR Label 유형은 다음과 같습니다.
+
+
+[정의한 PR Label 유형]
+
+정의한 라벨은 별도의 숙지를 하지 않고 편리하게 설정할 수 있도록 Github PR의 Label을 활용하여 적용하였습니다. 이를 통해 PR에서 사진과 같이 부담없이 Label을 설정하고, 나아가 자동화를 하는데 활용할 수 있도록 하였습니다.
+
+
+[PR Label 설정]
+
+
+[Label을 활용한 PR 관리 예시]
+
+PR 리마인더 봇
+
+이제 PR Label을 도입하면서 시스템을 만들기 위한 준비가 끝났습니다. 남은 일은 PR Label을 이용해서 부담이 될 부분을 담당해줄 봇을 만들어야 합니다.
+
+봇의 이름은 Coral-bob이라고 정의하였는데, Coral-bob이 역할을 잘 수행할 수 있게, 다음의 기능을 하도록 구현되었습니다.
+
+- PR이 Open된 상태이고 MergeReady가 아닌 상태를 대상으로 관리를 합니다.
+- 대상 PR의 상태에 따라 label을 확인하고 변경합니다.
+  - 날짜가 지남에 따라 D-day 라벨을 관리합니다.
+    - D-3 ~ D-1일 사이면, 하루 줄어든 라벨로 변경합니다.
+    - D-0일인 경우, 기한이 초과되었다고 판단하고 OverDay 라벨로 변경합니다.
+  - MergeReady
+    - Approve를 받았다면 D-n 라벨을 제거하고 MergeReady 추가합니다.
+  - 배포 유형, QC 여부 라벨 체크
+    - 필수 라벨이 없는 경우, 추가해달라는 코멘트를 PR에 추가합니다.
+- 알림 발송
+  - Block 분류, D-day별, OverDay로 분류하여 정리합니다.
+  - PR당 `PR 제목 + D-day`로 구성하며, Jira 이슈를 포함한 경우 URL이 첨부되도록 합니다.
+  - 리뷰할 PR이 없는 경우, 팀을 격려하는 메시지를 대신 발송합니다.
+- 배포 내역 정리
+  - 배포 준비를 할 때, Type label, QC 여부 label을 이용해서 배포 내역 초안을 작성해줍니다.
+
+
+이제 수작업이 필요한 부분을 대체할 수 있도록 봇을 구현하였으니, 아래 사진과 같이 Slack의 채널에 적용해봅니다.
+
+
+[PR 리마인더 봇 Coral-bob의 리뷰 알림]
+
+
+[1일 경과되어 label이 변경된 후 발송된 리뷰 알림]
+
+
+[PR 리뷰가 없는 경우 발송된 메시지]
+
+PR 관리와 더불어 필수 label 지정 요청도 할 수 있게 되었습니다.
+
+
+[필수 label이 지정되어 있지 않은 경욷, 남겨진 코멘트 (사내 적용 전, 개인 계정으로 테스트)]
+
+마치며
+
+이렇게 Issue managing Template과 팀 리뷰 문화를 위한 그라운드 룰과 컨벤션 정립, PR Notification System 도입을 해보았습니다.
+
+앞으로 새로운 팀원의 원활한 합류와 팀의 높은 생산성이 더욱 절실해질 상황에서 기존 시스템의 높은 복잡도, 기술 문서의 부재, 그라운드 룰과 팀 문화의 부재 등 해결해야 할 문제는 큰 부담으로 느껴지고 있습니다.
+
+한 번에 모든 문제를 해결하면 좋겠지만, 많은 문제들에 매몰되지 않도록 꾸준히 시도하고 해결해나가는 것이 이럴 때일수록 중요할 것입니다. 지속가능한 팀 문화의 한 부분으로 자리 잡을 수 있게, 계속 가설을 세우며 문제를 해결하는 문화가 정착하길 바라며, 그 과정의 하나로 시도했던 코드 리뷰 문화 개선에 대한 글을 마칩니다.
+
+Reference
+
+
+  코드 리뷰 문화를 리뷰해 봐요 (코드 리뷰 프로세스 개선 ＆ PR Reminder Bot 개발 이야기)
+  코드 리뷰 in 뱅크샐러드 개발 문화
+  공통시스템개발팀 코드 리뷰 문화 개선 이야기
+  GitHub Actions로 개선하는 코드 리뷰 문화
+  효과적인 코드 리뷰를 위해서
+  Optimal pull request size
+
 
 ">
 
@@ -29,32 +384,409 @@
 
 <meta property="og:description" content="코드 리뷰 문화를 개선하고 생산성을 올려보자
 
+배경
+
+제가 속해있는 제품 서비스 팀은 5명으로 구성되어 2주 스프린트 단위로 개발을 진행하는 조직이었습니다. 저희 팀은 배포할 시기가 되면 기존 계획했던 일정이 부족하여 배포 예정에 포함되어 있던 이슈를 다음 스프린트로 옮기는 일이 잦았었는데, 이는 외부 일정의 차질과 협업 관계에서 신뢰를 떨어뜨리는 심각한 문제라고 생각하여 분석을 해보았습니다.
+
+일정이 지연되는 이유 중 여러가지가 있겠지만 외부보다는 팀 내부에서 개선할 부분이 있을지 살펴보았고, 주로 PR 리뷰에서 예측했던 일정이 지연되는 것을 확인하였습니다. 이번 글은 일정 지연 빈도를 줄이기 위해 PR 리뷰 프로세스의 개선을 시도한 내용과 문제를 해결하기 위해 리서치했던 과정을 정리한 내용을 담아 보았습니다.
+
+현재 프로세스
+
+현재 1개의 이슈를 처리할 때, 다음과 같은 단계를 거치게 됩니다.
+
+1. 작업
+2. PR 생성
+3. 리뷰 요청
+4. 대기
+5. 리뷰 반영
+6. 4 ~ 5를 반복한 후 승인
+7. master로 merge
+
+
+문제점
+
+주로 3번까지는 담당자들이 열심히 집중하여 빠르게 올라왔습니다. 하지만 4번에서 리뷰어들이 바빠 리뷰의 우선순위가 밀리면서 1차 지연이 발생했고, 리뷰를 반영 후 다시 리뷰를 요청하면서 n번에 거듭한 지연이 발생하고 있었습니다.
+
+PR 리뷰 과정에서 여러 문제가 생기고, 이로 인해 생산성이 저하되는 것을 확인했으니 더 정확한 원인을 파악해볼 차례입니다. 저는 PR 리뷰를 할 때 병목이 생기는 부분을 명확하게 구분해보고자, 리뷰를 하는 사람과 리뷰를 받는 사람의 관점으로 나누어 보았습니다.
+
+1. 리뷰를 하는 사람
+
+먼저 리뷰를 하는 사람 입장에서 가용 리소스, 코드 리뷰 관점으로 나누어 볼 수 있습니다.
+
+
+  가용 리소스 관점의 문제
+    
+      자신이 맡은 이슈를 포함하여 PR 리뷰보다 우선 순위가 높은 일들이 많았습니다.
+        
+          PR 리뷰도 충분히 중요한 일이라는 점은 이미 모두가 인지하였지만, 내 업무를 하기에도 시간이 부족한 상황입니다.
+        
+      
+      MSA 구조에서 PR리뷰를 하면 PR이 여러개 서비스 repo에 섞여있어, 리뷰 대상 PR이 명확하지 않은 문제가 있었습니다.
+        
+          리뷰가 필요한 PR, 작업중인 PR, (Sub PR을 합칠 목적의)메인 PR 등이 섞여있어 리뷰 대상을 파악하기가 힘든 상황입니다.
+        
+      
+      PR이 일정 마감 직전에 리뷰되는 문제가 있었습니다.
+        
+          PR 리뷰를 하기 부담스러운 문제로 인해 미루어지고, 일정이 촉박할 때 리뷰가 되면서 문제를 놓치는 경우가 많아지게 됩니다.
+        
+      
+    
+  
+  코드 리뷰 관점의 문제
+    
+      main 브랜치에 merge하기 위해서는 팀장의 승인이 필요하여, 한 명에게 책임과 권한이 집중되면서 병목이 발생하고 있었습니다.
+        
+          병목이 심화되면서, 리뷰는 점점 더뎌지고 리뷰를 하는 사람, 받는 사람 모두 지치는 상황입니다.
+        
+      
+      PR 템플릿과 티켓의 내용이 정리되어 있지 않아, 작업 담당자 이외의 사람이 파악하는데 지연되는 문제가 있었습니다.
+        
+          해당 PR에 대한 내용을 쉽게 파악할 수 있도록 간결하고 명확한 정리가 중요
+        
+      
+      코드에서 의미를 유추, 해석, 의도의 파악이 어려울 때 지연
+        
+          이미 서로 lint에 명시된 컨벤션 정도는 맞추었지만, 리뷰에서 이해에 도움을 주기 위해 컨벤션을 좀 더 다듬으면 좋을 것 같다고 생각
+        
+      
+    
+  
+
+
+2. 리뷰를 받는 사람(작업 담당자)
+
+그리고 리뷰를 받는 사람 입장에서는 업무 진행 관점으로 볼 수 있습니다.
+
+
+  업무 진행 관점의 문제
+    
+      리뷰가 오래 걸릴수록, 동시에 진행하는 업무로 인한 생산성 하락 문제가 있었습니다.
+        
+          동시에 관리하는 업무가 많은 상황에서 생산성은 떨어지고 일정 마감일이 되어 리뷰가 완료되면 이는 생산성을 더 떨어뜨리게 됩니다.
+        
+      
+      다른 업무를 진행할 때 필요한 스위칭 비용이 높아지는 문제가 있었습니다.
+        
+          현재 업무를 정리해두고, 다른 업무 시작을 위해 파악하는 시간이 필요한 상황입니다.
+        
+      
+      여러 작업을 동시에 파악하고 관리하고 있어야 하기 때문에 더 많은 리소스를 사용해야 하는 문제가 있었습니다.
+        
+          현재 진행 상황을 체크하고 일정을 준수할 수 있도록 여러가지 상황을 고려하는 작업이 많아지게 되는 상황입니다.
+        
+      
+    
+  
+
+
+문제 현황 분석
+
+앞서 살펴본 문제들로 인해 지연이 있다고 판단하였고, 어느 정도의 병목이 있는지 파악해보고자 했습니다.
+
+
+  PR 리뷰에 소요된 시간
+    전체 PR 리뷰 기간: 09/05 ~ (다음 해)03/06
+총 PR 개수: 468개
+평균 PR 리뷰 완료 시간: 3일 7시간 22분 21초
+최소 PR 리뷰 완료 시간: 12초
+최대 PR 리뷰 완료 시간: 1개월 17일 3시간 16분 38초
+    
+  
+
+
+우선 저는 저희 팀이 맡고 있는 메인 서비스 저장소를 선택하여 반년동안 진행했던 PR 리뷰에 대해 분석을 해보았습니다. 그 결과, 평균적으로 리뷰를 진행하기 위해 PR 건당 3 ~ 4일이 소요되고 있었고, 길게는 1개월하고도 17일이 걸리기도 하였습니다.
+
+간단한 Key 교체, 환경설정 변경, 배포하기 위해 급하게 승인됐던 PR들을 고려하면, 1 ~ 2주 정도의 체감 소요 시간이 얼추 맞았습니다.
+
+목표 수립
+
+문제를 해결하기 전, 우리가 기대한 결과가 어떤 모습일지 명확하게 해야 합니다. 결과를 명확하게 함으로써, 방향을 명확하게 하고 우리가 문제를 해결하는데 집중할 수 있도록 합니다. 그럼 앞서 나열한 문제점이 해결되었을 때, 우리가 기대하는 결과는 어떤 모습일까요?
+
+제가 생각해본 결과는 다음과 같았습니다.
+
+
+  개인이 리뷰 시간을 분리해서 할당하고, 업무 관리를 위해 진행 상황 공유를 하도록 업무 프로세스 개선
+  명확하게 구분할 수 있도록 리뷰 대상 PR을 리스트업
+  일정 마감 직전에 문제가 되지 않도록 리뷰 대상 PR에 자체 우선순위를 부여
+  리뷰 승인을 부담없이 할 수 있도록 여러 명에게 책임을 나누어 병목 최소화
+  내용을 쉽게 파악할 수 있도록 해당 PR에 대해 간결하고 명확한 일감 정리
+  이미 서로 lint에 명시된 컨벤션 정도는 맞추었지만, 리뷰에서 빠른 코드 이해를 위해 기존 컨벤션 정책 개선
+
+
+목표 달성 시 기대효과
+
+그리고 세운 목표를 달성했을 때, 어떤 변화가 있을지도 생각해봅니다.
+
+
+  PR 리뷰를 Spot성 업무가 아닌 계획 가능한 업무로 만듦
+  컨벤션과 그라운드 룰 수립, 명확하고 간결한 내용(이슈, 코드) 전달을 통해 리뷰어의 가독성, 생산성을 향상
+  이슈가 오래 방치되지 않도록 하여, 동시에 진행하는 업무 개수, 비용을 감소
+
+
+이제 문제를 해결해보자
+
+문제를 파악하고 목표를 수립하였으며 목표 달성에 따른 기대효과까지 정리를 하였습니다. 이제는 해결하는 일만 남았습니다.
+
+이번 개선 과정은 구성원들에게 큰 부담을 지우지 않도록 하여 개선된 프로세스가 잘 정착되는 것을 우선으로 몇가지 개선 방안을 생각해보았습니다. 기존에 하던 방식이 아니기 때문에 개인의 부담이 아예 없을 수는 없지만, 전체적으로는 모두의 부담을 덜고 생산성이 높아질 수 있을 것이라고 생각했습니다.
+
+해결 방안 요약
+
+
+  Issue managing Template 개선
+  팀 리뷰 문화 구축 및 정착
+  PR Notification System 도입
+
+
+Issue managing Template 개선
+
+1. PR Template
+
+
+  개발자만 보는 내용으로 개발자에게 의도를 전달하는 목적으로 작성
+  템플릿은 이슈 설명, 해결을 위한 접근 방법, 추가적으로 변경된 내용, 신경써서 보기 원하는 부분, 리뷰 시 참고 사항으로 5가지 항목으로 구성하였습니다. 이 5가지는 처음 작업을 파악하기 위해, 궁금해 할 것이 무엇일 지, 리뷰를 하는 사람 입장에서 생각하여 구성한 항목입니다.
+
+
+[이슈 설명]
+&gt; 어떤 기능을 구현한건지, 이슈 대응이라면 어떤 이슈인지 PR이 열린 배경과 목적을 리뷰어들이 쉽게 이해할 수 있도록 적어주세요. (잘 정리된 티켓 링크로 대체 가능)
+- {수정하고자 하는 상황}
+
+[해결을 위한 접근 방법]
+&gt; 문제를 해결하면서 주요 변경된 부분들에 대해 적어주세요.
+- {수정한 방법}
+
+[추가적으로 변경된 내용]
+&gt; 리팩토링, lint 적용 등 이슈 해결 외에 변경된 사항을 적어주세요. (없을 경우, "없음")
+- 없음
+
+[신경써서 보기를 원하는 부분]
+&gt; 개발 과정에서 다른 분들의 의견이 궁금했거나 꼭 확인해주었으면 하는 부분
+- {요청하고 싶은 내용}
+
+[리뷰 시 참고 사항]
+- {리뷰어가 알아야 할 작업 사항}
+- {리뷰어가 알아야 할 이슈 사항}
+
+
+
+정리한 템플릿은 PR에 적용하면 다음과 같이 사용할 수 있습니다.
+
+
+[PR에 실제 템플릿을 적용한 예시]
+
+2. Jira 이슈
+
+
+  개발자, 비개발자 모두가 보는 내용으로 비개발적인 내용을 전달하는 목적으로 작성
+  Jira Template App을 활용하는 방법으로 적용 가능
+  템플릿은 As-Is, To-Be, Reference로 정리하여, 비개발적인 관점으로 구성하였습니다.
+
+
+[As-Is]
+- {현재 상황}
+
+[To-Be]
+- {작업 후 상황}
+
+[References]
+- {히스토리}
+- {참고 링크}
+- {기타. 이슈와 관련된 사항}
+
+
+팀 리뷰 문화 구축 및 정착
+
+각자의 스타일로 작업을 하다 보니, 한눈에 읽히기 어려운 점이 있었습니다. 코드 리뷰는 협업을 하는 것이기 때문에, 컨벤션을 정해서 리뷰 지연을 해소해보고자 하였습니다.
+
+먼저 팀 단위의 리뷰 문화를 구축하기 위해 논의가 필요했고, 다 같이 논의할 수 있도록 업무 프로세스, PR 리뷰, Code 관점에서 그라운드 룰과 컨벤션에 대한 초안을 정리해보았습니다.
+
+
+  업무 프로세스
+
+
+- PR 리뷰도 하나의 업무입니다.
+- 다른 사람의 PR을 리뷰하는 것을 자신의 일정 관리에 고려하지 않아서 지연이 되는 경우가 빈번했습니다.
+- PR 리뷰도 하나의 업무로 우선순위와 함께 일정에 고려헤서 팀 단위에서 집중할 수 있는 시간을 확보하는 것이 중요합니다.
+
+
+
+  PR 리뷰
+
+
+- 변화를 작게 유지합니다.
+  - 수정사항이 많아지면 리뷰어가 파악하는데 필요한 시간과 에너지는 더 커집니다.
+  - PR을 올릴 때 300~500줄 목표로 시작하고, 팀에 맞는 컨벤션으로 개선을 합니다.
+- 리뷰는 자주, 짧은 세션으로 진행합니다.
+  - 리뷰어의 부담을 덜고, 계획적으로 업무하기 좋은 여건이 됩니다.
+- 의미있는 PR을 만들기에 충분한 정보를 제공합니다.
+  - 리뷰어가 파악하는데 필요한 시간을 많이 아낄 수 있습니다.
+  - 템플릿 등을 함께 활용한다면 가독성을 더욱 높일 수 있습니다.
+- Approve는 팀 내 누구나 할 수 있습니다.
+  - Approve는 책임보다는 의견을 표현하는 것입니다.
+  - 리뷰는 코드의 완벽함이 아닌 최선을 위해 하는 것입니다.
+- Label 지정하기
+  - 마감 기한 설정, 배포 유형, QC 필요 여부 등 업무 진행에 변화를 줄 수 있는 부분을 표시합니다.
+  - PR을 구조화함으로 파악하는 시간을 줄이고, 자동화를 적용하며 협업에 필요한 과정을 줄일 수 있습니다.
+
+
+
+  Code convention
+
+
+- 주석, draft PR, PR 템플릿, PR 코멘트 등을 활용합니다.
+  - 설명이 필요한 부분을 표시함으로써 협업 과정의 불필요한 소통을 줄일 수 있습니다.
+  - 설명이 필요한 부분은 작업이 추가적으로 필요한 부분, 코드만으로 이해하기 어려운 부분, 특이사항이 있는 부분 등이 있습니다.
+
+
+이렇게 초안을 작성하였습니다. 작성한 초안은 팀에 맞는 문화를 구축하기 위해 제안을 하였고, 문화가 정착될 수 있도록 지속적인 추가/수정 피드백 요청과 리뷰 문화가 팀에 맞도록 개선 요청을 제안하였습니다.
+
+PR Notification System
+
+이제 정립한 그라운드 룰과 컨벤션을 팀에서 잘 지켜질 수 있도록 하는 일이 필요합니다. 수립한 정책이 지켜지고 있는지 확인하며 요청하거나 PR을 관리하는 과정에서 직접 PR 마감 기한을 변경하며 관리해야 한다면, 구성원들에게 개선보다 부담으로 다가올 것입니다.
+
+그래서 부담이 될 수 있는 부분을 대신 담당해줄 시스템의 도입을 생각하였고, PR Label과 리마인더 봇을 만들게 되었습니다.
+우선 시스템이 어디까지 담당할 지 역할의 범위를 정하는 것이 필요합니다.
+
+저는 앞서 말했던 부담이 될 수 있는 부분을 시스템의 역할로 보고, 다음과 같이 정의하였습니다.
+
+
+  리뷰해야 하는 PR에 지정된 label을 기준으로 우선순위를 정리하는 역할을 수행합니다.
+  우선순위, 보류된 PR, 초과된 PR등 리뷰해야 하는 PR을 모아서 주기적으로 알려주는 역할을 수행합니다.
+  PR에 지정된 마감 기한 Label의 관리와 필수 Label, 타이틀, 본문 등의 부재를 확인하고 요청하는 역할을 수행합니다.
+
+
+PR Label 활용
+
+먼저 시스템에서 활용할 수 있도록 마감 기한, PR 유형, 진행 상태 등을 Label 유형으로 정의하였습니다.
+
+
+  마감 기한의 경우, PR당 3일 내에 다루어 질 수 있도록 D-n, 기한 초과로 구성하였습니다.
+  PR 유형은 업무 진행 유형을 반영하여 신규기능, 기능개선, 오류수정, 기타수정과 QC 여부를 다룰 수 있도록 하였습니다.
+  진행 상태는 merge 대기, 보류를 구분하였고 별도의 진행 상태가 없이 기한이 있다면 진행 중인 상태로 판단하였습니다.
+
+
+이 기준들로 구성된 전체 PR Label 유형은 다음과 같습니다.
+
+
+[정의한 PR Label 유형]
+
+정의한 라벨은 별도의 숙지를 하지 않고 편리하게 설정할 수 있도록 Github PR의 Label을 활용하여 적용하였습니다. 이를 통해 PR에서 사진과 같이 부담없이 Label을 설정하고, 나아가 자동화를 하는데 활용할 수 있도록 하였습니다.
+
+
+[PR Label 설정]
+
+
+[Label을 활용한 PR 관리 예시]
+
+PR 리마인더 봇
+
+이제 PR Label을 도입하면서 시스템을 만들기 위한 준비가 끝났습니다. 남은 일은 PR Label을 이용해서 부담이 될 부분을 담당해줄 봇을 만들어야 합니다.
+
+봇의 이름은 Coral-bob이라고 정의하였는데, Coral-bob이 역할을 잘 수행할 수 있게, 다음의 기능을 하도록 구현되었습니다.
+
+- PR이 Open된 상태이고 MergeReady가 아닌 상태를 대상으로 관리를 합니다.
+- 대상 PR의 상태에 따라 label을 확인하고 변경합니다.
+  - 날짜가 지남에 따라 D-day 라벨을 관리합니다.
+    - D-3 ~ D-1일 사이면, 하루 줄어든 라벨로 변경합니다.
+    - D-0일인 경우, 기한이 초과되었다고 판단하고 OverDay 라벨로 변경합니다.
+  - MergeReady
+    - Approve를 받았다면 D-n 라벨을 제거하고 MergeReady 추가합니다.
+  - 배포 유형, QC 여부 라벨 체크
+    - 필수 라벨이 없는 경우, 추가해달라는 코멘트를 PR에 추가합니다.
+- 알림 발송
+  - Block 분류, D-day별, OverDay로 분류하여 정리합니다.
+  - PR당 `PR 제목 + D-day`로 구성하며, Jira 이슈를 포함한 경우 URL이 첨부되도록 합니다.
+  - 리뷰할 PR이 없는 경우, 팀을 격려하는 메시지를 대신 발송합니다.
+- 배포 내역 정리
+  - 배포 준비를 할 때, Type label, QC 여부 label을 이용해서 배포 내역 초안을 작성해줍니다.
+
+
+이제 수작업이 필요한 부분을 대체할 수 있도록 봇을 구현하였으니, 아래 사진과 같이 Slack의 채널에 적용해봅니다.
+
+
+[PR 리마인더 봇 Coral-bob의 리뷰 알림]
+
+
+[1일 경과되어 label이 변경된 후 발송된 리뷰 알림]
+
+
+[PR 리뷰가 없는 경우 발송된 메시지]
+
+PR 관리와 더불어 필수 label 지정 요청도 할 수 있게 되었습니다.
+
+
+[필수 label이 지정되어 있지 않은 경욷, 남겨진 코멘트 (사내 적용 전, 개인 계정으로 테스트)]
+
+마치며
+
+이렇게 Issue managing Template과 팀 리뷰 문화를 위한 그라운드 룰과 컨벤션 정립, PR Notification System 도입을 해보았습니다.
+
+앞으로 새로운 팀원의 원활한 합류와 팀의 높은 생산성이 더욱 절실해질 상황에서 기존 시스템의 높은 복잡도, 기술 문서의 부재, 그라운드 룰과 팀 문화의 부재 등 해결해야 할 문제는 큰 부담으로 느껴지고 있습니다.
+
+한 번에 모든 문제를 해결하면 좋겠지만, 많은 문제들에 매몰되지 않도록 꾸준히 시도하고 해결해나가는 것이 이럴 때일수록 중요할 것입니다. 지속가능한 팀 문화의 한 부분으로 자리 잡을 수 있게, 계속 가설을 세우며 문제를 해결하는 문화가 정착하길 바라며, 그 과정의 하나로 시도했던 코드 리뷰 문화 개선에 대한 글을 마칩니다.
+
+Reference
+
+
+  코드 리뷰 문화를 리뷰해 봐요 (코드 리뷰 프로세스 개선 ＆ PR Reminder Bot 개발 이야기)
+  코드 리뷰 in 뱅크샐러드 개발 문화
+  공통시스템개발팀 코드 리뷰 문화 개선 이야기
+  GitHub Actions로 개선하는 코드 리뷰 문화
+  효과적인 코드 리뷰를 위해서
+  Optimal pull request size
+
+
 ">
 <meta property="og:url" content="https://dong-jun-shin.github.io/2024/03/23/improve_pr_review_process/">
 <meta property="og:site_name" content="Jun's Dev_Blog">
-  <link rel='canonical' href="https://dong-jun-shin.github.io/2024/03/23/improve_pr_review_process/">
-  <link rel='alternate' type='application/rss+xml' title='Jun's Dev_Blog' href="https://dong-jun-shin.github.io/feed.xml">
+  <link rel="canonical" href="https://dong-jun-shin.github.io/2024/03/23/improve_pr_review_process/" />
+  <link
+    rel="alternate"
+    type="application/rss+xml"
+    title="Jun's Dev_Blog"
+    href="https://dong-jun-shin.github.io/feed.xml"
+  />
   <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css?family=Volkhov:400,700" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@200;300;400;500;700;900&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css?family=Volkhov:400,700" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@200;300;400;500;700;900&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@700&display=swap" rel="stylesheet" />
+  <!-- Common -->
   <style>
     
-    /*! normalize.css v7.0.0 | MIT License | github.com/necolas/normalize.css */html,body{scroll-behavior:smooth}html{line-height:1.15;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}body{font-weight:normal;letter-spacing:0;margin:0}article,aside,footer,header,nav,section{display:block}h1{font-size:2em;margin:0.67em 0}figcaption,figure,main{display:block}figure{margin:1em 40px}hr{box-sizing:content-box;height:0;overflow:visible}pre{font-family:monospace, monospace;font-size:1em}a{background-color:transparent;-webkit-text-decoration-skip:objects}abbr[title]{border-bottom:none;text-decoration:underline;text-decoration:underline dotted}b,strong{font-weight:inherit}b,strong{font-weight:bolder}code,kbd,samp{font-family:monospace, monospace;font-size:1em}dfn{font-style:italic}mark{background-color:#ff0;color:#000}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-0.25em}sup{top:-0.5em}audio,video{display:inline-block}audio:not([controls]){display:none;height:0}img{border-style:none}svg:not(:root){overflow:hidden}button,input,optgroup,select,textarea{font-family:'Noto Sans KR', sans-serif;font-size:100%;line-height:1.15;margin:0}button,input{overflow:visible}button,select{text-transform:none}button,html [type="button"],[type="reset"],[type="submit"]{-webkit-appearance:button}button::-moz-focus-inner,[type="button"]::-moz-focus-inner,[type="reset"]::-moz-focus-inner,[type="submit"]::-moz-focus-inner{border-style:none;padding:0}button:-moz-focusring,[type="button"]:-moz-focusring,[type="reset"]:-moz-focusring,[type="submit"]:-moz-focusring{outline:1px dotted ButtonText}fieldset{padding:0.35em 0.75em 0.625em}legend{box-sizing:border-box;color:inherit;display:table;max-width:100%;padding:0;white-space:normal}progress{display:inline-block;vertical-align:baseline}textarea{overflow:auto}[type="checkbox"],[type="radio"]{box-sizing:border-box;padding:0}[type="number"]::-webkit-inner-spin-button,[type="number"]::-webkit-outer-spin-button{height:auto}[type="search"]{-webkit-appearance:textfield;outline-offset:-2px}[type="search"]::-webkit-search-cancel-button,[type="search"]::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}details,menu{display:block}summary{display:list-item}canvas{display:inline-block}template{display:none}[hidden]{display:none}body,h1,h2,h3,h4,h5,h6,p,blockquote,pre,dl,dd,ol,ul,fieldset,legend,figure,hr{margin:0;padding:0}li>ul,li>ol{margin-bottom:0}table{border:0.14em solid black;border-collapse:collapse;border-spacing:0;word-break:initial;width:100%}table tr:nth-child(even){background-color:#f2fafd}thead{background-color:#a0d0ee}table th{text-align:center;padding:6px 13px;border:0.1em solid #757575}table td{padding:6px 13px;border:0.1em solid #757575}table tr{padding:6px 13px;border:0.1em solid #757575}@-webkit-keyframes spin{100%{-webkit-transform:rotate(360deg);transform:rotate(360deg)}}@keyframes spin{100%{-webkit-transform:rotate(360deg);transform:rotate(360deg)}}.icon{position:relative;display:inline-block;width:25px;height:25px;overflow:hidden;fill:currentColor}.icon__cnt{width:100%;height:100%;background:inherit;fill:inherit;pointer-events:none;transform:translateX(0);-ms-transform:translate(0.5px, -0.3px)}.icon--m{width:50px;height:50px}.icon--l{width:100px;height:100px}.icon--xl{width:150px;height:150px}.icon--xxl{width:200px;height:200px}.icon__spinner{position:absolute;top:0;left:0;width:100%;height:100%}.icon--ei-spinner .icon__spinner,.icon--ei-spinner-2 .icon__spinner{-webkit-animation:spin 1s steps(12) infinite;animation:spin 1s steps(12) infinite}.icon--ei-spinner-3 .icon__spinner{-webkit-animation:spin 1.5s linear infinite;animation:spin 1.5s linear infinite}.icon--ei-sc-facebook{fill:#3b5998}.icon--ei-sc-github{fill:#333}.icon--ei-sc-google-plus{fill:#dd4b39}.icon--ei-sc-instagram{fill:#3f729b}.icon--ei-sc-linkedin{fill:#0976b4}.icon--ei-sc-odnoklassniki{fill:#ed812b}.icon--ei-sc-skype{fill:#00aff0}.icon--ei-sc-soundcloud{fill:#f80}.icon--ei-sc-tumblr{fill:#35465c}.icon--ei-sc-twitter{fill:#55acee}.icon--ei-sc-vimeo{fill:#1ab7ea}.icon--ei-sc-vk{fill:#45668e}.icon--ei-sc-youtube{fill:#e52d27}.icon--ei-sc-pinterest{fill:#bd081c}.icon--ei-sc-telegram{fill:#0088cc}*,*::after,*::before{box-sizing:border-box}h1,h2,h3,h4,h5,h6,ul,ol,dl,blockquote,p,address,hr,table,fieldset,figure,pre{margin-bottom:20px}ul,ol,dd{margin-left:20px}.highlight{background:#f7f7f7}.highlighter-rouge .highlight{background:#0d1117;color:#e6edf3;border-radius:10px}.highlight .c{color:#8b949e;font-style:italic}.highlight .err{color:#f85149}.highlight .esc{color:#e6edf3}.highlight .g{color:#e6edf3}.highlight .k{color:#ff7b72}.highlight .l{color:#a5d6ff}.highlight .n{color:#e6edf3}.highlight .o{color:#ff7b72;font-weight:bold}.highlight .x{color:#e6edf3}.highlight .p{color:#e6edf3}.highlight .ch{color:#8b949e;font-style:italic}.highlight .cm{color:#8b949e;font-style:italic}.highlight .cp{color:#8b949e;font-weight:bold;font-style:italic}.highlight .cpf{color:#8b949e;font-style:italic}.highlight .c1{color:#8b949e;font-style:italic}.highlight .cs{color:#8b949e;font-weight:bold;font-style:italic}.highlight .gd{color:#ffa198;background-color:#490202}.highlight .ge{color:#e6edf3;font-style:italic}.highlight .ges{color:#e6edf3;font-weight:bold;font-style:italic}.highlight .gr{color:#ffa198}.highlight .gh{color:#79c0ff;font-weight:bold}.highlight .gi{color:#56d364;background-color:#0f5323}.highlight .go{color:#8b949e}.highlight .gp{color:#8b949e}.highlight .gs{color:#e6edf3;font-weight:bold}.highlight .gu{color:#79c0ff}.highlight .gt{color:#ff7b72}.highlight .g-Underline{color:#e6edf3;text-decoration:underline}.highlight .kc{color:#79c0ff}.highlight .kd{color:#ff7b72}.highlight .kn{color:#ff7b72}.highlight .kp{color:#79c0ff}.highlight .kr{color:#ff7b72}.highlight .kt{color:#ff7b72}.highlight .ld{color:#79c0ff}.highlight .m{color:#a5d6ff}.highlight .s{color:#a5d6ff}.highlight .na{color:#e6edf3}.highlight .nb{color:#e6edf3}.highlight .nc{color:#f0883e;font-weight:bold}.highlight .no{color:#79c0ff;font-weight:bold}.highlight .nd{color:#d2a8ff;font-weight:bold}.highlight .ni{color:#ffa657}.highlight .ne{color:#f0883e;font-weight:bold}.highlight .nf{color:#d2a8ff;font-weight:bold}.highlight .nl{color:#79c0ff;font-weight:bold}.highlight .nn{color:#ff7b72}.highlight .nx{color:#e6edf3}.highlight .py{color:#79c0ff}.highlight .nt{color:#7ee787}.highlight .nv{color:#79c0ff}.highlight .ow{color:#ff7b72;font-weight:bold}.highlight .pm{color:#e6edf3}.highlight .w{color:#6e7681}.highlight .mb{color:#a5d6ff}.highlight .mf{color:#a5d6ff}.highlight .mh{color:#a5d6ff}.highlight .mi{color:#a5d6ff}.highlight .mo{color:#a5d6ff}.highlight .sa{color:#79c0ff}.highlight .sb{color:#a5d6ff}.highlight .sc{color:#a5d6ff}.highlight .dl{color:#79c0ff}.highlight .sd{color:#a5d6ff}.highlight .s2{color:#a5d6ff}.highlight .se{color:#79c0ff}.highlight .sh{color:#79c0ff}.highlight .si{color:#a5d6ff}.highlight .sx{color:#a5d6ff}.highlight .sr{color:#79c0ff}.highlight .s1{color:#a5d6ff}.highlight .ss{color:#a5d6ff}.highlight .bp{color:#e6edf3}.highlight .fm{color:#d2a8ff;font-weight:bold}.highlight .vc{color:#79c0ff}.highlight .vg{color:#79c0ff}.highlight .vi{color:#79c0ff}.highlight .vm{color:#79c0ff}.highlight .il{color:#a5d6ff}body{font-family:"Open Sans",Helvetica Neue,Helvetica,"Noto Sans KR",Arial,sans-serif;font-size:16px;line-height:28px;color:#404040;background-color:#fbfbfb;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}*::selection{color:#fff;background-color:#3af}.toc-container{margin-bottom:20px;display:flex;justify-content:center}.toc{background-color:#fff;border:1px solid #edeeee;border-radius:8px;padding:20px;box-shadow:0 2px 4px rgba(0,0,0,0.1);width:100%;font-family:'Noto Sans KR', sans-serif;text-align:left}.toc-title{font-family:'Noto Sans KR', sans-serif;font-size:32px;font-weight:700;color:#05b;margin-bottom:20px;text-align:left;background-color:rgba(204,238,255,0.5);padding:15px;border-radius:5px;border:1px solid #ccc}.toc ul{list-style-type:disc;padding-left:15px}.toc a{font-family:'Noto Sans KR', sans-serif;font-size:16px;color:#0086e6;text-decoration:none;display:block;transition:color 0.3s ease, background-color 0.3s ease}.toc a:hover{background-color:#eeeeee;color:#005999;text-decoration:underline}.toc a:active{color:#05b}.toc .list-group-item.active{background-color:rgba(34,34,34,0.8);color:#fff;font-weight:bold;border-radius:5px}.toc .list-group-item.disabled{color:#6c757d;background-color:transparent}.toc .list-group-item+.list-group-item{margin-top:8px}h1,h2,h3,h4,h5,h6{font-family:"Noto Sans KR",serif;font-weight:700;line-height:initial}h1{font-weight:700;font-size:36px;line-height:110%;margin-top:1.6em;margin-bottom:0.8em}h2{font-weight:700;font-size:32px;margin-top:1.6em;margin-bottom:0.8em}h3{font-weight:700;font-size:28px;margin-top:1.8em;margin-bottom:0.9em}h4{font-weight:700;font-size:24px;margin-top:2em;margin-bottom:1em}h5{font-weight:700;font-size:22px;margin-top:2em;margin-bottom:1em;color:#333}h6{font-weight:700;font-size:20px;margin-top:2em;margin-bottom:1em;color:#444}img{max-width:100%;height:auto;vertical-align:middle}img+strong:before{display:inline-block;content:"▲";padding-right:5px;font-size:14px}img+strong{display:block;font-size:14px}p:has(>img):has(>strong){max-width:90%;margin:50px auto;text-align:center}a{text-decoration:none;color:#0086e6;transition:.35s}a:hover{color:#005999}blockquote{padding-left:20px;border-left:4px solid #3af;font-family:'Noto Sans KR', serif;font-style:normal;font-size:14px;background-color:#eef8fc}blockquote p{padding:10px}hr{height:4px;margin:20px 0;border:0;background-color:#6B6B6B}pre{overflow:auto;padding:14px;font-size:14px;white-space:pre-wrap;word-wrap:break-word;word-break:break-all;font-family:Courier, 'Noto Sans KR', monospace}pre.highlight{padding:15px 20px}code{border-radius:10px;overflow:auto;white-space:pre-wrap;word-wrap:break-word;word-break:break-all;font-family:Courier, 'Noto Sans KR', monospace;font-weight:bold;font-size:12px;vertical-align:middle}p code,li code{color:#eb5757;background-color:#edeeee;margin:0 2px;padding:5px 6px}pre code{font-size:14px;color:#dddddd;background-color:transparent}.language-plaintext code{color:#dddddd}.o-wrapper{max-width:1440px;position:relative}.o-opacity{animation-duration:0.7s;animation-delay:0.2s;animation-fill-mode:both;animation-name:opacity}@keyframes opacity{from{opacity:0}to{opacity:1}}.c-btn{display:inline-block;white-space:nowrap;vertical-align:middle;font-family:'Noto Sans KR', serif;font-size:14px;text-align:center;padding:5px 15px;cursor:pointer;transition:.35s}.c-btn--primary{color:#fff;background-color:#3af;background:linear-gradient(135deg, #3af 0%, #62d5ff 100%)}.c-btn--secondary{color:#fff;background-color:#cfcfdd;background:linear-gradient(135deg, #a2a2bd 0%, #cfcfdd 100%)}.c-btn--bar{color:#fff;background-color:#444;background:#525252;font-size:14px;width:76%;height:40px}.c-btn--round{border-radius:30px}.c-btn--shadow{box-shadow:8px 10px 20px 0 rgba(46,61,73,0.15)}.c-btn--shadow:hover{box-shadow:2px 4px 8px 0px rgba(46,61,73,0.2)}.c-btn--middle{display:block;width:300px;max-width:100%}.c-btn--big{display:block;width:100%}.c-btn:hover{color:#fff;transition:.35s}.c-btn:active{transform:translateY(2px)}.c-sidebar{display:flex;flex-direction:column;justify-content:space-between;position:fixed;top:0;left:0;bottom:0;width:360px;padding:40px 20px 20px;text-align:center;box-shadow:1px 1px 0 rgba(31,35,46,0.15);background-color:#fff}.c-sidebar-author .c-author__cover{width:100px;height:100px;margin:0 auto 10px;border-radius:50%;overflow:hidden;background-color:#cfcfdd}.c-sidebar-author .c-author__cover img{width:100%;height:100%;border-radius:50%;transition:.35s}.c-sidebar-author .c-author__cover img:hover{transform:scale3d(0.9, 0.9, 1)}.c-sidebar-author .c-contact-menu .c-btn{min-width:110px}.c-sidebar-author .c-contact-menu .c-btn .icon{width:18px;height:18px;vertical-align:text-bottom;fill:#fff}.c-sidebar-author .c-author__info{font-family:'Noto Sans KR', serif}.c-sidebar-author .c-author__name{font-size:18px;font-weight:700;line-height:21px}.c-sidebar-author .c-author__job{font-size:12px;color:#a0a0a0;margin:5px 0 0}.c-sidebar-author .c-contact-menu{margin-top:30px;margin-left:0px;margin-bottom:10px;margin-right:0px}.c-sidebar-author .c-contact-menu .c-btn--secondary{margin-right:2px}.c-sidebar-author .c-author__about{max-width:400px;margin:0 auto 15px;font-size:13px}.c-sidebar-footer .c-social__title{position:relative;font-family:'Noto Sans KR', serif;font-size:16px;font-weight:700;color:#444}.c-sidebar-footer .c-social__title::before{content:"";display:block;height:2px;width:calc(50% - 40px);transform:translateY(-50%);position:absolute;top:50%;left:0;background-color:#444}.c-sidebar-footer .c-social__title::after{content:"";display:block;height:2px;width:calc(50% - 40px);transform:translateY(-50%);position:absolute;top:50%;right:0;background-color:#444}.c-sidebar-footer .c-social__list{list-style-type:none;padding:0;margin:15px 0}.c-sidebar-footer .c-social__list .c-social__item{display:inline-block;width:27px;height:27px}.c-sidebar-footer .c-social__list .icon{width:27px;height:27px;fill:#444;vertical-align:middle;transition:.35s}.c-sidebar-footer .c-social__list .icon:hover{fill:#3af;transform:scale(1.2);transition:.35s}.c-sidebar-footer .c-copyright p{font-size:13px;margin:0}@media only screen and (max-width: 900px){.c-sidebar{position:relative;width:100%;padding:20px}.c-sidebar .c-contact-menu{margin:20px 0}.c-sidebar-footer .c-social .c-social__title{clip:rect(1px, 1px, 1px, 1px);height:1px;overflow:hidden;position:absolute !important;width:1px;word-wrap:normal !important}.c-sidebar-footer .c-social__list{margin:0}.c-sidebar-footer .c-copyright{clip:rect(1px, 1px, 1px, 1px);height:1px;overflow:hidden;position:absolute !important;width:1px;word-wrap:normal !important}}@media only screen and (max-width: 480px){.c-sidebar-author .c-author__cover{width:80px;height:80px}.c-sidebar-author .c-author__cover img{width:100%;height:100%}.c-sidebar-author .c-contact-menu{margin:15px 0px 10px 0px}.c-sidebar-author .c-contact-menu .c-btn{min-width:80px;font-size:10px;padding:4px 15px;margin-right:5px}.c-sidebar-author .c-contact-menu .c-btn .icon{width:16px;height:16px}.c-sidebar-author .c-contact-menu-bar{margin:0px}.c-sidebar-author .c-contact-menu-bar .c-btn{min-width:80px;font-size:12px;padding:4px 15px;width:63%;height:37px;margin-left:28px;margin-right:32px}.c-sidebar-author .c-contact-menu-bar .c-btn .icon{width:16px;height:16px}.c-sidebar-footer .c-social .c-social__title{clip:rect(1px, 1px, 1px, 1px);height:1px;overflow:hidden;position:absolute !important;width:1px;word-wrap:normal !important}.c-sidebar-footer .c-social__list{margin:0}.c-sidebar-footer .c-social__list .icon{width:25px;height:25px}.c-sidebar-footer .c-copyright{clip:rect(1px, 1px, 1px, 1px);height:1px;overflow:hidden;position:absolute !important;width:1px;word-wrap:normal !important}}.c-content{position:relative;display:flex;flex-direction:row;flex-wrap:wrap;align-items:stretch;padding:0 20px 0;margin-left:360px}@media only screen and (max-width: 900px){.c-content{position:static;padding:0 15px 0;margin-left:0}}.c-posts{width:100%;display:flex;flex-direction:row;flex-wrap:wrap}.c-post{width:100%;max-width:100%;margin-bottom:20px;display:flex;flex-direction:row;align-items:stretch;min-height:180px;border-radius:10px;overflow:hidden;transition:.35s;background-color:#fff;box-shadow:0 1px 1px 0 rgba(31,35,46,0.15)}.c-post:hover{transform:translate(0px, -2px);box-shadow:0 15px 45px -10px rgba(10,16,34,0.2)}.c-post .c-post-thumbnail{display:block;width:30%;max-width:100%;min-height:180px;border-radius:10px 0 0 10px;background-color:rgba(220,235,245,0.2);background-size:cover;background-position:50% 50%}.c-post .c-post-content{padding:15px;width:70%}.c-post .c-post-content .c-post-title{font-size:30px;font-weight:400;margin:0 0 15px}.c-post .c-post-content .c-post-title a{text-decoration:none;color:#263959}.c-post .c-post-content .c-post-tags{padding:3px 5px;border-radius:3px;background-color:rgba(135,131,120,0.2);color:#eb5757;font-size:85%;font-family:'Courier Prime', 'Noto Sans KR'}.c-post .c-post-content .c-post-date,.c-post .c-post-content .c-post-words{font-size:12px}.c-load-more{padding:20px;margin:20px auto 40px;font-size:13px;color:#fff;border:none;background-color:#3af;outline:none}.c-load-more:hover{background-color:#0086e6}@media only screen and (max-width: 1200px){.c-post{width:48%;max-width:100%;margin:0 1% 20px;flex-direction:column}.c-post .c-post-thumbnail{width:100%;border-radius:10px 10px 0 0}.c-post .c-post-content{width:100%}.c-post .c-post-content .c-post-title{font-size:21px;margin:15px 0}}@media only screen and (max-width: 480px){.c-post{width:100%;max-width:100%;margin:0 0 20px}.c-post .c-post-content{width:100%}.c-post .c-post-content .c-post-title{font-size:21px;margin:15px 0}}.c-article{width:100%;margin:20px 0}.c-wrap-content{padding:7%;background-color:#fff}.c-article__image{position:relative;background-color:rgba(220,235,245,0.2);background-position:center;background-size:cover;background-repeat:no-repeat}.c-article__image:after{content:"";display:block;padding-top:56%}.c-article__header{margin-bottom:60px;padding-bottom:10px;text-align:center;border-bottom:1px solid #6B6B6B}.c-article__header .c-article__title{margin-bottom:10px}.c-article__date span{font-size:13px;text-transform:uppercase;color:#a0a0a0}.c-article__footer{margin:60px 0 0;padding-top:20px;padding-bottom:10px;text-align:center;border-top:1px solid #6B6B6B}.c-article__footer .c-article__share{transition:.35s}.c-article__footer .c-article__share a .icon{vertical-align:middle;transition:.35s}.c-article__footer .c-article__share a .icon:hover{opacity:.7;transition:.35s}.c-article__footer .c-article__tag{margin-bottom:5px}.c-article__footer .c-article__tag a{display:inline-block;vertical-align:middle;padding:5px 10px;font-family:'Noto Sans KR', serif;font-size:10px;line-height:10px;text-transform:uppercase;background-color:rgba(115,138,160,0.6);color:#fff}.c-article__footer .c-article__tag a:hover{background-color:rgba(80,100,118,0.6)}.c-article__footer .c-article__tag a:last-child{margin-right:0}.c-recent-post{padding:30px 0}.c-recent-post .c-recent__title{font-size:14px;text-align:center;text-transform:uppercase;margin-bottom:30px}.c-recent-post .c-recent__box{display:flex;flex-direction:row;flex-wrap:wrap}.c-recent-post .c-recent__item{max-width:23%;flex-basis:23%;margin:0 1% 20px;border-radius:10px;overflow:hidden;text-align:center;background-color:#fff;box-shadow:0 1px 1px 0 rgba(31,35,46,0.15);transition:.35s}.c-recent-post .c-recent__item h4{margin-bottom:5px;font-size:12px;text-transform:uppercase}.c-recent-post .c-recent__item h4 a{color:#444}.c-recent-post .c-recent__item:hover{box-shadow:2px 4px 8px 0px rgba(46,61,73,0.2)}.c-recent-post .c-recent__footer{padding:15px}.c-recent-post .c-recent__image{display:block;width:100%;min-height:180px;background-color:rgba(220,235,245,0.2);background-size:cover;background-position:center;background-repeat:no-repeat}.c-recent-post .c-recent__date{color:#a0a0a0;font-size:12px}@media only screen and (max-width: 1200px){.c-recent-post .c-recent__item{max-width:48%;flex-basis:48%}}@media only screen and (max-width: 900px){.c-article{margin:15px 0}}@media only screen and (max-width: 480px){.c-wrap-content{padding:15px}.c-article__header{margin-bottom:5px}.c-article__header .c-article__title{font-size:24px;margin-bottom:5px}.c-recent-post .c-recent__item{max-width:100%;flex-basis:100%;margin:0 0 20px}}.c-blog-tags{width:100%;padding:20px;margin:20px 0 40px;background-color:#fff}.c-blog-tags h1{text-align:center;margin-bottom:0}.c-blog-tags h2{font-size:18px;text-transform:uppercase;margin:30px 0;color:#757575}.c-tag__list{list-style:none;padding:0 0 40px;margin:40px 0 0;border-bottom:1px solid #6B6B6B}.c-tag__list li{display:inline-block;margin-right:15px}.c-tag__list li a{color:#404040;text-transform:uppercase;font-size:12px}.c-tag__list li a:hover{color:#000}.c-tag__item{margin-bottom:15px}.c-tag__image{width:50px;height:50px;border-radius:50%;margin-right:5px}@media only screen and (max-width: 480px){.c-blog-tags{padding:15px}.c-blog-tags h1{font-size:27px}.c-blog-tags h2{font-size:16px;margin:15px 0}.c-tag__list{padding:0 0 30px;margin:30px 0 0}.c-tag__item{margin-bottom:5px}.c-tag__image{display:none}}.c-header{position:relative;width:100%;margin:20px 0}.c-header__box{position:relative;display:flex;flex-direction:row;justify-content:space-between;align-items:center}.c-header__box .icon--ei-search{position:absolute;top:7px;left:15px;fill:#ccc}.c-search{width:80%}.c-search .c-search__box{display:flex;align-items:center}.c-search .c-search__text{position:relative;width:100%;padding:10px 10px 10px 40px;border:1px solid #f2fafd;border-radius:30px;outline:none;color:#a0a0a0}.c-search .c-search__text::placeholder{color:#ccc}.c-search .c-search__text:hover{box-shadow:0 1px 0px rgba(132,135,138,0.1);transition:.35s}.c-search .c-search-results-list{position:absolute;width:100%;margin:10px 0 0;list-style-type:none;background-color:#fff;z-index:1}.c-search .c-search-results-list li{display:flex;flex-wrap:wrap;align-items:center;margin:0;padding:20px 25px 0;background-color:#fff;line-height:1.4;border-left:solid 1px #edeeee;border-right:solid 1px #edeeee}.c-search .c-search-results-list li:first-child{border-top-left-radius:5px;border-top-right-radius:5px;border-top:solid 1px #edeeee}.c-search .c-search-results-list li:last-child{border-bottom-left-radius:5px;border-bottom-right-radius:5px;padding-bottom:25px;border-bottom:solid 1px #edeeee}.c-search .c-search-results-list li a{font-size:16px}.c-nav{flex-grow:1;padding-left:20px}.c-nav .c-nav__list{display:flex;justify-content:flex-end}.c-nav .c-nav__list .c-nav__item{display:flex;align-items:center;float:left;padding:4px 10px;font-size:10px;text-transform:uppercase;white-space:nowrap;border:1px solid #f2fafd;box-shadow:0 1px 0px rgba(132,135,138,0.4);will-change:transform;transform:translateY(0px);cursor:pointer}.c-nav .c-nav__list .c-nav__item:hover{color:#222;background-color:#fff}.c-nav .c-nav__list .c-nav__item.is-active{box-shadow:0 0 0 rgba(132,135,138,0.5);transform:translateY(1px);color:#cfcfdd}.c-nav .c-nav__list .c-nav__item.is-active:hover{background-color:#fbfbfb}.c-nav .c-nav__list .c-nav__item:first-child{border-radius:10px 0 0 10px}.c-nav .c-nav__list .c-nav__item:last-child{border-radius:0 10px 10px 0}.c-nav .c-nav__list .c-nav__item .icon{width:18px;height:18px;margin-right:3px}@media only screen and (max-width: 900px){.c-header{margin:15px 0}}@media only screen and (max-width: 480px){.c-header .c-header__box{flex-direction:column}.c-header .c-search{width:100%}.c-header .c-search .c-search__text{padding:8px 8px 8px 40px}.c-header .c-nav{margin-top:15px}.c-header .c-nav .c-nav__list{justify-content:center}.c-header .c-nav .c-nav__item{padding:4px 8px}}.c-categories{width:100%}.c-categories__list{width:100%;display:flex;flex-direction:row;flex-wrap:wrap}.c-categories__item{max-width:25%;flex-basis:25%;padding:0 10px 20px}.c-categories__link{height:100%;display:flex;flex-direction:column;align-items:center;padding:20px 10px;border-radius:5px;box-shadow:5px 5px 25px rgba(46,61,73,0.15);background-color:#fff;transition:.35s}.c-categories__link:hover{box-shadow:2px 4px 8px 0px rgba(46,61,73,0.2)}.c-categories__link:hover .c-categories__img .c-categories__more{opacity:1;transition:.35s}.c-categories__link .c-categories__container{width:100%;word-wrap:break-word}.c-categories__link .c-categories__container.c-empty-figure{display:flex;flex-direction:column;justify-content:center;flex-grow:1}.c-categories__img{position:relative;max-width:100%}.c-categories__img figure{position:relative;width:200px;max-width:100%;margin-bottom:20px;overflow:hidden;background-size:cover;background-repeat:no-repeat;background-position:center;border-radius:50%;box-shadow:inset 0 1px 3px rgba(141,165,185,0.3)}.c-categories__img figure:after{content:"";display:block;padding-top:100%}.c-categories__img figure:before{content:"";position:absolute;top:0;bottom:0;left:0;right:0;background-color:rgba(0,0,0,0.15)}.c-categories__img .c-categories__more{display:inline-block;position:absolute;top:50%;left:50%;transform:translate(-50%, -50%);font-weight:700;color:#fff;text-transform:uppercase;text-shadow:0 1px 0 rgba(104,172,191,0.3);opacity:0;transition:.35s}.c-categories__container{text-align:center}.c-categories__container .c-categories__header{font-size:13px;margin-bottom:10px;font-weight:normal;text-transform:uppercase;color:#404040}.c-categories__container .c-categories__count{font-family:'Noto Sans KR', serif;font-size:12px;color:#404040;margin-bottom:0}.c-categories__container .c-categories__count span{display:inline-block;width:20px;height:20px;line-height:20px;vertical-align:baseline;margin-right:5px;border-radius:50%;color:#fff;background-color:#ee6c6c}@media only screen and (max-width: 1200px){.c-categories .c-categories__item{max-width:33.333%;flex-basis:33.333%}}@media only screen and (max-width: 1050px){.c-categories .c-categories__item{max-width:50%;flex-basis:50%}}@media only screen and (max-width: 480px){.c-categories .c-categories__item{max-width:100%;flex-basis:100%;padding:0 0 20px}}.c-form-box{position:absolute;top:0;width:calc(100% - 40px);min-height:100vh;padding:0 20px;background-color:#fff;z-index:1}.c-form-bnt__close{position:absolute;top:0px;left:0;width:30px;height:30px;cursor:pointer;transition:.35s}.c-form-bnt__close:hover{transform:scale(0.8);opacity:.8}.c-form{position:relative;width:750px;max-width:100%;margin:40px auto}.c-form .c-form__title{margin:0 0 40px;min-width:0;border:0;padding:0;font-family:"Noto Sans KR",serif;text-transform:uppercase;text-align:center}.c-form a{color:#404040}.c-form__group{margin-bottom:20px}.c-form__group label{display:block;text-transform:uppercase;font-size:10px}.c-form__group input,.c-form__group textarea{width:100%;padding:10px 15px;color:#404040;border:1px solid #f2fafd;outline:none;transition:.35s}.c-form__group input:focus,.c-form__group textarea:focus{box-shadow:0 4px 25px rgba(132,135,138,0.1)}.c-form__group button{padding:20px;text-transform:uppercase;outline:none;border:none}.c-thank-you p{position:relative;padding:20px 40px;width:750px;max-width:100%;text-transform:uppercase;font-size:12px;line-height:18px;font-weight:700;margin:40px auto 0;text-align:center;color:#fff;background:linear-gradient(135deg, #55b5ad 0%, #5ec9c5 100%)}.c-thank-you p .c-form-bnt__close{width:25px;height:25px;background:transparent}.c-thank-you p a{color:#fff}@media only screen and (max-width: 900px){.c-form-box{width:100%;left:0;right:0}}@media only screen and (max-width: 480px){.c-form-bnt__close{width:25px;height:25px}}.c-newsletter{padding:30px 0 60px;margin:0 auto;border-bottom:1px solid #6B6B6B}.c-newsletter__header{text-align:center}.c-newsletter__header .c-newsletter__title{font-size:14px;text-transform:uppercase;text-align:center}.c-newsletter__header .c-newsletter__subtitle{margin-bottom:15px}.c-newsletter-form{width:100%;max-width:750px;margin:0 auto}.c-newsletter-form .c-newsletter-form__group{display:flex}.c-newsletter__email{width:70%;height:40px;padding:10px 15px;border:1px solid #ddd;border-right-color:transparent;outline:none;transition:.35s}.c-newsletter__email:focus{box-shadow:0 4px 25px rgba(132,135,138,0.1)}.c-newsletter__button{width:30%;height:40px;color:#fff;background-color:#3af;transition:.35s;border:none;outline:none;cursor:pointer}.c-newsletter__button:hover{background-color:#0086e6}@media only screen and (max-width: 480px){.c-newsletter__button{font-size:13px}}.c-comments{padding:30px 0;border-top:1px solid #6B6B6B}.c-top{position:fixed;width:40px;height:40px;bottom:20px;color:#05b;background-color:#cef;border-radius:50%;cursor:pointer;transition:.35s;right:-100px;z-index:10;opacity:.5}.c-top--active{right:15px}.c-top:hover{color:#757575;opacity:1}.u-text-left{text-align:left}.u-text-right{text-align:right}.u-text-center{text-align:center}.u-text-justify{text-align:justify}.u-block{display:block}.u-inline-block{display:inline-block}.u-inline{display:inline}.u-full-width{display:block;width:100%}.u-vertical-center{display:flex;align-items:center;justify-content:center}.u-responsive-image{max-width:100%;height:auto;vertical-align:middle}.u-show{display:block !important}.u-hide{display:none !important}.u-invisible{visibility:hidden}.u-float-left{float:left}.u-float-right{float:right}.u-no-padding-top{padding-top:0}.u-no-padding-bottom{padding-bottom:0}.u-no-padding-left{padding-left:0}.u-no-padding-right{padding-right:0}.u-no-padding{padding:0}.u-no-margin-top{margin-top:0}.u-no-margin-bottom{margin-bottom:0}.u-no-margin-left{margin-left:0}.u-no-margin-right{margin-right:0}.u-no-margin{margin:0}.u-lists-reset{list-style-type:none;margin:0;padding:0}.u-clearfix::before,.u-clearfix::after{content:"";display:table;clear:both}.u-screen-reader-text{clip:rect(1px, 1px, 1px, 1px);height:1px;overflow:hidden;position:absolute !important;width:1px;word-wrap:normal !important}
-
+    /*! normalize.css v7.0.0 | MIT License | github.com/necolas/normalize.css */html,body{scroll-behavior:smooth}html{line-height:1.15;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}body{font-weight:normal;letter-spacing:0;margin:0}article,aside,footer,header,nav,section{display:block}h1{font-size:2em;margin:.67em 0}figcaption,figure,main{display:block}figure{margin:1em 40px}hr{box-sizing:content-box;height:0;overflow:visible}pre{font-family:monospace,monospace;font-size:1em}a{background-color:rgba(0,0,0,0);-webkit-text-decoration-skip:objects}abbr[title]{border-bottom:none;text-decoration:underline;text-decoration:underline dotted}b,strong{font-weight:inherit}b,strong{font-weight:bolder}code,kbd,samp{font-family:monospace,monospace;font-size:1em}dfn{font-style:italic}mark{background-color:#ff0;color:#000}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-0.25em}sup{top:-0.5em}audio,video{display:inline-block}audio:not([controls]){display:none;height:0}img{border-style:none}svg:not(:root){overflow:hidden}button,input,optgroup,select,textarea{font-family:"Noto Sans KR",sans-serif;font-size:100%;line-height:1.15;margin:0}button,input{overflow:visible}button,select{text-transform:none}button,html [type=button],[type=reset],[type=submit]{-webkit-appearance:button}button::-moz-focus-inner,[type=button]::-moz-focus-inner,[type=reset]::-moz-focus-inner,[type=submit]::-moz-focus-inner{border-style:none;padding:0}button:-moz-focusring,[type=button]:-moz-focusring,[type=reset]:-moz-focusring,[type=submit]:-moz-focusring{outline:1px dotted ButtonText}fieldset{padding:.35em .75em .625em}legend{box-sizing:border-box;color:inherit;display:table;max-width:100%;padding:0;white-space:normal}progress{display:inline-block;vertical-align:baseline}textarea{overflow:auto}[type=checkbox],[type=radio]{box-sizing:border-box;padding:0}[type=number]::-webkit-inner-spin-button,[type=number]::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}[type=search]::-webkit-search-cancel-button,[type=search]::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}details,menu{display:block}summary{display:list-item}canvas{display:inline-block}template{display:none}[hidden]{display:none}body,h1,h2,h3,h4,h5,h6,p,blockquote,pre,dl,dd,ol,ul,fieldset,legend,figure,hr{margin:0;padding:0}li>ul,li>ol{margin-bottom:0}table{border:.14em solid #000;border-collapse:collapse;border-spacing:0;word-break:initial;width:100%}table tr:nth-child(even){background-color:#f2fafd}thead{background-color:#a0d0ee}table th{text-align:center;padding:6px 13px;border:.1em solid #757575}table td{padding:6px 13px;border:.1em solid #757575}table tr{padding:6px 13px;border:.1em solid #757575}@-webkit-keyframes spin{100%{-webkit-transform:rotate(360deg);transform:rotate(360deg)}}@keyframes spin{100%{-webkit-transform:rotate(360deg);transform:rotate(360deg)}}.icon{position:relative;display:inline-block;width:25px;height:25px;overflow:hidden;fill:currentColor}.icon__cnt{width:100%;height:100%;background:inherit;fill:inherit;pointer-events:none;transform:translateX(0);-ms-transform:translate(0.5px, -0.3px)}.icon--m{width:50px;height:50px}.icon--l{width:100px;height:100px}.icon--xl{width:150px;height:150px}.icon--xxl{width:200px;height:200px}.icon__spinner{position:absolute;top:0;left:0;width:100%;height:100%}.icon--ei-spinner .icon__spinner,.icon--ei-spinner-2 .icon__spinner{-webkit-animation:spin 1s steps(12) infinite;animation:spin 1s steps(12) infinite}.icon--ei-spinner-3 .icon__spinner{-webkit-animation:spin 1.5s linear infinite;animation:spin 1.5s linear infinite}.icon--ei-sc-facebook{fill:#3b5998}.icon--ei-sc-github{fill:#333}.icon--ei-sc-google-plus{fill:#dd4b39}.icon--ei-sc-instagram{fill:#3f729b}.icon--ei-sc-linkedin{fill:#0976b4}.icon--ei-sc-odnoklassniki{fill:#ed812b}.icon--ei-sc-skype{fill:#00aff0}.icon--ei-sc-soundcloud{fill:#f80}.icon--ei-sc-tumblr{fill:#35465c}.icon--ei-sc-twitter{fill:#55acee}.icon--ei-sc-vimeo{fill:#1ab7ea}.icon--ei-sc-vk{fill:#45668e}.icon--ei-sc-youtube{fill:#e52d27}.icon--ei-sc-pinterest{fill:#bd081c}.icon--ei-sc-telegram{fill:#08c}*,*::after,*::before{box-sizing:border-box}h1,h2,h3,h4,h5,h6,ul,ol,dl,blockquote,p,address,hr,table,fieldset,figure,pre{margin-bottom:20px}ul,ol,dd{margin-left:20px}.highlight{background:#f7f7f7}.highlighter-rouge .highlight{background:#0d1117;color:#e6edf3;border-radius:10px}.highlight .c{color:#7ca668;font-style:italic}.highlight .ch{color:#7ca668;font-style:italic}.highlight .cm{color:#7ca668;font-style:italic}.highlight .cp{color:#7ca668;font-style:italic;font-weight:normal}.highlight .cpf{color:#7ca668;font-style:italic}.highlight .c1{color:#7ca668;font-style:italic}.highlight .cs{color:#7ca668;font-style:italic}.highlight .err{color:#f85149}.highlight .esc{color:#e6edf3}.highlight .g{color:#e6edf3}.highlight .k{color:#c586c0}.highlight .l{color:#a5d6ff}.highlight .n{color:#e6edf3}.highlight .o{color:#d4d4d4}.highlight .x{color:#e6edf3}.highlight .p{color:#d4d4d4}.highlight .gd{color:#ffa198;background-color:#490202}.highlight .ge{color:#e6edf3;font-style:italic}.highlight .ges{color:#e6edf3;font-weight:bold;font-style:italic}.highlight .gr{color:#ffa198}.highlight .gh{color:#79c0ff;font-weight:bold}.highlight .gi{color:#56d364;background-color:#0f5323}.highlight .go{color:#8b949e}.highlight .gp{color:#8b949e}.highlight .gs{color:#e6edf3;font-weight:bold}.highlight .gu{color:#79c0ff}.highlight .gt{color:#ff7b72}.highlight .g-Underline{color:#e6edf3;text-decoration:underline}.highlight .kc{color:#79c0ff}.highlight .kd{color:#569cd6}.highlight .kn{color:#ff7b72}.highlight .kp{color:#79c0ff}.highlight .kr{color:#4ec9b0}.highlight .kt{color:#4ec9b0}.highlight .ld{color:#ce9178}.highlight .sd{color:#a5d6ff}.highlight .na{color:#e6edf3}.highlight .nb{color:#4ec9b0}.highlight .nc{color:#4ec9b0;font-weight:bold}.highlight .no{color:#79c0ff;font-weight:bold}.highlight .nd{color:#d2a8ff;font-weight:bold}.highlight .ni{color:#ffa657}.highlight .ne{color:#f0883e;font-weight:bold}.highlight .nf{color:#dcdcaa;font-weight:bold}.highlight .nl{color:#4ec9b0;font-weight:bold}.highlight .nn{color:#ff7b72}.highlight .nx{color:#9cdcfe}.highlight .py{color:#79c0ff}.highlight .nt{color:#4ec9b0}.highlight .nv{color:#79c0ff}.highlight .ow{color:#ff7b72;font-weight:bold}.highlight .pm{color:#e6edf3}.highlight .w{color:#6e7681}.highlight .mb{color:#a5d6ff}.highlight .mf{color:#b5cea8}.highlight .mh{color:#a5d6ff}.highlight .mi{color:#b5cea8}.highlight .mo{color:#a5d6ff}.highlight .sa{color:#79c0ff}.highlight .sb{color:#a5d6ff}.highlight .sc{color:#a5d6ff}.highlight .dl{color:#ce9178}.highlight .sd{color:#a5d6ff}.highlight .s{color:#ce9178}.highlight .s1{color:#ce9178}.highlight .s2{color:#ce9178}.highlight .se{color:#79c0ff}.highlight .sh{color:#79c0ff}.highlight .si{color:#a5d6ff}.highlight .sx{color:#a5d6ff}.highlight .sr{color:#79c0ff}.highlight .ss{color:#a5d6ff}.highlight .bp{color:#e6edf3}.highlight .fm{color:#d2a8ff;font-weight:bold}.highlight .vc{color:#79c0ff}.highlight .vg{color:#79c0ff}.highlight .vi{color:#79c0ff}.highlight .vm{color:#79c0ff}.highlight .il{color:#a5d6ff}body{font-family:"Open Sans",Helvetica Neue,Helvetica,"Noto Sans KR",Arial,sans-serif;font-size:16px;line-height:28px;color:#404040;background-color:#fbfbfb;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}*::selection{color:#fff;background-color:#3af}.toc-container{margin-bottom:20px;display:flex;justify-content:center}.toc{background-color:#fff;border:1px solid #edeeee;border-radius:8px;padding:20px;box-shadow:0 2px 4px rgba(0,0,0,.1);width:100%;font-family:"Noto Sans KR",sans-serif;text-align:left}.toc-title{font-family:"Noto Sans KR",sans-serif;font-size:32px;font-weight:700;color:#05b;margin-bottom:20px;text-align:left;background-color:rgba(204,238,255,.5);padding:15px;border-radius:5px;border:1px solid #ccc}.toc ul{list-style-type:disc;padding-left:15px}.toc a{font-family:"Noto Sans KR",sans-serif;font-size:16px;color:hsl(205,100%,45%);text-decoration:none;display:block;transition:color .3s ease,background-color .3s ease}.toc a:hover{background-color:#eee;color:rgb(0,89.25,153);text-decoration:underline}.toc a:active{color:#05b}.toc .list-group-item.active{background-color:rgba(34,34,34,.8);color:#fff;font-weight:bold;border-radius:5px}.toc .list-group-item.disabled{color:#6c757d;background-color:rgba(0,0,0,0)}.toc .list-group-item+.list-group-item{margin-top:8px}h1,h2,h3,h4,h5,h6{font-family:"Noto Sans KR",serif;font-weight:700;line-height:initial}h1{font-weight:700;font-size:36px;line-height:110%;margin-top:1.6em;margin-bottom:.8em}h2{font-weight:700;font-size:32px;margin-top:1.6em;margin-bottom:.8em}h3{font-weight:700;font-size:28px;margin-top:1.8em;margin-bottom:.9em}h4{font-weight:700;font-size:24px;margin-top:2em;margin-bottom:1em}h5{font-weight:700;font-size:22px;margin-top:2em;margin-bottom:1em;color:#333}h6{font-weight:700;font-size:20px;margin-top:2em;margin-bottom:1em;color:#444}img{max-width:100%;height:auto;vertical-align:middle}img+strong:before{display:inline-block;content:"▲";padding-right:5px;font-size:14px}img+strong{display:block;font-size:14px}p:has(>img):has(>strong){max-width:90%;margin:50px auto;text-align:center}a{text-decoration:none;color:hsl(205,100%,45%);transition:.35s}a:hover{color:rgb(0,89.25,153)}blockquote{padding-left:20px;border-left:4px solid #3af;font-family:"Noto Sans KR",serif;font-style:normal;font-size:14px;background-color:rgb(237.58,248.3,252.32)}blockquote p{padding:10px}hr{height:4px;margin:20px 0;border:0;background-color:#6b6b6b}pre{overflow:auto;padding:14px;font-size:14px;white-space:pre-wrap;word-wrap:break-word;word-break:break-all;font-family:Courier,"Noto Sans KR",monospace}pre.highlight{padding:15px 20px}code{border-radius:10px;overflow:auto;white-space:pre-wrap;word-wrap:break-word;word-break:break-all;font-family:Menlo,Monaco,"Courier New",monospace;font-weight:bold;font-size:14px;vertical-align:middle}p code,li code{color:#eb5757;background-color:#edeeee;margin:0 2px;padding:5px 6px}pre code{font-size:14px;color:#ddd;background-color:rgba(0,0,0,0)}.language-plaintext code{color:#ddd}.o-wrapper{max-width:1440px;position:relative}.o-opacity{animation-duration:.7s;animation-delay:.2s;animation-fill-mode:both;animation-name:opacity}@keyframes opacity{from{opacity:0}to{opacity:1}}.c-btn{display:inline-block;white-space:nowrap;vertical-align:middle;font-family:"Noto Sans KR",serif;font-size:14px;text-align:center;padding:5px 15px;cursor:pointer;transition:.35s}.c-btn--primary{color:#fff;background-color:#3af;background:linear-gradient(135deg, #33aaff 0%, #62d5ff 100%)}.c-btn--secondary{color:#fff;background-color:#cfcfdd;background:linear-gradient(135deg, #a2a2bd 0%, #cfcfdd 100%)}.c-btn--bar{color:#fff;background-color:#444;background:#525252;font-size:14px;width:76%;height:40px}.c-btn--round{border-radius:30px}.c-btn--shadow{box-shadow:8px 10px 20px 0 rgba(46,61,73,.15)}.c-btn--shadow:hover{box-shadow:2px 4px 8px 0px rgba(46,61,73,.2)}.c-btn--middle{display:block;width:300px;max-width:100%}.c-btn--big{display:block;width:100%}.c-btn:hover{color:#fff;transition:.35s}.c-btn:active{transform:translateY(2px)}.c-sidebar{display:flex;flex-direction:column;justify-content:space-between;position:fixed;top:0;left:0;bottom:0;width:360px;padding:40px 20px 20px;text-align:center;box-shadow:1px 1px 0 rgba(31,35,46,.15);background-color:#fff}.c-sidebar-author .c-author__cover{width:100px;height:100px;margin:0 auto 10px;border-radius:50%;overflow:hidden;background-color:#cfcfdd}.c-sidebar-author .c-author__cover img{width:100%;height:100%;border-radius:50%;transition:.35s}.c-sidebar-author .c-author__cover img:hover{transform:scale3d(0.9, 0.9, 1)}.c-sidebar-author .c-contact-menu .c-btn{min-width:110px}.c-sidebar-author .c-contact-menu .c-btn .icon{width:18px;height:18px;vertical-align:text-bottom;fill:#fff}.c-sidebar-author .c-author__info{font-family:"Noto Sans KR",serif}.c-sidebar-author .c-author__name{font-size:18px;font-weight:700;line-height:21px}.c-sidebar-author .c-author__job{font-size:12px;color:#a0a0a0;margin:5px 0 0}.c-sidebar-author .c-contact-menu{margin-top:30px;margin-left:0px;margin-bottom:10px;margin-right:0px}.c-sidebar-author .c-contact-menu .c-btn--secondary{margin-right:2px}.c-sidebar-author .c-author__about{max-width:400px;margin:0 auto 15px;font-size:13px}.c-sidebar-footer .c-social__title{position:relative;font-family:"Noto Sans KR",serif;font-size:16px;font-weight:700;color:#444}.c-sidebar-footer .c-social__title::before{content:"";display:block;height:2px;width:calc(50% - 40px);transform:translateY(-50%);position:absolute;top:50%;left:0;background-color:#444}.c-sidebar-footer .c-social__title::after{content:"";display:block;height:2px;width:calc(50% - 40px);transform:translateY(-50%);position:absolute;top:50%;right:0;background-color:#444}.c-sidebar-footer .c-social__list{list-style-type:none;padding:0;margin:15px 0}.c-sidebar-footer .c-social__list .c-social__item{display:inline-block;width:27px;height:27px}.c-sidebar-footer .c-social__list .icon{width:27px;height:27px;fill:#444;vertical-align:middle;transition:.35s}.c-sidebar-footer .c-social__list .icon:hover{fill:#3af;transform:scale(1.2);transition:.35s}.c-sidebar-footer .c-copyright p{font-size:13px;margin:0}@media only screen and (max-width: 900px){.c-sidebar{position:relative;width:100%;padding:20px}.c-sidebar .c-contact-menu{margin:20px 0}.c-sidebar-footer .c-social .c-social__title{clip:rect(1px, 1px, 1px, 1px);height:1px;overflow:hidden;position:absolute !important;width:1px;word-wrap:normal !important}.c-sidebar-footer .c-social__list{margin:0}.c-sidebar-footer .c-copyright{clip:rect(1px, 1px, 1px, 1px);height:1px;overflow:hidden;position:absolute !important;width:1px;word-wrap:normal !important}}@media only screen and (max-width: 480px){.c-sidebar-author .c-author__cover{width:80px;height:80px}.c-sidebar-author .c-author__cover img{width:100%;height:100%}.c-sidebar-author .c-contact-menu{margin:15px 0px 10px 0px}.c-sidebar-author .c-contact-menu .c-btn{min-width:80px;font-size:10px;padding:4px 15px;margin-right:5px}.c-sidebar-author .c-contact-menu .c-btn .icon{width:16px;height:16px}.c-sidebar-author .c-contact-menu-bar{margin:0px}.c-sidebar-author .c-contact-menu-bar .c-btn{min-width:80px;font-size:12px;padding:4px 15px;width:63%;height:37px;margin-left:28px;margin-right:32px}.c-sidebar-author .c-contact-menu-bar .c-btn .icon{width:16px;height:16px}.c-sidebar-footer .c-social .c-social__title{clip:rect(1px, 1px, 1px, 1px);height:1px;overflow:hidden;position:absolute !important;width:1px;word-wrap:normal !important}.c-sidebar-footer .c-social__list{margin:0}.c-sidebar-footer .c-social__list .icon{width:25px;height:25px}.c-sidebar-footer .c-copyright{clip:rect(1px, 1px, 1px, 1px);height:1px;overflow:hidden;position:absolute !important;width:1px;word-wrap:normal !important}}.c-content{position:relative;display:flex;flex-direction:row;flex-wrap:wrap;align-items:stretch;padding:0 20px 0;margin-left:360px}@media only screen and (max-width: 900px){.c-content{position:static;padding:0 15px 0;margin-left:0}}.c-posts{width:100%;display:flex;flex-direction:row;flex-wrap:wrap}.c-post{width:100%;max-width:100%;margin-bottom:20px;display:flex;flex-direction:row;align-items:stretch;min-height:180px;border-radius:10px;overflow:hidden;transition:.35s;background-color:#fff;box-shadow:0 1px 1px 0 rgba(31,35,46,.15)}.c-post:hover{transform:translate(0px, -2px);box-shadow:0 15px 45px -10px rgba(10,16,34,.2)}.c-post .c-post-thumbnail{display:block;width:30%;max-width:100%;min-height:180px;border-radius:10px 0 0 10px;background-color:rgba(220,235,245,.2);background-size:cover;background-position:50% 50%}.c-post .c-post-content{padding:15px;width:70%}.c-post .c-post-content .c-post-title{font-size:30px;font-weight:400;margin:0 0 15px}.c-post .c-post-content .c-post-title a{text-decoration:none;color:#263959}.c-post .c-post-content .c-post-tags{padding:3px 5px;border-radius:3px;background-color:rgba(135,131,120,.2);color:#eb5757;font-size:85%;font-family:"Courier Prime","Noto Sans KR"}.c-post .c-post-content .c-post-date,.c-post .c-post-content .c-post-words{font-size:12px}.c-load-more{padding:20px;margin:20px auto 40px;font-size:13px;color:#fff;border:none;background-color:#3af;outline:none}.c-load-more:hover{background-color:hsl(205,100%,45%)}@media only screen and (max-width: 1200px){.c-post{width:48%;max-width:100%;margin:0 1% 20px;flex-direction:column}.c-post .c-post-thumbnail{width:100%;border-radius:10px 10px 0 0}.c-post .c-post-content{width:100%}.c-post .c-post-content .c-post-title{font-size:21px;margin:15px 0}}@media only screen and (max-width: 480px){.c-post{width:100%;max-width:100%;margin:0 0 20px}.c-post .c-post-content{width:100%}.c-post .c-post-content .c-post-title{font-size:21px;margin:15px 0}}.c-article{width:100%;margin:20px 0}.c-wrap-content{padding:7%;background-color:#fff}.c-article__image{position:relative;background-color:rgba(220,235,245,.2);background-position:center;background-size:cover;background-repeat:no-repeat}.c-article__image:after{content:"";display:block;padding-top:56%}.c-article__header{margin-bottom:60px;padding-bottom:10px;text-align:center;border-bottom:1px solid #6b6b6b}.c-article__header .c-article__title{margin-bottom:10px}.c-article__date span{font-size:13px;text-transform:uppercase;color:#a0a0a0}.c-article__footer{margin:60px 0 0;padding-top:20px;padding-bottom:10px;text-align:center;border-top:1px solid #6b6b6b}.c-article__footer .c-article__share{transition:.35s}.c-article__footer .c-article__share a .icon{vertical-align:middle;transition:.35s}.c-article__footer .c-article__share a .icon:hover{opacity:.7;transition:.35s}.c-article__footer .c-article__tag{margin-bottom:5px}.c-article__footer .c-article__tag a{display:inline-block;vertical-align:middle;padding:5px 10px;font-family:"Noto Sans KR",serif;font-size:10px;line-height:10px;text-transform:uppercase;background-color:rgba(115,138,160,.6);color:#fff}.c-article__footer .c-article__tag a:hover{background-color:rgba(80.2446808511,99.6723404255,118.2553191489,.6)}.c-article__footer .c-article__tag a:last-child{margin-right:0}.c-recent-post{padding:30px 0}.c-recent-post .c-recent__title{font-size:14px;text-align:center;text-transform:uppercase;margin-bottom:30px}.c-recent-post .c-recent__box{display:flex;flex-direction:row;flex-wrap:wrap}.c-recent-post .c-recent__item{max-width:23%;flex-basis:23%;margin:0 1% 20px;border-radius:10px;overflow:hidden;text-align:center;background-color:#fff;box-shadow:0 1px 1px 0 rgba(31,35,46,.15);transition:.35s}.c-recent-post .c-recent__item h4{margin-bottom:5px;font-size:12px;text-transform:uppercase}.c-recent-post .c-recent__item h4 a{color:#444}.c-recent-post .c-recent__item:hover{box-shadow:2px 4px 8px 0px rgba(46,61,73,.2)}.c-recent-post .c-recent__footer{padding:15px}.c-recent-post .c-recent__image{display:block;width:100%;min-height:180px;background-color:rgba(220,235,245,.2);background-size:cover;background-position:center;background-repeat:no-repeat}.c-recent-post .c-recent__date{color:#a0a0a0;font-size:12px}@media only screen and (max-width: 1200px){.c-recent-post .c-recent__item{max-width:48%;flex-basis:48%}}@media only screen and (max-width: 900px){.c-article{margin:15px 0}}@media only screen and (max-width: 480px){.c-wrap-content{padding:15px}.c-article__header{margin-bottom:5px}.c-article__header .c-article__title{font-size:24px;margin-bottom:5px}.c-recent-post .c-recent__item{max-width:100%;flex-basis:100%;margin:0 0 20px}}.c-blog-tags{width:100%;padding:20px;margin:20px 0 40px;background-color:#fff}.c-blog-tags h1{text-align:center;margin-bottom:0}.c-blog-tags h2{font-size:18px;text-transform:uppercase;margin:30px 0;color:#757575}.c-tag__list{list-style:none;padding:0 0 40px;margin:40px 0 0;border-bottom:1px solid #6b6b6b}.c-tag__list li{display:inline-block;margin-right:15px}.c-tag__list li a{color:#404040;text-transform:uppercase;font-size:12px}.c-tag__list li a:hover{color:hsl(0,0%,-4.9019607843%)}.c-tag__item{margin-bottom:15px}.c-tag__image{width:50px;height:50px;border-radius:50%;margin-right:5px}@media only screen and (max-width: 480px){.c-blog-tags{padding:15px}.c-blog-tags h1{font-size:27px}.c-blog-tags h2{font-size:16px;margin:15px 0}.c-tag__list{padding:0 0 30px;margin:30px 0 0}.c-tag__item{margin-bottom:5px}.c-tag__image{display:none}}.c-header{position:relative;width:100%;margin:20px 0}.c-header__box{position:relative;display:flex;flex-direction:row;justify-content:space-between;align-items:center}.c-header__box .icon--ei-search{position:absolute;top:7px;left:15px;fill:#ccc}.c-search{width:80%}.c-search .c-search__box{display:flex;align-items:center}.c-search .c-search__text{position:relative;width:100%;padding:10px 10px 10px 40px;border:1px solid #f2fafd;border-radius:30px;outline:none;color:#a0a0a0}.c-search .c-search__text::placeholder{color:#ccc}.c-search .c-search__text:hover{box-shadow:0 1px 0px rgba(132,135,138,.1);transition:.35s}.c-search .c-search-results-list{position:absolute;width:100%;margin:10px 0 0;list-style-type:none;background-color:#fff;z-index:1}.c-search .c-search-results-list li{display:flex;flex-wrap:wrap;align-items:center;margin:0;padding:20px 25px 0;background-color:#fff;line-height:1.4;border-left:solid 1px #edeeee;border-right:solid 1px #edeeee}.c-search .c-search-results-list li:first-child{border-top-left-radius:5px;border-top-right-radius:5px;border-top:solid 1px #edeeee}.c-search .c-search-results-list li:last-child{border-bottom-left-radius:5px;border-bottom-right-radius:5px;padding-bottom:25px;border-bottom:solid 1px #edeeee}.c-search .c-search-results-list li a{font-size:16px}.c-nav{flex-grow:1;padding-left:20px}.c-nav .c-nav__list{display:flex;justify-content:flex-end}.c-nav .c-nav__list .c-nav__item{display:flex;align-items:center;float:left;padding:4px 10px;font-size:10px;text-transform:uppercase;white-space:nowrap;border:1px solid #f2fafd;box-shadow:0 1px 0px rgba(132,135,138,.4);will-change:transform;transform:translateY(0px);cursor:pointer}.c-nav .c-nav__list .c-nav__item:hover{color:#222;background-color:#fff}.c-nav .c-nav__list .c-nav__item.is-active{box-shadow:0 0 0 rgba(132,135,138,.5);transform:translateY(1px);color:#cfcfdd}.c-nav .c-nav__list .c-nav__item.is-active:hover{background-color:#fbfbfb}.c-nav .c-nav__list .c-nav__item:first-child{border-radius:10px 0 0 10px}.c-nav .c-nav__list .c-nav__item:last-child{border-radius:0 10px 10px 0}.c-nav .c-nav__list .c-nav__item .icon{width:18px;height:18px;margin-right:3px}@media only screen and (max-width: 900px){.c-header{margin:15px 0}}@media only screen and (max-width: 480px){.c-header .c-header__box{flex-direction:column}.c-header .c-search{width:100%}.c-header .c-search .c-search__text{padding:8px 8px 8px 40px}.c-header .c-nav{margin-top:15px}.c-header .c-nav .c-nav__list{justify-content:center}.c-header .c-nav .c-nav__item{padding:4px 8px}}.c-categories{width:100%}.c-categories__list{width:100%;display:flex;flex-direction:row;flex-wrap:wrap}.c-categories__item{max-width:25%;flex-basis:25%;padding:0 10px 20px}.c-categories__link{height:100%;display:flex;flex-direction:column;align-items:center;padding:20px 10px;border-radius:5px;box-shadow:5px 5px 25px rgba(46,61,73,.15);background-color:#fff;transition:.35s}.c-categories__link:hover{box-shadow:2px 4px 8px 0px rgba(46,61,73,.2)}.c-categories__link:hover .c-categories__img .c-categories__more{opacity:1;transition:.35s}.c-categories__link .c-categories__container{width:100%;word-wrap:break-word}.c-categories__link .c-categories__container.c-empty-figure{display:flex;flex-direction:column;justify-content:center;flex-grow:1}.c-categories__img{position:relative;max-width:100%}.c-categories__img figure{position:relative;width:200px;max-width:100%;margin-bottom:20px;overflow:hidden;background-size:cover;background-repeat:no-repeat;background-position:center;border-radius:50%;box-shadow:inset 0 1px 3px rgba(141,165,185,.3)}.c-categories__img figure:after{content:"";display:block;padding-top:100%}.c-categories__img figure:before{content:"";position:absolute;top:0;bottom:0;left:0;right:0;background-color:rgba(0,0,0,.15)}.c-categories__img .c-categories__more{display:inline-block;position:absolute;top:50%;left:50%;transform:translate(-50%, -50%);font-weight:700;color:#fff;text-transform:uppercase;text-shadow:0 1px 0 rgba(104,172,191,.3);opacity:0;transition:.35s}.c-categories__container{text-align:center}.c-categories__container .c-categories__header{font-size:13px;margin-bottom:10px;font-weight:normal;text-transform:uppercase;color:#404040}.c-categories__container .c-categories__count{font-family:"Noto Sans KR",serif;font-size:12px;color:#404040;margin-bottom:0}.c-categories__container .c-categories__count span{display:inline-block;width:20px;height:20px;line-height:20px;vertical-align:baseline;margin-right:5px;border-radius:50%;color:#fff;background-color:#ee6c6c}@media only screen and (max-width: 1200px){.c-categories .c-categories__item{max-width:33.333%;flex-basis:33.333%}}@media only screen and (max-width: 1050px){.c-categories .c-categories__item{max-width:50%;flex-basis:50%}}@media only screen and (max-width: 480px){.c-categories .c-categories__item{max-width:100%;flex-basis:100%;padding:0 0 20px}}.c-form-box{position:absolute;top:0;width:calc(100% - 40px);min-height:100vh;padding:0 20px;background-color:#fff;z-index:1}.c-form-bnt__close{position:absolute;top:0px;left:0;width:30px;height:30px;cursor:pointer;transition:.35s}.c-form-bnt__close:hover{transform:scale(0.8);opacity:.8}.c-form{position:relative;width:750px;max-width:100%;margin:40px auto}.c-form .c-form__title{margin:0 0 40px;min-width:0;border:0;padding:0;font-family:"Noto Sans KR",serif;text-transform:uppercase;text-align:center}.c-form a{color:#404040}.c-form__group{margin-bottom:20px}.c-form__group label{display:block;text-transform:uppercase;font-size:10px}.c-form__group input,.c-form__group textarea{width:100%;padding:10px 15px;color:#404040;border:1px solid #f2fafd;outline:none;transition:.35s}.c-form__group input:focus,.c-form__group textarea:focus{box-shadow:0 4px 25px rgba(132,135,138,.1)}.c-form__group button{padding:20px;text-transform:uppercase;outline:none;border:none}.c-thank-you p{position:relative;padding:20px 40px;width:750px;max-width:100%;text-transform:uppercase;font-size:12px;line-height:18px;font-weight:700;margin:40px auto 0;text-align:center;color:#fff;background:linear-gradient(135deg, #55b5ad 0%, #5ec9c5 100%)}.c-thank-you p .c-form-bnt__close{width:25px;height:25px;background:rgba(0,0,0,0)}.c-thank-you p a{color:#fff}@media only screen and (max-width: 900px){.c-form-box{width:100%;left:0;right:0}}@media only screen and (max-width: 480px){.c-form-bnt__close{width:25px;height:25px}}.c-newsletter{padding:30px 0 60px;margin:0 auto;border-bottom:1px solid #6b6b6b}.c-newsletter__header{text-align:center}.c-newsletter__header .c-newsletter__title{font-size:14px;text-transform:uppercase;text-align:center}.c-newsletter__header .c-newsletter__subtitle{margin-bottom:15px}.c-newsletter-form{width:100%;max-width:750px;margin:0 auto}.c-newsletter-form .c-newsletter-form__group{display:flex}.c-newsletter__email{width:70%;height:40px;padding:10px 15px;border:1px solid #ddd;border-right-color:rgba(0,0,0,0);outline:none;transition:.35s}.c-newsletter__email:focus{box-shadow:0 4px 25px rgba(132,135,138,.1)}.c-newsletter__button{width:30%;height:40px;color:#fff;background-color:#3af;transition:.35s;border:none;outline:none;cursor:pointer}.c-newsletter__button:hover{background-color:hsl(205,100%,45%)}@media only screen and (max-width: 480px){.c-newsletter__button{font-size:13px}}.c-comments{padding:30px 0;border-top:1px solid #6b6b6b}.c-top{position:fixed;width:40px;height:40px;bottom:20px;color:#05b;background-color:#cef;border-radius:50%;cursor:pointer;transition:.35s;right:-100px;z-index:10;opacity:.5}.c-top--active{right:15px}.c-top:hover{color:#757575;opacity:1}.u-text-left{text-align:left}.u-text-right{text-align:right}.u-text-center{text-align:center}.u-text-justify{text-align:justify}.u-block{display:block}.u-inline-block{display:inline-block}.u-inline{display:inline}.u-full-width{display:block;width:100%}.u-vertical-center{display:flex;align-items:center;justify-content:center}.u-responsive-image{max-width:100%;height:auto;vertical-align:middle}.u-show{display:block !important}.u-hide{display:none !important}.u-invisible{visibility:hidden}.u-float-left{float:left}.u-float-right{float:right}.u-no-padding-top{padding-top:0}.u-no-padding-bottom{padding-bottom:0}.u-no-padding-left{padding-left:0}.u-no-padding-right{padding-right:0}.u-no-padding{padding:0}.u-no-margin-top{margin-top:0}.u-no-margin-bottom{margin-bottom:0}.u-no-margin-left{margin-left:0}.u-no-margin-right{margin-right:0}.u-no-margin{margin:0}.u-lists-reset{list-style-type:none;margin:0;padding:0}.u-clearfix::before,.u-clearfix::after{content:"";display:table;clear:both}.u-screen-reader-text{clip:rect(1px, 1px, 1px, 1px);height:1px;overflow:hidden;position:absolute !important;width:1px;word-wrap:normal !important}
   </style>
+  <!-- KaTeX 관련 파일 -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" />
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      renderMathInElement(document.body, {
+        delimiters: [
+          { left: "$$", right: "$$", display: true },
+          { left: "$", right: "$", display: false },
+          { left: "\\(", right: "\\)", display: false },
+          { left: "\\[", right: "\\]", display: true },
+        ],
+      });
+    });
+  </script>
+  <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-VNMTFT1R2R"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-  
-    gtag('config', 'G-VNMTFT1R2R');
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag("js", new Date());
+
+    gtag("config", "G-VNMTFT1R2R");
   </script>
 </head>
+
 
 <body>
   
@@ -117,7 +849,7 @@
       </ul>
     </div>
     <div class="c-copyright">
-      <p>2024 &copy; Dong-Jun Shin</p>
+      <p>2025 &copy; Dong-Jun Shin</p>
       <a target="_blank" href="https://analytics.google.com/"><img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fdong-jun-shin.github.io&count_bg=%23FFD540&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=true"/></a>
       <a target="_blank" href="https://search.google.com/search-console"><img src="https://img.shields.io/badge/Info-Search-informational?style=flat-square"/></a>
     </div>
@@ -182,11 +914,11 @@
 
 <p>주로 3번까지는 담당자들이 열심히 집중하여 빠르게 올라왔습니다. 하지만 4번에서 리뷰어들이 바빠 리뷰의 우선순위가 밀리면서 1차 지연이 발생했고, 리뷰를 반영 후 다시 리뷰를 요청하면서 n번에 거듭한 지연이 발생하고 있었습니다.</p>
 
-<p>PR 리뷰 과정에서 여러 문제가 생기고, 이로 인해 생산성이 저하되는 것을 확인했으니 더 정확한 원인을 파악해볼 차례입니다. 저는 PR 리뷰를 할 때 병목이 생기는 부분을 명확하게 구분해보고자, <code class="highlighter-rouge">리뷰를 하는 사람</code>과 <code class="highlighter-rouge">리뷰를 받는 사람</code>의 관점으로 나누어 보았습니다.</p>
+<p>PR 리뷰 과정에서 여러 문제가 생기고, 이로 인해 생산성이 저하되는 것을 확인했으니 더 정확한 원인을 파악해볼 차례입니다. 저는 PR 리뷰를 할 때 병목이 생기는 부분을 명확하게 구분해보고자, <code class="language-plaintext highlighter-rouge">리뷰를 하는 사람</code>과 <code class="language-plaintext highlighter-rouge">리뷰를 받는 사람</code>의 관점으로 나누어 보았습니다.</p>
 
 <h3 id="1-리뷰를-하는-사람">1. 리뷰를 하는 사람</h3>
 
-<p>먼저 리뷰를 하는 사람 입장에서 <code class="highlighter-rouge">가용 리소스</code>, <code class="highlighter-rouge">코드 리뷰</code> 관점으로 나누어 볼 수 있습니다.</p>
+<p>먼저 리뷰를 하는 사람 입장에서 <code class="language-plaintext highlighter-rouge">가용 리소스</code>, <code class="language-plaintext highlighter-rouge">코드 리뷰</code> 관점으로 나누어 볼 수 있습니다.</p>
 
 <ul>
   <li><strong>가용 리소스 관점의 문제</strong>
@@ -231,7 +963,7 @@
 
 <h3 id="2-리뷰를-받는-사람작업-담당자">2. 리뷰를 받는 사람(작업 담당자)</h3>
 
-<p>그리고 리뷰를 받는 사람 입장에서는 <code class="highlighter-rouge">업무 진행 관점</code>으로 볼 수 있습니다.</p>
+<p>그리고 리뷰를 받는 사람 입장에서는 <code class="language-plaintext highlighter-rouge">업무 진행 관점</code>으로 볼 수 있습니다.</p>
 
 <ul>
   <li><strong>업무 진행 관점의 문제</strong>
@@ -272,7 +1004,7 @@
 
 <p>우선 저는 저희 팀이 맡고 있는 메인 서비스 저장소를 선택하여 반년동안 진행했던 PR 리뷰에 대해 분석을 해보았습니다. 그 결과, 평균적으로 리뷰를 진행하기 위해 PR 건당 3 ~ 4일이 소요되고 있었고, 길게는 1개월하고도 17일이 걸리기도 하였습니다.</p>
 
-<p><code class="highlighter-rouge">간단한 Key 교체</code>, <code class="highlighter-rouge">환경설정 변경</code>, <code class="highlighter-rouge">배포하기 위해 급하게 승인됐던 PR들</code>을 고려하면, 1 ~ 2주 정도의 체감 소요 시간이 얼추 맞았습니다.</p>
+<p><code class="language-plaintext highlighter-rouge">간단한 Key 교체</code>, <code class="language-plaintext highlighter-rouge">환경설정 변경</code>, <code class="language-plaintext highlighter-rouge">배포하기 위해 급하게 승인됐던 PR들</code>을 고려하면, 1 ~ 2주 정도의 체감 소요 시간이 얼추 맞았습니다.</p>
 
 <h2 id="목표-수립">목표 수립</h2>
 
@@ -319,7 +1051,7 @@
 
 <ul>
   <li>개발자만 보는 내용으로 개발자에게 의도를 전달하는 목적으로 작성</li>
-  <li>템플릿은 <code class="highlighter-rouge">이슈 설명</code>, <code class="highlighter-rouge">해결을 위한 접근 방법</code>, <code class="highlighter-rouge">추가적으로 변경된 내용</code>, <code class="highlighter-rouge">신경써서 보기 원하는 부분</code>, <code class="highlighter-rouge">리뷰 시 참고 사항</code>으로 5가지 항목으로 구성하였습니다. 이 5가지는 처음 작업을 파악하기 위해, 궁금해 할 것이 무엇일 지, 리뷰를 하는 사람 입장에서 생각하여 구성한 항목입니다.</li>
+  <li>템플릿은 <code class="language-plaintext highlighter-rouge">이슈 설명</code>, <code class="language-plaintext highlighter-rouge">해결을 위한 접근 방법</code>, <code class="language-plaintext highlighter-rouge">추가적으로 변경된 내용</code>, <code class="language-plaintext highlighter-rouge">신경써서 보기 원하는 부분</code>, <code class="language-plaintext highlighter-rouge">리뷰 시 참고 사항</code>으로 5가지 항목으로 구성하였습니다. 이 5가지는 처음 작업을 파악하기 위해, 궁금해 할 것이 무엇일 지, 리뷰를 하는 사람 입장에서 생각하여 구성한 항목입니다.</li>
 </ul>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[이슈 설명]
@@ -354,7 +1086,7 @@
 <ul>
   <li>개발자, 비개발자 모두가 보는 내용으로 비개발적인 내용을 전달하는 목적으로 작성</li>
   <li>Jira Template App을 활용하는 방법으로 적용 가능</li>
-  <li>템플릿은 <code class="highlighter-rouge">As-Is</code>, <code class="highlighter-rouge">To-Be</code>, <code class="highlighter-rouge">Reference</code>로 정리하여, 비개발적인 관점으로 구성하였습니다.</li>
+  <li>템플릿은 <code class="language-plaintext highlighter-rouge">As-Is</code>, <code class="language-plaintext highlighter-rouge">To-Be</code>, <code class="language-plaintext highlighter-rouge">Reference</code>로 정리하여, 비개발적인 관점으로 구성하였습니다.</li>
 </ul>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[As-Is]
@@ -373,7 +1105,7 @@
 
 <p>각자의 스타일로 작업을 하다 보니, 한눈에 읽히기 어려운 점이 있었습니다. 코드 리뷰는 협업을 하는 것이기 때문에, 컨벤션을 정해서 리뷰 지연을 해소해보고자 하였습니다.</p>
 
-<p>먼저 팀 단위의 리뷰 문화를 구축하기 위해 논의가 필요했고, 다 같이 논의할 수 있도록 <code class="highlighter-rouge">업무 프로세스</code>, <code class="highlighter-rouge">PR 리뷰</code>, <code class="highlighter-rouge">Code</code> 관점에서 그라운드 룰과 컨벤션에 대한 초안을 정리해보았습니다.</p>
+<p>먼저 팀 단위의 리뷰 문화를 구축하기 위해 논의가 필요했고, 다 같이 논의할 수 있도록 <code class="language-plaintext highlighter-rouge">업무 프로세스</code>, <code class="language-plaintext highlighter-rouge">PR 리뷰</code>, <code class="language-plaintext highlighter-rouge">Code</code> 관점에서 그라운드 룰과 컨벤션에 대한 초안을 정리해보았습니다.</p>
 
 <ul>
   <li>업무 프로세스</li>
@@ -419,7 +1151,7 @@
 
 <p>이제 정립한 그라운드 룰과 컨벤션을 팀에서 잘 지켜질 수 있도록 하는 일이 필요합니다. 수립한 정책이 지켜지고 있는지 확인하며 요청하거나 PR을 관리하는 과정에서 직접 PR 마감 기한을 변경하며 관리해야 한다면, 구성원들에게 개선보다 부담으로 다가올 것입니다.</p>
 
-<p>그래서 부담이 될 수 있는 부분을 대신 담당해줄 시스템의 도입을 생각하였고, <code class="highlighter-rouge">PR Label</code>과 <code class="highlighter-rouge">리마인더 봇</code>을 만들게 되었습니다.
+<p>그래서 부담이 될 수 있는 부분을 대신 담당해줄 시스템의 도입을 생각하였고, <code class="language-plaintext highlighter-rouge">PR Label</code>과 <code class="language-plaintext highlighter-rouge">리마인더 봇</code>을 만들게 되었습니다.
 우선 시스템이 어디까지 담당할 지 역할의 범위를 정하는 것이 필요합니다.</p>
 
 <p>저는 앞서 말했던 부담이 될 수 있는 부분을 시스템의 역할로 보고, 다음과 같이 정의하였습니다.</p>
@@ -435,9 +1167,9 @@
 <p>먼저 시스템에서 활용할 수 있도록 마감 기한, PR 유형, 진행 상태 등을 Label 유형으로 정의하였습니다.</p>
 
 <ul>
-  <li>마감 기한의 경우, PR당 3일 내에 다루어 질 수 있도록 <code class="highlighter-rouge">D-n</code>, <code class="highlighter-rouge">기한 초과</code>로 구성하였습니다.</li>
-  <li>PR 유형은 업무 진행 유형을 반영하여 <code class="highlighter-rouge">신규기능</code>, <code class="highlighter-rouge">기능개선</code>, <code class="highlighter-rouge">오류수정</code>, <code class="highlighter-rouge">기타수정</code>과 <code class="highlighter-rouge">QC 여부</code>를 다룰 수 있도록 하였습니다.</li>
-  <li>진행 상태는 <code class="highlighter-rouge">merge 대기</code>, <code class="highlighter-rouge">보류</code>를 구분하였고 별도의 진행 상태가 없이 기한이 있다면 진행 중인 상태로 판단하였습니다.</li>
+  <li>마감 기한의 경우, PR당 3일 내에 다루어 질 수 있도록 <code class="language-plaintext highlighter-rouge">D-n</code>, <code class="language-plaintext highlighter-rouge">기한 초과</code>로 구성하였습니다.</li>
+  <li>PR 유형은 업무 진행 유형을 반영하여 <code class="language-plaintext highlighter-rouge">신규기능</code>, <code class="language-plaintext highlighter-rouge">기능개선</code>, <code class="language-plaintext highlighter-rouge">오류수정</code>, <code class="language-plaintext highlighter-rouge">기타수정</code>과 <code class="language-plaintext highlighter-rouge">QC 여부</code>를 다룰 수 있도록 하였습니다.</li>
+  <li>진행 상태는 <code class="language-plaintext highlighter-rouge">merge 대기</code>, <code class="language-plaintext highlighter-rouge">보류</code>를 구분하였고 별도의 진행 상태가 없이 기한이 있다면 진행 중인 상태로 판단하였습니다.</li>
 </ul>
 
 <p>이 기준들로 구성된 전체 PR Label 유형은 다음과 같습니다.</p>
@@ -455,9 +1187,9 @@
 
 <h4 id="pr-리마인더-봇">PR 리마인더 봇</h4>
 
-<p>이제 <code class="highlighter-rouge">PR Label</code>을 도입하면서 시스템을 만들기 위한 준비가 끝났습니다. 남은 일은 <code class="highlighter-rouge">PR Label</code>을 이용해서 부담이 될 부분을 담당해줄 봇을 만들어야 합니다.</p>
+<p>이제 <code class="language-plaintext highlighter-rouge">PR Label</code>을 도입하면서 시스템을 만들기 위한 준비가 끝났습니다. 남은 일은 <code class="language-plaintext highlighter-rouge">PR Label</code>을 이용해서 부담이 될 부분을 담당해줄 봇을 만들어야 합니다.</p>
 
-<p>봇의 이름은 <code class="highlighter-rouge">Coral-bob</code>이라고 정의하였는데, <code class="highlighter-rouge">Coral-bob</code>이 역할을 잘 수행할 수 있게, 다음의 기능을 하도록 구현되었습니다.</p>
+<p>봇의 이름은 <code class="language-plaintext highlighter-rouge">Coral-bob</code>이라고 정의하였는데, <code class="language-plaintext highlighter-rouge">Coral-bob</code>이 역할을 잘 수행할 수 있게, 다음의 기능을 하도록 구현되었습니다.</p>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>- PR이 Open된 상태이고 MergeReady가 아닌 상태를 대상으로 관리를 합니다.
 - 대상 PR의 상태에 따라 label을 확인하고 변경합니다.
@@ -494,11 +1226,11 @@
 
 <h2 id="마치며">마치며</h2>
 
-<p>이렇게 <code class="highlighter-rouge">Issue managing Template</code>과 <code class="highlighter-rouge">팀 리뷰 문화를 위한 그라운드 룰과 컨벤션 정립</code>, <code class="highlighter-rouge">PR Notification System 도입</code>을 해보았습니다.</p>
+<p>이렇게 <code class="language-plaintext highlighter-rouge">Issue managing Template</code>과 <code class="language-plaintext highlighter-rouge">팀 리뷰 문화를 위한 그라운드 룰과 컨벤션 정립</code>, <code class="language-plaintext highlighter-rouge">PR Notification System 도입</code>을 해보았습니다.</p>
 
 <p>앞으로 새로운 팀원의 원활한 합류와 팀의 높은 생산성이 더욱 절실해질 상황에서 기존 시스템의 높은 복잡도, 기술 문서의 부재, 그라운드 룰과 팀 문화의 부재 등 해결해야 할 문제는 큰 부담으로 느껴지고 있습니다.</p>
 
-<p>한 번에 모든 문제를 해결하면 좋겠지만, 많은 문제들에 매몰되지 않도록 꾸준히 시도하고 해결해나가는 것이 이럴 때일수록 중요할 것입니다. 지속가능한 팀 문화의 한 부분으로 자리 잡을 수 있게, 계속 가설을 세우며 문제를 해결하는 문화가 정착하길 바라며, 그 과정의 하나로 시도했던 <code class="highlighter-rouge">코드 리뷰 문화 개선</code>에 대한 글을 마칩니다.</p>
+<p>한 번에 모든 문제를 해결하면 좋겠지만, 많은 문제들에 매몰되지 않도록 꾸준히 시도하고 해결해나가는 것이 이럴 때일수록 중요할 것입니다. 지속가능한 팀 문화의 한 부분으로 자리 잡을 수 있게, 계속 가설을 세우며 문제를 해결하는 문화가 정착하길 바라며, 그 과정의 하나로 시도했던 <code class="language-plaintext highlighter-rouge">코드 리뷰 문화 개선</code>에 대한 글을 마칩니다.</p>
 
 <h1 id="reference">Reference</h1>
 
@@ -552,6 +1284,30 @@
         
         
           <div class="c-recent__item">
+            <a class="c-recent__image" href="/2025/01/10/permutation_and_combination_theory/" style="background-image: url( /images/CS_Algorithm/2025/01/permutation_and_combination_theory/thumbnail.png)"></a>
+            <div class="c-recent__footer">
+              <h4><a href="/2025/01/10/permutation_and_combination_theory/">순열과 조합 - 1, 어떤 원리로 경우의 수를 계산할 수 있는걸까?</a></h4>
+              <div class="c-recent__date">
+                <time datetime="2025-01-10T17:45:03+09:00">January 10, 2025</time>
+              </div>
+            </div>
+          </div>
+        
+        
+        
+          <div class="c-recent__item">
+            <a class="c-recent__image" href="/2025/01/10/permutation_and_combination_implements/" style="background-image: url( /images/CS_Algorithm/2025/01/permutation_and_combination_implements/thumbnail.png)"></a>
+            <div class="c-recent__footer">
+              <h4><a href="/2025/01/10/permutation_and_combination_implements/">순열과 조합 - 2, 경우의 수 뿐만 아니라 경우를 직접 구해보자</a></h4>
+              <div class="c-recent__date">
+                <time datetime="2025-01-10T17:45:02+09:00">January 10, 2025</time>
+              </div>
+            </div>
+          </div>
+        
+        
+        
+          <div class="c-recent__item">
             <a class="c-recent__image" href="/2024/08/21/2_years_of_experience_from_2022/" style="background-image: url( /images/Life/2024/08/2_years_of_experience_from_2022/thumbnail_retrospective-journey.jpg)"></a>
             <div class="c-recent__footer">
               <h4><a href="/2024/08/21/2_years_of_experience_from_2022/">퇴사 회고(라 쓰고, 2022년 ~ 2024년 정리)</a></h4>
@@ -572,21 +1328,6 @@
               </div>
             </div>
           </div>
-        
-        
-        
-          <div class="c-recent__item">
-            <a class="c-recent__image" href="/2024/02/20/Nest_js_vs_Spring/" style="background-image: url( /images/DevLang_Node.js/2024/02/Nest_js_vs_Spring/thumbnail.png)"></a>
-            <div class="c-recent__footer">
-              <h4><a href="/2024/02/20/Nest_js_vs_Spring/">Nest.js와 Spring 비교</a></h4>
-              <div class="c-recent__date">
-                <time datetime="2024-02-20T23:33:33+09:00">February 20, 2024</time>
-              </div>
-            </div>
-          </div>
-        
-        
-        
         
         
         </div>
